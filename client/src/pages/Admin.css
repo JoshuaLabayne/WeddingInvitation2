@@ -1,0 +1,2546 @@
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.admin-page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 24px 16px 80px;
+
+  background: #eeeeee;
+
+  color: #111111;
+
+  font-family: "Adobe Jenson Pro", serif;
+}
+
+.admin-dashboard {
+  width: 100%;
+  max-width: 720px;
+
+  margin: 0 auto;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.admin-title {
+  margin: 0 0 38px;
+
+  text-align: center;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(1.8rem, 6vw, 2.7rem);
+
+  font-weight: 400;
+}
+
+/* =========================
+   CHART CARD
+========================= */
+
+.dashboard-chart-card {
+  width: 100%;
+  min-height: 245px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 70px;
+
+  margin-bottom: 38px;
+
+  padding: 35px;
+
+  background: #ffffff;
+
+  border-radius: 14px;
+}
+
+/* =========================
+   DONUT
+========================= */
+
+.dashboard-donut {
+  position: relative;
+
+  width: 175px;
+  height: 175px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+}
+
+.dashboard-donut-hole {
+  position: absolute;
+
+  width: 80px;
+  height: 80px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background: #ffffff;
+
+  border-radius: 50%;
+}
+
+/* =========================
+   CHART LEGEND
+========================= */
+
+.dashboard-chart-info {
+  min-width: 155px;
+
+  font-size: 0.95rem;
+}
+
+.chart-legend-row {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 8px;
+}
+
+.legend-dot {
+  display: block;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+}
+
+.legend-pending {
+  background: #ffed4a;
+}
+
+.legend-going {
+  background: #747400;
+}
+
+.legend-not-going {
+  background: #bd001d;
+}
+
+.chart-total {
+  margin: 12px 0 0;
+
+  font-size: 1rem;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.admin-search {
+  position: relative;
+
+  width: 100%;
+
+  margin-bottom: 18px;
+}
+
+.admin-search input {
+  width: 100%;
+  height: 48px;
+
+  padding: 8px 18px 8px 48px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #333333;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  outline: none;
+}
+
+.admin-search input:focus {
+  box-shadow: 0 0 0 2px rgba(190, 0, 32, 0.12);
+}
+
+.admin-search-icon {
+  position: absolute;
+
+  top: 50%;
+  left: 15px;
+
+  transform: translateY(-50%);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 1.7rem;
+
+  line-height: 1;
+
+  color: #161616;
+
+  pointer-events: none;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.admin-toolbar {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 22px;
+}
+
+.admin-toolbar-left {
+  display: flex;
+
+  gap: 9px;
+}
+
+.admin-icon-button,
+.admin-list-button {
+  height: 43px;
+
+  border: none;
+
+  background: #ffffff;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+.admin-icon-button {
+  width: 60px;
+}
+
+.add-icon-button {
+  color: #707900;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 2.7rem;
+
+  font-weight: 300;
+
+  line-height: 1;
+}
+
+.admin-list-button {
+  width: 45px;
+
+  color: #111111;
+
+  font-size: 1.7rem;
+}
+
+/* =========================
+   FILTER ICON
+========================= */
+
+.filter-icon-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-lines {
+  width: 29px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.filter-lines span {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: 2px;
+
+  background: #cc1e36;
+}
+
+.filter-lines span:nth-child(1)::after,
+.filter-lines span:nth-child(3)::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 7px;
+
+  width: 6px;
+  height: 6px;
+
+  transform: translateY(-50%);
+
+  background: #ffffff;
+
+  border: 2px solid #cc1e36;
+
+  border-radius: 50%;
+}
+
+.filter-lines span:nth-child(2)::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  right: 7px;
+
+  width: 6px;
+  height: 6px;
+
+  transform: translateY(-50%);
+
+  background: #ffffff;
+
+  border: 2px solid #cc1e36;
+
+  border-radius: 50%;
+}
+
+/* =========================
+   GENERIC POPUP
+========================= */
+
+.admin-popup-card {
+  width: 100%;
+
+  margin-bottom: 22px;
+
+  padding: 24px;
+
+  background: #ffffff;
+
+  border-radius: 10px;
+}
+
+.admin-popup-card h2 {
+  margin: 0 0 18px;
+
+  font-size: 1.25rem;
+}
+
+/* =========================
+   ADD INVITE POPUP
+========================= */
+
+.admin-add-popup {
+  width: 100%;
+
+  margin-bottom: 24px;
+
+  padding: 28px 30px 34px;
+
+  background: #ffffff;
+
+  color: #111111;
+}
+
+.admin-add-popup h2 {
+  margin: 0 0 28px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1.45rem;
+
+  font-weight: 600;
+}
+
+/* =========================
+   ADD INVITE HEADERS
+========================= */
+
+.admin-member-header {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 16px;
+
+  margin-bottom: 9px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  color: #222222;
+}
+
+
+.admin-member-header-three {
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(0, 1fr)
+    minmax(0, 0.95fr);
+
+  gap: 8px;
+}
+
+/* =========================
+   MEMBER ROWS
+========================= */
+
+.admin-member-rows {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.admin-member-input-row {
+  position: relative;
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 16px;
+}
+
+
+.admin-member-input-row-three {
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(0, 1fr)
+    minmax(0, 0.95fr);
+
+  gap: 8px;
+}
+
+.admin-member-input-row input,
+.admin-member-input-row select {
+  width: 100%;
+
+  height: 52px;
+
+  padding: 0 14px;
+
+  border: 1px solid #cfcfcf;
+
+  border-radius: 0;
+
+  background: #ffffff;
+
+  color: #222222;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  outline: none;
+}
+
+.admin-member-input-row input::placeholder {
+  color: #a09a92;
+}
+
+.admin-member-input-row input:focus,
+.admin-member-input-row select:focus {
+  border-color: #7b7b00;
+}
+
+
+.admin-member-input-row-three input,
+.admin-member-input-row-three select {
+  min-width: 0;
+  width: 100%;
+}
+
+/* =========================
+   REMOVE MEMBER
+========================= */
+
+.remove-member-row {
+  position: absolute;
+
+  top: 50%;
+  right: -25px;
+
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #bd001d;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 1.4rem;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.remove-member-row:hover {
+  color: #8f0016;
+}
+
+/* =========================
+   PLUS BUTTON
+========================= */
+
+.add-member-plus {
+  width: 59px;
+  height: 41px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 17px;
+
+  padding: 0;
+
+  border: 3px solid #7b7b00;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  color: #737800;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 2.6rem;
+
+  font-weight: 700;
+
+  line-height: 0.7;
+
+  cursor: pointer;
+}
+
+.add-member-plus:hover {
+  background: #fafaea;
+}
+
+/* =========================
+   GROUP NAME
+========================= */
+
+.admin-group-name-section {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin-top: 25px;
+}
+
+.admin-group-name-section label {
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  color: #222222;
+}
+
+.admin-group-name-section input {
+  width: 100%;
+
+  height: 46px;
+
+  padding: 0 14px;
+
+  border: 1px solid #cfcfcf;
+
+  background: #ffffff;
+
+  color: #222222;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  outline: none;
+}
+
+.admin-group-name-section input::placeholder {
+  color: #a09a92;
+}
+
+.admin-group-name-section input:focus {
+  border-color: #7b7b00;
+}
+
+.admin-group-name-section small {
+  color: #777777;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.75rem;
+}
+
+/* =========================
+   ADMIN MESSAGE
+========================= */
+
+.admin-message {
+  margin: 18px 0 0;
+
+  color: #555555;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.9rem;
+}
+
+/* =========================
+   SAVE INVITE
+========================= */
+
+.admin-save-wrapper {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 30px;
+}
+
+.save-invite-button {
+  min-width: 105px;
+
+  height: 44px;
+
+  padding: 0 22px;
+
+  border: none;
+
+  background: #7b7b00;
+
+  color: #ffffff;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.9rem;
+
+  cursor: pointer;
+}
+
+.save-invite-button:hover {
+  background: #686800;
+}
+
+.save-invite-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   FILTER PANEL
+========================= */
+
+.admin-filter-panel {
+  width: 100%;
+
+  margin-bottom: 28px;
+
+  padding: 8px 0 10px;
+
+  background: transparent;
+}
+
+/* =========================
+   FILTER SECTIONS
+========================= */
+
+.filter-section {
+  width: 100%;
+
+  margin-bottom: 38px;
+}
+
+.filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.filter-section h2 {
+  margin: 0 0 18px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 2.1rem;
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  color: #111111;
+}
+
+/* =========================
+   FILTER GRID
+========================= */
+
+.filter-button-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+/* =========================
+   FILTER BUTTON
+========================= */
+
+.filter-box {
+  width: 100%;
+
+  min-height: 46px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 8px;
+
+  border: 2px solid #111111;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #111111;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.78rem;
+
+  font-weight: 400;
+
+  line-height: 1.1;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.filter-box:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================
+   STATUS FILTER ACTIVE
+========================= */
+
+.status-all.active,
+.status-option.active {
+  border-color: #c8102e;
+
+  background: #c8102e;
+
+  color: #ffffff;
+}
+
+.status-all:hover:not(.active),
+.status-option:hover:not(.active) {
+  border-color: #c8102e;
+
+  color: #c8102e;
+}
+
+/* =========================
+   TYPE FILTER ACTIVE
+========================= */
+
+.type-all.active,
+.type-option.active {
+  border-color: #7b7b00;
+
+  background: #7b7b00;
+
+  color: #ffffff;
+}
+
+.type-all:hover:not(.active),
+.type-option:hover:not(.active) {
+  border-color: #7b7b00;
+
+  color: #7b7b00;
+}
+
+/* =========================
+   FAMILY LIST
+========================= */
+
+.family-list {
+  width: 100%;
+}
+
+.family-card {
+  width: 100%;
+
+  margin-bottom: 28px;
+
+  padding: 24px 30px 29px;
+
+  background: #ffffff;
+
+  border-radius: 13px;
+}
+
+.family-card-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.family-card-header h2 {
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+.family-edit-button {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #000000;
+
+  font-size: 1.7rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+/* =========================
+   FAMILY MEMBER ROW
+========================= */
+
+.family-member {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(120px, 1.2fr)
+    minmax(120px, 1.1fr)
+    minmax(90px, 0.7fr)
+    20px;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 40px;
+
+  border-bottom: 1px dashed #999999;
+
+  font-size: 0.88rem;
+}
+
+.member-name {
+  color: #181818;
+}
+
+.member-type {
+  text-align: center;
+}
+
+.member-status {
+  text-align: right;
+}
+
+/* =========================
+   INVITE TYPE COLORS
+========================= */
+
+.type-guest {
+  color: #ee5118;
+}
+
+.type-family {
+  color: #e39aad;
+}
+
+.type-entourage {
+  color: #a70067;
+}
+
+/* =========================
+   RSVP STATUS COLORS
+========================= */
+
+.status-going {
+  color: #727600;
+}
+
+.status-not-going {
+  color: #c90027;
+}
+
+.status-pending {
+  color: #908b7b;
+}
+
+/* =========================
+   DELETE MEMBER
+========================= */
+
+.member-delete {
+  opacity: 0;
+
+  width: 20px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #c90027;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 1.2rem;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+}
+
+.family-member:hover .member-delete {
+  opacity: 1;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.admin-no-results {
+  padding: 40px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  color: #777777;
+}
+
+
+@media (min-width: 801px) {
+  .admin-member-header-three {
+    grid-template-columns:
+      minmax(0, 1.45fr)
+      minmax(0, 0.95fr)
+      minmax(0, 1fr);
+
+    gap: 8px;
+
+    font-size: 0.9rem;
+  }
+
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.45fr)
+      minmax(0, 0.95fr)
+      minmax(0, 1fr);
+
+    gap: 8px;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    height: 46px;
+
+    padding: 0 9px;
+
+    font-size: 0.82rem;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+  .admin-dashboard {
+    max-width: 620px;
+  }
+
+  .dashboard-chart-card {
+    gap: 45px;
+  }
+
+  .filter-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .filter-button-grid {
+    gap: 9px;
+  }
+
+  .filter-box {
+    min-height: 44px;
+
+    font-size: 0.74rem;
+  }
+
+  .admin-member-header-three {
+    grid-template-columns:
+      minmax(0, 1.35fr)
+      minmax(0, 0.95fr)
+      minmax(0, 1fr);
+
+    gap: 6px;
+
+    font-size: 0.72rem;
+  }
+
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.35fr)
+      minmax(0, 0.95fr)
+      minmax(0, 1fr);
+
+    gap: 6px;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    min-width: 0;
+    width: 100%;
+    height: 42px;
+
+    padding: 0 6px;
+
+    font-size: 0.66rem;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .admin-page {
+    padding:
+      23px
+      18px
+      70px;
+  }
+
+  .admin-dashboard {
+    max-width: 420px;
+  }
+
+  /* =====================
+     TITLE
+  ===================== */
+
+  .admin-title {
+    margin-bottom: 40px;
+
+    font-size: 1.75rem;
+  }
+
+  /* =====================
+     CHART
+  ===================== */
+
+  .dashboard-chart-card {
+    min-height: 160px;
+
+    gap: 35px;
+
+    padding:
+      25px
+      30px;
+
+    border-radius: 10px;
+
+    margin-bottom: 29px;
+  }
+
+  .dashboard-donut {
+    width: 110px;
+    height: 110px;
+  }
+
+  .dashboard-donut-hole {
+    width: 52px;
+    height: 52px;
+  }
+
+  .dashboard-chart-info {
+    min-width: 120px;
+
+    font-size: 0.7rem;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .chart-legend-row {
+    gap: 5px;
+
+    margin-bottom: 4px;
+  }
+
+  .chart-total {
+    margin-top: 7px;
+
+    font-size: 0.78rem;
+  }
+
+  /* =====================
+     SEARCH
+  ===================== */
+
+  .admin-search input {
+    height: 38px;
+
+    padding-left: 41px;
+
+    border-radius: 5px;
+  }
+
+  .admin-search-icon {
+    left: 12px;
+
+    font-size: 1.4rem;
+  }
+
+  /* =====================
+     TOOLBAR
+  ===================== */
+
+  .admin-icon-button {
+    width: 47px;
+    height: 38px;
+  }
+
+  .add-icon-button {
+    font-size: 2.3rem;
+  }
+
+  .admin-list-button {
+    width: 38px;
+    height: 38px;
+
+    font-size: 1.4rem;
+  }
+
+  .admin-popup-card {
+    padding: 20px;
+  }
+
+  /* =====================
+     ADD INVITE
+  ===================== */
+
+  .admin-add-popup {
+    padding:
+      23px
+      22px
+      28px;
+  }
+
+  .admin-add-popup h2 {
+    margin-bottom: 23px;
+
+    font-size: 1.25rem;
+  }
+
+  .admin-member-header {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+
+    gap: 10px;
+
+    font-size: 0.85rem;
+  }
+
+  .admin-member-input-row {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+
+    gap: 10px;
+  }
+
+  .admin-member-input-row input,
+  .admin-member-input-row select {
+    height: 45px;
+
+    padding: 0 10px;
+
+    font-size: 0.78rem;
+  }
+
+  .admin-member-header-three {
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 4px;
+
+    font-size: 0.56rem;
+  }
+
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 4px;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    min-width: 0;
+    width: 100%;
+    height: 40px;
+
+    padding: 0 4px;
+
+    font-size: 0.55rem;
+  }
+
+  .remove-member-row {
+    right: -18px;
+
+    font-size: 1.15rem;
+  }
+
+  .add-member-plus {
+    width: 52px;
+    height: 38px;
+
+    margin-top: 16px;
+
+    font-size: 2.2rem;
+  }
+
+  .admin-group-name-section {
+    margin-top: 22px;
+  }
+
+  .admin-group-name-section label {
+    font-size: 0.9rem;
+  }
+
+  .admin-group-name-section input {
+    height: 44px;
+
+    font-size: 0.85rem;
+  }
+
+  /* =====================
+     FILTER POPUP
+  ===================== */
+
+  .admin-filter-panel {
+    margin-bottom: 24px;
+
+    padding-top: 3px;
+  }
+
+  .filter-section {
+    margin-bottom: 30px;
+  }
+
+  .filter-section h2 {
+    margin-bottom: 14px;
+
+    font-size: 1.6rem;
+  }
+
+  .filter-button-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+  }
+
+  .filter-box {
+    min-height: 42px;
+
+    padding: 5px 6px;
+
+    border-width: 0.7px;
+
+    border-radius: 5px;
+
+    font-size: 0.68rem;
+  }
+
+  /* =====================
+     FAMILY CARDS
+  ===================== */
+
+  .family-card {
+    padding:
+      20px
+      20px
+      25px;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+  }
+
+  .family-card-header {
+    margin-bottom: 15px;
+  }
+
+  .family-card-header h2 {
+    font-size: 0.9rem;
+  }
+
+  .family-member {
+    grid-template-columns:
+      minmax(85px, 1fr)
+      minmax(90px, 1.1fr)
+      minmax(70px, 0.7fr);
+
+    gap: 6px;
+
+    min-height: 35px;
+
+    font-size: 0.65rem;
+  }
+
+  .member-delete {
+    display: none;
+  }
+
+  .member-type {
+    text-align: center;
+  }
+
+  .member-status {
+    text-align: right;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  /* =====================
+     CHART
+  ===================== */
+
+  .dashboard-chart-card {
+    gap: 22px;
+
+    padding:
+      23px
+      20px;
+  }
+
+  .dashboard-donut {
+    width: 100px;
+    height: 100px;
+  }
+
+  .dashboard-donut-hole {
+    width: 47px;
+    height: 47px;
+  }
+
+  .dashboard-chart-info {
+    min-width: 105px;
+
+    font-size: 0.64rem;
+  }
+
+  /* =====================
+     ADD INVITE
+  ===================== */
+
+  .admin-add-popup {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .admin-member-header {
+    gap: 8px;
+
+    font-size: 0.78rem;
+  }
+
+  .admin-member-input-row {
+    gap: 8px;
+  }
+
+  .admin-member-input-row input,
+  .admin-member-input-row select {
+    padding: 0 8px;
+
+    font-size: 0.7rem;
+  }
+
+  .admin-member-header-three {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 3px;
+
+    font-size: 0.5rem;
+  }
+
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 3px;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    min-width: 0;
+    width: 100%;
+    height: 38px;
+
+    padding: 0 3px;
+
+    font-size: 0.5rem;
+  }
+
+  .remove-member-row {
+    right: -15px;
+  }
+
+  /* =====================
+     FILTER
+  ===================== */
+
+  .filter-section {
+    margin-bottom: 26px;
+  }
+
+  .filter-section h2 {
+    font-size: 1.45rem;
+  }
+
+  .filter-button-grid {
+    gap: 7px;
+  }
+
+  .filter-box {
+    min-height: 40px;
+
+    padding: 4px 5px;
+
+    font-size: 0.62rem;
+  }
+
+  /* =====================
+     FAMILY CARDS
+  ===================== */
+
+  .family-card {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+
+  .family-member {
+    grid-template-columns:
+      minmax(75px, 1fr)
+      minmax(80px, 1fr)
+      minmax(64px, 0.65fr);
+
+    font-size: 0.58rem;
+  }
+}
+
+/* =========================================================
+   LATEST ADMIN OVERRIDES
+   - Bigger image edit button
+   - Full edit form styling
+   - Thin filter borders
+   - 4 filter buttons per row
+   - Name / Status / Type stay on one row
+========================================================= */
+
+/* =========================
+   ADD INVITE: 3 COLUMNS
+========================= */
+
+.admin-member-header-three,
+.admin-member-input-row-three {
+  grid-template-columns:
+    minmax(0, 1.45fr)
+    minmax(0, 0.95fr)
+    minmax(0, 1fr);
+
+  gap: 8px;
+}
+
+.admin-member-input-row-three input,
+.admin-member-input-row-three select {
+  min-width: 0;
+  width: 100%;
+}
+
+/* =========================
+   FILTERS
+========================= */
+
+.filter-button-grid {
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 7px;
+}
+
+.filter-box {
+  min-width: 0;
+  min-height: 34px;
+
+  padding: 4px 5px;
+
+  border: 0.7px solid #111111;
+  border-radius: 4px;
+
+  font-size: 0.68rem;
+  line-height: 1.05;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* =========================
+   EDIT BUTTON
+========================= */
+
+.family-edit-button {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.family-edit-button:hover {
+  background: #f1f1f1;
+}
+
+.family-edit-button:active {
+  transform: scale(0.96);
+}
+
+.family-edit-button:focus-visible {
+  outline: 2px solid #747400;
+  outline-offset: 2px;
+}
+
+.family-edit-icon {
+  display: block;
+
+  width: 28px;
+  height: 28px;
+
+  object-fit: contain;
+
+  pointer-events: none;
+}
+
+/* =========================
+   EDIT GROUP FORM
+========================= */
+
+.edit-group-form {
+  width: 100%;
+}
+
+.edit-group-top {
+  width: 100%;
+
+  margin-bottom: 22px;
+}
+
+.edit-group-name-field {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.edit-group-name-field label {
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  color: #222222;
+}
+
+.edit-group-name-field input {
+  width: 100%;
+  height: 44px;
+
+  padding: 0 12px;
+
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  color: #222222;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.9rem;
+
+  outline: none;
+}
+
+.edit-group-name-field input:focus {
+  border-color: #747400;
+
+  box-shadow:
+    0 0 0 1px rgba(116, 116, 0, 0.12);
+}
+
+/* =========================
+   EDIT MEMBER HEADER
+========================= */
+
+.edit-member-header {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(0, 0.95fr)
+    minmax(0, 1fr)
+    30px;
+
+  gap: 8px;
+
+  align-items: center;
+
+  margin-bottom: 8px;
+
+  padding: 0 2px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+
+  color: #222222;
+}
+
+/* =========================
+   EDIT MEMBER LIST
+========================= */
+
+.edit-member-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+.edit-member-row {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(0, 0.95fr)
+    minmax(0, 1fr)
+    30px;
+
+  gap: 8px;
+
+  align-items: center;
+}
+
+.edit-member-row input,
+.edit-member-row select {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+
+  padding: 0 8px;
+
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  color: #222222;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.72rem;
+
+  outline: none;
+}
+
+.edit-member-row input:focus,
+.edit-member-row select:focus {
+  border-color: #747400;
+
+  box-shadow:
+    0 0 0 1px rgba(116, 116, 0, 0.12);
+}
+
+/* =========================
+   EDIT REMOVE BUTTON
+========================= */
+
+.edit-remove-member {
+  width: 30px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 4px;
+
+  background: transparent;
+
+  color: #c90027;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 1.35rem;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.edit-remove-member:hover {
+  background: #fff0f2;
+}
+
+/* =========================
+   EDIT MESSAGE
+========================= */
+
+.edit-group-message {
+  margin: 14px 0 0;
+
+  color: #c90027;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.8rem;
+}
+
+/* =========================
+   EDIT ACTIONS
+========================= */
+
+.edit-group-actions {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 22px;
+}
+
+.edit-cancel-button,
+.edit-save-button {
+  min-width: 92px;
+  height: 38px;
+
+  padding: 0 15px;
+
+  border-radius: 4px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.78rem;
+
+  cursor: pointer;
+}
+
+.edit-cancel-button {
+  border: 1px solid #777777;
+
+  background: #ffffff;
+
+  color: #333333;
+}
+
+.edit-cancel-button:hover {
+  background: #f3f3f3;
+}
+
+.edit-save-button {
+  border: 1px solid #747400;
+
+  background: #747400;
+
+  color: #ffffff;
+}
+
+.edit-save-button:hover {
+  background: #666600;
+}
+
+.edit-save-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 801px) {
+  .admin-member-header-three,
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.45fr)
+      minmax(0, 0.95fr)
+      minmax(0, 1fr);
+
+    gap: 8px;
+  }
+
+  .admin-member-header-three {
+    font-size: 0.9rem;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    min-width: 0;
+    width: 100%;
+    height: 46px;
+
+    padding: 0 9px;
+
+    font-size: 0.82rem;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+  .filter-button-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 6px;
+  }
+
+  .filter-box {
+    min-width: 0;
+    min-height: 33px;
+
+    padding: 3px 4px;
+
+    border-width: 0.7px;
+
+    font-size: 0.62rem;
+    line-height: 1.05;
+  }
+
+  .family-edit-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .family-edit-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .edit-member-header,
+  .edit-member-row {
+    grid-template-columns:
+      minmax(0, 1.3fr)
+      minmax(0, 0.9fr)
+      minmax(0, 1fr)
+      26px;
+
+    gap: 6px;
+  }
+
+  .edit-member-header {
+    font-size: 0.64rem;
+  }
+
+  .edit-member-row input,
+  .edit-member-row select {
+    height: 38px;
+
+    padding: 0 6px;
+
+    font-size: 0.64rem;
+  }
+
+  .edit-remove-member {
+    width: 26px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .admin-member-header-three {
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 4px;
+
+    font-size: 0.56rem;
+  }
+
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 4px;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    min-width: 0;
+    width: 100%;
+    height: 40px;
+
+    padding: 0 4px;
+
+    font-size: 0.55rem;
+  }
+
+  .filter-button-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 4px;
+  }
+
+  .filter-box {
+    min-width: 0;
+    min-height: 30px;
+
+    padding: 2px 2px;
+
+    border-width: 0.7px;
+    border-radius: 4px;
+
+    font-size: 0.48rem;
+    line-height: 1;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .family-edit-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .family-edit-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .edit-group-top {
+    margin-bottom: 18px;
+  }
+
+  .edit-group-name-field input {
+    height: 38px;
+
+    font-size: 0.72rem;
+  }
+
+  .edit-member-header,
+  .edit-member-row {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(0, 0.9fr)
+      minmax(0, 1fr)
+      22px;
+
+    gap: 4px;
+  }
+
+  .edit-member-header {
+    font-size: 0.54rem;
+  }
+
+  .edit-member-row input,
+  .edit-member-row select {
+    height: 34px;
+
+    padding: 0 4px;
+
+    font-size: 0.54rem;
+  }
+
+  .edit-remove-member {
+    width: 22px;
+    height: 30px;
+
+    font-size: 1rem;
+  }
+
+  .edit-group-actions {
+    justify-content: center;
+
+    margin-top: 18px;
+  }
+
+  .edit-cancel-button,
+  .edit-save-button {
+    min-width: 84px;
+    height: 35px;
+
+    padding: 0 12px;
+
+    font-size: 0.7rem;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  .admin-member-header-three {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 3px;
+
+    font-size: 0.5rem;
+  }
+
+  .admin-member-input-row-three {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+
+    gap: 3px;
+  }
+
+  .admin-member-input-row-three input,
+  .admin-member-input-row-three select {
+    min-width: 0;
+    width: 100%;
+    height: 38px;
+
+    padding: 0 3px;
+
+    font-size: 0.5rem;
+  }
+
+  .filter-button-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 3px;
+  }
+
+  .filter-box {
+    min-width: 0;
+    min-height: 28px;
+
+    padding: 2px 1px;
+
+    border-width: 0.7px;
+
+    font-size: 0.4rem;
+    line-height: 1;
+  }
+
+  .family-edit-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .family-edit-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .edit-member-header,
+  .edit-member-row {
+    grid-template-columns:
+      minmax(0, 1.15fr)
+      minmax(0, 0.9fr)
+      minmax(0, 1fr)
+      20px;
+
+    gap: 3px;
+  }
+
+  .edit-member-header {
+    font-size: 0.49rem;
+  }
+
+  .edit-member-row input,
+  .edit-member-row select {
+    height: 32px;
+
+    padding: 0 3px;
+
+    font-size: 0.49rem;
+  }
+
+  .edit-remove-member {
+    width: 20px;
+  }
+}
+
+/* =========================================================
+   NORMAL / TABLE VIEW TOGGLE
+========================================================= */
+
+.admin-list-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.15s ease;
+}
+
+.admin-list-button:hover {
+  background: #f7f7f2;
+}
+
+.admin-list-button:active {
+  transform: scale(0.96);
+}
+
+.admin-list-button.active {
+  background: #747400;
+  color: #ffffff;
+}
+
+.view-toggle-symbol {
+  display: block;
+
+  font-family: Arial, sans-serif;
+  font-size: 1.55rem;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TABLE VIEW
+========================================================= */
+
+.admin-table-view {
+  width: 100%;
+}
+
+.admin-table-heading {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+}
+
+.admin-table-heading h2 {
+  margin: 0;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  color: #111111;
+}
+
+.admin-table-heading span {
+  color: #777777;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 0.8rem;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-invite-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background: #ffffff;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  table-layout: fixed;
+}
+
+.admin-invite-table th,
+.admin-invite-table td {
+  padding: 13px 12px;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  text-align: left;
+  vertical-align: middle;
+}
+
+.admin-invite-table th {
+  background: #f8f8f8;
+
+  color: #222222;
+
+  font-size: 0.76rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.admin-invite-table td {
+  color: #222222;
+
+  font-size: 0.76rem;
+
+  overflow-wrap: anywhere;
+}
+
+.admin-invite-table th:nth-child(1),
+.admin-invite-table td:nth-child(1) {
+  width: 24%;
+}
+
+.admin-invite-table th:nth-child(2),
+.admin-invite-table td:nth-child(2) {
+  width: 23%;
+}
+
+.admin-invite-table th:nth-child(3),
+.admin-invite-table td:nth-child(3) {
+  width: 25%;
+}
+
+.admin-invite-table th:nth-child(4),
+.admin-invite-table td:nth-child(4) {
+  width: 20%;
+}
+
+.admin-invite-table th:nth-child(5),
+.admin-invite-table td:nth-child(5) {
+  width: 8%;
+}
+
+.admin-invite-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-invite-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.table-name-cell {
+  font-weight: 600;
+}
+
+.table-type,
+.table-status {
+  display: inline-block;
+
+  line-height: 1.15;
+}
+
+.table-action-heading,
+.table-action-cell {
+  text-align: center !important;
+}
+
+.table-edit-button {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 5px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    transform 0.15s ease;
+}
+
+.table-edit-button:hover {
+  background: #f1f1f1;
+}
+
+.table-edit-button:active {
+  transform: scale(0.96);
+}
+
+.table-edit-icon {
+  display: block;
+
+  width: 21px;
+  height: 21px;
+
+  object-fit: contain;
+
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .view-toggle-symbol {
+    font-size: 1.3rem;
+  }
+
+  .admin-table-heading h2 {
+    font-size: 1rem;
+  }
+
+  .admin-table-heading span {
+    font-size: 0.65rem;
+  }
+
+  .admin-table-wrapper {
+    border-radius: 9px;
+  }
+
+  .admin-invite-table {
+    min-width: 610px;
+  }
+
+  .admin-invite-table th,
+  .admin-invite-table td {
+    padding: 10px 9px;
+  }
+
+  .admin-invite-table th {
+    font-size: 0.64rem;
+  }
+
+  .admin-invite-table td {
+    font-size: 0.62rem;
+  }
+
+  .table-edit-button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .table-edit-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .admin-invite-table {
+    min-width: 570px;
+  }
+
+  .admin-invite-table th,
+  .admin-invite-table td {
+    padding: 9px 8px;
+  }
+
+  .admin-invite-table th {
+    font-size: 0.58rem;
+  }
+
+  .admin-invite-table td {
+    font-size: 0.56rem;
+  }
+}

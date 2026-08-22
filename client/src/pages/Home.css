@@ -1,0 +1,492 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f6f3ed;
+  font-family: "Cormorant Garamond", serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+.wedding-page {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero-section {
+  min-height: 100svh;
+
+  position: relative;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: white;
+}
+
+/* Fake lace-style border */
+
+.lace-border {
+  min-height: 100svh;
+
+  border: 10px solid rgba(255, 255, 255, 0.85);
+
+  outline: 4px dotted rgba(255, 255, 255, 0.75);
+  outline-offset: -9px;
+
+  position: relative;
+}
+
+/* dark overlay to make text readable */
+
+.lace-border::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 25, 20, 0.05) 0%,
+    rgba(5, 25, 20, 0.12) 30%,
+    rgba(5, 25, 20, 0.32) 55%,
+    rgba(5, 25, 20, 0.5) 100%
+  );
+
+  pointer-events: none;
+}
+
+.hero-content {
+  min-height: 100svh;
+
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  padding:
+    clamp(140px, 28vh, 250px)
+    20px
+    30px;
+}
+
+/* =========================
+   NAMES
+========================= */
+
+.names-section {
+  width: 100%;
+  max-width: 700px;
+}
+
+.bride-groom-name {
+  margin: 0;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(
+    3.4rem,
+    11vw,
+    6.8rem
+  );
+
+  line-height: 0.95;
+
+  font-weight: 400;
+
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.and-text {
+  margin: 10px 0;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 0.9rem;
+
+  letter-spacing: 4px;
+}
+
+/* =========================
+   WEDDING INFORMATION
+========================= */
+
+.wedding-info {
+  margin-top: 30px;
+
+  width: 100%;
+  max-width: 500px;
+}
+
+.invite-text {
+  font-size: clamp(
+    0.9rem,
+    3vw,
+    1.15rem
+  );
+
+  line-height: 1.35;
+
+  margin-bottom: 12px;
+}
+
+.wedding-date {
+  margin: 12px 0;
+
+  font-size: clamp(
+    2.5rem,
+    8vw,
+    4rem
+  );
+
+  font-weight: 500;
+
+  letter-spacing: 2px;
+}
+
+.venue-text {
+  font-size: clamp(
+    0.95rem,
+    3vw,
+    1.2rem
+  );
+
+  font-weight: 600;
+
+  margin-bottom: 5px;
+}
+
+.boat-text {
+  margin-top: 8px;
+
+  font-size: 0.9rem;
+
+  font-style: italic;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu-wrapper {
+  position: relative;
+
+  width: 100%;
+  max-width: 430px;
+
+  height: 360px;
+
+  margin-top: 45px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.envelope-wrapper {
+  position: relative;
+
+  width: min(78vw, 330px);
+}
+
+.envelope-image {
+  position: absolute;
+
+  width: 115%;
+
+  left: 50%;
+  bottom: -160px;
+
+  transform: translateX(-50%);
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+.invitation-card {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+
+  background:
+    rgba(255, 252, 245, 0.95);
+
+  color: #70654f;
+
+  padding:
+    25px
+    25px
+    35px;
+
+  border-radius: 2px;
+
+  box-shadow:
+    0 5px 30px rgba(0, 0, 0, 0.18);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+/* little downward invitation shape */
+
+.invitation-card::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -40px;
+
+  transform: translateX(-50%);
+
+  border-left: 45px solid transparent;
+  border-right: 45px solid transparent;
+
+  border-top:
+    40px solid rgba(255, 252, 245, 0.95);
+}
+
+.invitation-card button {
+  width: 100%;
+
+  padding: 7px 10px;
+
+  border-radius: 30px;
+
+  border: 1px solid #cbbd9e;
+
+  background: transparent;
+
+  color: #74684d;
+
+  font-size: 0.85rem;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.invitation-card button:hover {
+  transform: translateY(-2px);
+
+  background: #ede8dd;
+}
+
+.invitation-card .rsvp-button {
+  background: #8b005e;
+
+  border-color: #8b005e;
+
+  color: white;
+}
+
+.invitation-card .rsvp-button:hover {
+  background: #a60070;
+}
+
+/* =========================
+   FLOWERS
+========================= */
+
+.flowers {
+  position: absolute;
+
+  width: clamp(
+    110px,
+    28vw,
+    170px
+  );
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+.flowers-left {
+  left: -15px;
+
+  top: 90px;
+
+  transform: rotate(-5deg);
+}
+
+.flowers-right {
+  right: -15px;
+
+  top: 110px;
+
+  transform: rotate(5deg);
+}
+
+/* =========================
+   SCROLL ARROW
+========================= */
+
+.scroll-indicator {
+  margin-top: auto;
+
+  padding-top: 20px;
+
+  font-size: 1.7rem;
+
+  animation: bounce 1.6s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* =========================
+   OTHER SECTIONS
+========================= */
+
+.content-section {
+  min-height: 80vh;
+
+  padding:
+    100px
+    25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  background: #faf7f2;
+
+  color: #4e493f;
+}
+
+.content-section.alternate {
+  background: #eee9df;
+}
+
+.content-section h2 {
+  margin: 0 0 15px;
+
+  font-family: "Great Vibes", cursive;
+
+  font-size: clamp(
+    3rem,
+    9vw,
+    5rem
+  );
+
+  font-weight: 400;
+}
+
+.content-section p {
+  max-width: 600px;
+
+  margin: 0;
+
+  font-size: 1.15rem;
+
+  line-height: 1.6;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .lace-border {
+    border-width: 7px;
+
+    outline-offset: -7px;
+  }
+
+  .hero-content {
+    padding-top: 220px;
+  }
+
+  .wedding-info {
+    margin-top: 25px;
+  }
+
+  .menu-wrapper {
+    margin-top: 45px;
+
+    height: 330px;
+  }
+
+  .invitation-card {
+    padding:
+      20px
+      22px
+      30px;
+  }
+
+  .flowers-left {
+    left: -25px;
+  }
+
+  .flowers-right {
+    right: -25px;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 900px) {
+  .hero-section {
+    min-height: 1100px;
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    box-shadow:
+      0 0 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .lace-border {
+    min-height: 1100px;
+  }
+
+  .hero-content {
+    min-height: 1100px;
+
+    padding-top: 300px;
+  }
+}

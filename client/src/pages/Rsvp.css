@@ -1,0 +1,1802 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap");
+
+/* =========================
+   FONTS
+========================= */
+
+@font-face {
+  font-family: "Sloop ScriptTwo";
+  src: url("../assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sloop Script Regular";
+  src: url("../assets/fonts/Sloop-Script-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.rsvp-page {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  margin: 0 auto;
+
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: repeat-y;
+
+  color: white;
+
+  overflow-x: hidden;
+}
+
+.rsvp-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 15, 0.04),
+    rgba(10, 20, 15, 0.1),
+    rgba(10, 20, 15, 0.18)
+  );
+
+  pointer-events: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.rsvp-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  padding: 70px 24px 100px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.rsvp-heading {
+  margin: 80px 0 55px;
+
+  font-family: "Sloop Script Regular", "Great Vibes", cursive;
+
+  font-size: clamp(4.5rem, 13vw, 7rem);
+
+  font-weight: 400;
+
+  line-height: 0.95;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+  transform: translateX(-70px);
+
+  animation:
+    rsvpSlideLeftToRight
+    1.05s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.12s
+    forwards;
+}
+
+/* =========================
+   TEXT SECTIONS
+========================= */
+
+.rsvp-info-section,
+.rsvp-note-section {
+  width: 100%;
+
+  max-width: 650px;
+
+  opacity: 0;
+
+  animation:
+    rsvpSoftFadeIn
+    0.95s
+    ease
+    forwards;
+}
+
+.rsvp-info-section {
+  animation-delay: 0.42s;
+}
+
+.rsvp-note-section {
+  animation-delay: 0.68s;
+}
+
+.rsvp-info-section {
+  margin-bottom: 42px;
+}
+
+.rsvp-note-section {
+  margin-bottom: 50px;
+}
+
+.rsvp-info-section h2,
+.rsvp-note-section h2 {
+  margin: 0 0 20px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(1.25rem, 4vw, 1.7rem);
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   HOW TO RSVP
+========================= */
+
+.rsvp-instructions p {
+  margin: 5px 0;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+
+  font-weight: 400;
+
+  line-height: 1.35;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.rsvp-instructions strong {
+  font-weight: 600;
+}
+
+.rsvp-example {
+  font-weight: 300 !important;
+  font-style: italic;
+
+  opacity: 0.9;
+}
+
+/* =========================
+   GENTLE NOTE
+========================= */
+
+.rsvp-note-intro {
+  margin: 0 0 18px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+
+  line-height: 1.35;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.rsvp-note-list p {
+  margin: 5px 0;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(0.82rem, 2.5vw, 0.98rem);
+
+  line-height: 1.35;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.rsvp-note-list .important-note {
+  font-weight: 600;
+}
+
+/* =========================
+   RSVP PAPER CARD
+========================= */
+
+.rsvp-card {
+  position: relative;
+
+  width: min(86vw, 570px);
+
+  margin-top: 20px;
+
+  padding:
+    55px
+    55px
+    65px;
+
+  background:
+    linear-gradient(
+      rgba(247, 241, 226, 0.97),
+      rgba(247, 241, 226, 0.97)
+    );
+
+  border: 1px solid #d2c8b2;
+
+  border-radius: 8px;
+
+  color: #6f685e;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.15);
+
+  opacity: 0;
+
+  animation:
+    rsvpSoftFadeIn
+    0.95s
+    ease
+    0.94s
+    forwards;
+}
+
+/* inner paper border */
+
+.rsvp-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+
+  border: 1px solid rgba(180, 168, 143, 0.55);
+
+  border-radius: 4px;
+
+  pointer-events: none;
+}
+
+/* =========================
+   DECORATION
+========================= */
+
+.rsvp-card-decoration {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 25px;
+}
+
+.rsvp-card-decoration span:not(.rsvp-flower) {
+  width: 45px;
+  height: 1px;
+
+  background: #b6a987;
+}
+
+.rsvp-flower {
+  font-size: 1.3rem;
+
+  color: #9d9a64;
+}
+
+/* =========================
+   RSVP CARD TEXT
+========================= */
+
+.rsvp-card-text {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 28px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.9rem;
+
+  font-weight: 400;
+
+  line-height: 1.45;
+
+  color: #756e63;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.rsvp-search-wrapper {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  max-width: 360px;
+
+  margin: 0 auto;
+}
+
+.rsvp-search-icon {
+  position: absolute;
+
+  top: 50%;
+  left: 13px;
+
+  transform: translateY(-50%);
+
+  color: #777269;
+
+  font-size: 1.25rem;
+
+  pointer-events: none;
+}
+
+.rsvp-search-input {
+  width: 100%;
+
+  height: 46px;
+
+  padding:
+    8px
+    15px
+    8px
+    42px;
+
+  border: 1px solid #928b7f;
+
+  border-radius: 0;
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  color: #555046;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.rsvp-search-input:focus {
+  border-color: #97156a;
+
+  box-shadow:
+    0 0 0 2px rgba(151, 21, 106, 0.12);
+}
+
+.rsvp-search-input::placeholder {
+  color: #9b958a;
+}
+
+/* =========================
+   SEARCH RESULTS
+========================= */
+
+.rsvp-results {
+  position: relative;
+  z-index: 4;
+
+  width: 100%;
+  max-width: 360px;
+
+  margin: 8px auto 0;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(150, 140, 125, 0.4);
+
+  background: #f7f1e2;
+}
+
+.rsvp-result {
+  display: block;
+
+  width: 100%;
+
+  padding: 11px 14px;
+
+  border: none;
+  border-bottom:
+    1px solid
+    rgba(150, 140, 125, 0.25);
+
+  background: transparent;
+
+  color: #615b52;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.9rem;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.rsvp-result:last-child {
+  border-bottom: none;
+}
+
+.rsvp-result:hover {
+  background:
+    rgba(151, 21, 106, 0.08);
+}
+
+.rsvp-no-result {
+  margin: 0;
+
+  padding: 12px;
+
+  color: #777168;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.85rem;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes rsvpSlideLeftToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-70px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes rsvpSoftFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-heading,
+  .rsvp-info-section,
+  .rsvp-note-section,
+  .rsvp-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .rsvp-content {
+    padding:
+      40px
+      20px
+      70px;
+  }
+
+  .rsvp-heading {
+    margin-top: 35px;
+    margin-bottom: 40px;
+
+    font-size: clamp(4rem, 18vw, 5.5rem);
+  }
+
+  .rsvp-info-section,
+  .rsvp-note-section {
+    max-width: 390px;
+  }
+
+  .rsvp-info-section {
+    margin-bottom: 34px;
+  }
+
+  .rsvp-note-section {
+    margin-bottom: 38px;
+  }
+
+  .rsvp-info-section h2,
+  .rsvp-note-section h2 {
+    margin-bottom: 14px;
+
+    font-size: 1.15rem;
+  }
+
+  .rsvp-instructions p,
+  .rsvp-note-intro,
+  .rsvp-note-list p {
+    font-size: 0.72rem;
+
+    line-height: 1.3;
+  }
+
+  .rsvp-card {
+    width: min(88vw, 360px);
+
+    padding:
+      42px
+      32px
+      48px;
+  }
+
+  .rsvp-card::before {
+    top: 13px;
+    right: 13px;
+    bottom: 13px;
+    left: 13px;
+  }
+
+  .rsvp-card-text {
+    font-size: 0.72rem;
+
+    line-height: 1.4;
+  }
+
+  .rsvp-search-input {
+    height: 42px;
+
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  .rsvp-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .rsvp-heading {
+    font-size: 4rem;
+
+    margin-bottom: 35px;
+  }
+
+  .rsvp-instructions p,
+  .rsvp-note-intro,
+  .rsvp-note-list p {
+    font-size: 0.67rem;
+  }
+
+  .rsvp-card {
+    width: 90vw;
+
+    padding:
+      38px
+      27px
+      45px;
+  }
+
+  .rsvp-card-text {
+    font-size: 0.68rem;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 601px) and (max-width: 849px) {
+  .rsvp-page {
+    max-width: 760px;
+
+    min-height: 1150px;
+
+    box-shadow:
+      0 0 35px rgba(0, 0, 0, 0.22);
+  }
+
+  .rsvp-content {
+    min-height: 1150px;
+
+    padding-top: 70px;
+  }
+
+  .rsvp-heading {
+    font-size: 6rem;
+
+    margin-top: 35px;
+    margin-bottom: 45px;
+  }
+
+  .rsvp-info-section,
+  .rsvp-note-section {
+    max-width: 580px;
+  }
+
+  .rsvp-info-section h2,
+  .rsvp-note-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .rsvp-instructions p,
+  .rsvp-note-intro,
+  .rsvp-note-list p {
+    font-size: 0.95rem;
+  }
+
+  .rsvp-card {
+    width: 500px;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 850px) {
+  .rsvp-page {
+    max-width: 1100px;
+
+    min-height: 1700px;
+
+    box-shadow:
+      0 0 50px rgba(0, 0, 0, 0.28);
+  }
+
+  .rsvp-content {
+    min-height: 1700px;
+
+    padding-top: 120px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 120px;
+  }
+
+  .rsvp-heading {
+    margin-top: 80px;
+    margin-bottom: 60px;
+
+    font-size: 9rem;
+  }
+
+  .rsvp-info-section,
+  .rsvp-note-section {
+    max-width: 700px;
+  }
+
+  .rsvp-info-section {
+    margin-bottom: 55px;
+  }
+
+  .rsvp-note-section {
+    margin-bottom: 65px;
+  }
+
+  .rsvp-info-section h2,
+  .rsvp-note-section h2 {
+    font-size: 1.7rem;
+
+    margin-bottom: 20px;
+  }
+
+  .rsvp-instructions p,
+  .rsvp-note-intro,
+  .rsvp-note-list p {
+    font-size: 1.1rem;
+
+    line-height: 1.4;
+  }
+
+  .rsvp-card {
+    width: 600px;
+
+    padding:
+      65px
+      70px
+      75px;
+  }
+
+  .rsvp-card-text {
+    font-size: 1rem;
+  }
+
+  .rsvp-search-wrapper,
+  .rsvp-results {
+    max-width: 390px;
+  }
+
+  .rsvp-search-input {
+    height: 50px;
+
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1400px) {
+  .rsvp-page {
+    max-width: 1200px;
+
+    min-height: 1850px;
+  }
+
+  .rsvp-content {
+    min-height: 1850px;
+
+    padding-top: 135px;
+  }
+
+  .rsvp-heading {
+    font-size: 8.5rem;
+
+    margin-bottom: 70px;
+  }
+
+  .rsvp-info-section,
+  .rsvp-note-section {
+    max-width: 750px;
+  }
+
+  .rsvp-info-section h2,
+  .rsvp-note-section h2 {
+    font-size: 2rem;
+  }
+
+  .rsvp-instructions p,
+  .rsvp-note-intro,
+  .rsvp-note-list p {
+    font-size: 1.2rem;
+  }
+
+  .rsvp-card {
+    width: 650px;
+  }
+
+  .rsvp-card-text {
+    font-size: 1.05rem;
+  }
+}
+
+/* =========================================================
+   RSVP SEARCH + POPUP UPDATE
+   - Search shows matching names only
+   - Popup shows the full invited group
+   - Going / Not Going selected states
+   - Clicking selected answer again can return to Pending
+   - Physical Done button
+========================================================= */
+
+/* =========================
+   SEARCH MESSAGE
+========================= */
+
+.rsvp-search-message {
+  position: relative;
+  z-index: 4;
+
+  width: 100%;
+  max-width: 360px;
+
+  margin: 12px auto 0;
+
+  color: #6f685e;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 0.85rem;
+  line-height: 1.35;
+
+  text-align: center;
+}
+
+/* =========================
+   SEARCH RESULTS
+========================= */
+
+.rsvp-results {
+  position: relative;
+  z-index: 4;
+
+  width: 100%;
+  max-width: 360px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0;
+
+  margin: 8px auto 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(150, 140, 125, 0.4);
+
+  background: #f7f1e2;
+}
+
+.rsvp-result {
+  width: 100%;
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 10px 14px;
+
+  border: none;
+  border-bottom: 1px solid rgba(150, 140, 125, 0.25);
+
+  background: transparent;
+  color: #615b52;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 0.9rem;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.rsvp-result:last-child {
+  border-bottom: none;
+}
+
+.rsvp-result:hover {
+  background: rgba(151, 21, 106, 0.08);
+}
+
+.rsvp-result:focus-visible {
+  outline: 2px solid #97156a;
+  outline-offset: -2px;
+}
+
+.rsvp-no-result {
+  position: relative;
+  z-index: 4;
+
+  width: 100%;
+  max-width: 360px;
+
+  margin: 10px auto 0;
+
+  padding: 10px 12px;
+
+  color: #777168;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 0.82rem;
+  line-height: 1.35;
+
+  text-align: center;
+}
+
+/* =========================
+   POPUP BACKDROP
+========================= */
+
+.rsvp-popup-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  backdrop-filter: blur(2px);
+}
+
+/* =========================
+   POPUP CARD
+========================= */
+
+.rsvp-popup {
+  position: relative;
+
+  width: min(560px, 100%);
+  max-height: 82vh;
+
+  overflow-y: auto;
+
+  padding: 30px;
+
+  border: 1px solid #d2c8b2;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      rgba(247, 241, 226, 0.99),
+      rgba(247, 241, 226, 0.99)
+    );
+
+  color: #4f493f;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.25);
+}
+
+.rsvp-popup::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 12px;
+
+  border: 1px solid rgba(180, 168, 143, 0.45);
+  border-radius: 8px;
+
+  pointer-events: none;
+}
+
+/* =========================
+   POPUP CLOSE
+========================= */
+
+.rsvp-popup-close {
+  position: absolute;
+  z-index: 3;
+
+  top: 12px;
+  right: 14px;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: #5f584f;
+
+  font-family: Arial, sans-serif;
+  font-size: 1.7rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    transform 0.15s ease;
+}
+
+.rsvp-popup-close:hover {
+  background: rgba(151, 21, 106, 0.08);
+}
+
+.rsvp-popup-close:active {
+  transform: scale(0.94);
+}
+
+/* =========================
+   POPUP TEXT
+========================= */
+
+.rsvp-popup-kicker {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 5px;
+
+  color: #8c825f;
+
+  font-size: 0.76rem;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rsvp-popup-title {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+
+  color: #5e574d;
+
+  font-size: 1.65rem;
+  font-weight: 600;
+}
+
+.rsvp-popup-subtitle {
+  position: relative;
+  z-index: 2;
+
+  margin: 8px 0 22px;
+
+  color: #777064;
+
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+/* =========================
+   POPUP MEMBERS
+========================= */
+
+.rsvp-popup-members {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.rsvp-popup-member {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid #ded6c5;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.rsvp-popup-member-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 11px;
+}
+
+.rsvp-popup-member-name {
+  color: #4c463e;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  text-align: left;
+}
+
+.rsvp-popup-status {
+  flex-shrink: 0;
+
+  font-size: 0.76rem;
+}
+
+.rsvp-popup-status.is-going {
+  color: #747400;
+}
+
+.rsvp-popup-status.is-not-going {
+  color: #bd001d;
+}
+
+.rsvp-popup-status.is-pending {
+  color: #8b8779;
+}
+
+/* =========================
+   GOING / NOT GOING
+========================= */
+
+.rsvp-popup-actions {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+.rsvp-popup-choice {
+  min-width: 0;
+  min-height: 42px;
+
+  padding: 7px 10px;
+
+  border: 1px solid #b8b0a3;
+  border-radius: 5px;
+
+  background: rgba(255, 255, 255, 0.78);
+  color: #4f493f;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.rsvp-popup-choice:hover {
+  transform: translateY(-1px);
+}
+
+.rsvp-popup-choice.going:hover,
+.rsvp-popup-choice.going.selected {
+  border-color: #747400;
+
+  background: #747400;
+  color: #ffffff;
+}
+
+.rsvp-popup-choice.not-going:hover,
+.rsvp-popup-choice.not-going.selected {
+  border-color: #bd001d;
+
+  background: #bd001d;
+  color: #ffffff;
+}
+
+.rsvp-popup-choice.selected {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.rsvp-popup-choice:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* =========================
+   POPUP MESSAGE
+========================= */
+
+.rsvp-popup-message {
+  position: relative;
+  z-index: 2;
+
+  margin: 16px 0 0;
+
+  color: #615b52;
+
+  font-size: 0.83rem;
+  line-height: 1.35;
+
+  text-align: center;
+}
+
+/* =========================
+   PHYSICAL DONE BUTTON
+========================= */
+
+.rsvp-popup-done {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  min-height: 48px;
+
+  margin-top: 20px;
+
+  padding: 10px 16px;
+
+  border: 2px solid #747400;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #747400;
+
+  box-shadow:
+    0 4px 0 #545400;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 1rem;
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.rsvp-popup-done:hover {
+  background: #f7f7e8;
+}
+
+.rsvp-popup-done:active {
+  transform: translateY(3px);
+
+  box-shadow:
+    0 1px 0 #545400;
+}
+
+.rsvp-popup-done.ready {
+  border-color: #747400;
+
+  background: #747400;
+  color: #ffffff;
+}
+
+.rsvp-popup-done.ready:hover {
+  background: #666600;
+}
+
+/* =========================
+   RSVP POPUP MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .rsvp-search-message,
+  .rsvp-no-result {
+    max-width: 100%;
+
+    font-size: 0.72rem;
+  }
+
+  .rsvp-result {
+    min-height: 42px;
+
+    padding: 9px 12px;
+
+    font-size: 0.78rem;
+  }
+
+  .rsvp-popup-backdrop {
+    align-items: center;
+
+    padding: 14px;
+  }
+
+  .rsvp-popup {
+    width: 100%;
+    max-height: 86vh;
+
+    padding:
+      27px
+      18px
+      22px;
+
+    border-radius: 10px;
+  }
+
+  .rsvp-popup::before {
+    inset: 8px;
+  }
+
+  .rsvp-popup-close {
+    top: 8px;
+    right: 9px;
+
+    width: 34px;
+    height: 34px;
+
+    font-size: 1.5rem;
+  }
+
+  .rsvp-popup-title {
+    padding-right: 35px;
+
+    font-size: 1.3rem;
+  }
+
+  .rsvp-popup-subtitle {
+    margin-bottom: 18px;
+
+    font-size: 0.75rem;
+  }
+
+  .rsvp-popup-member {
+    padding: 12px;
+  }
+
+  .rsvp-popup-member-top {
+    align-items: flex-start;
+
+    gap: 8px;
+  }
+
+  .rsvp-popup-member-name {
+    font-size: 0.86rem;
+  }
+
+  .rsvp-popup-status {
+    font-size: 0.64rem;
+  }
+
+  .rsvp-popup-choice {
+    min-height: 40px;
+
+    padding: 6px;
+
+    font-size: 0.76rem;
+  }
+
+  .rsvp-popup-message {
+    font-size: 0.72rem;
+  }
+
+  .rsvp-popup-done {
+    min-height: 44px;
+
+    margin-top: 17px;
+
+    font-size: 0.86rem;
+  }
+}
+
+/* =========================
+   RSVP POPUP VERY SMALL PHONE
+========================= */
+
+@media (max-width: 390px) {
+  .rsvp-popup-backdrop {
+    padding: 10px;
+  }
+
+  .rsvp-popup {
+    padding:
+      25px
+      14px
+      18px;
+  }
+
+  .rsvp-popup-member {
+    padding: 10px;
+  }
+
+  .rsvp-popup-member-name {
+    font-size: 0.8rem;
+  }
+
+  .rsvp-popup-status {
+    font-size: 0.59rem;
+  }
+
+  .rsvp-popup-actions {
+    gap: 6px;
+  }
+
+  .rsvp-popup-choice {
+    min-height: 38px;
+
+    font-size: 0.7rem;
+  }
+
+  .rsvp-popup-done {
+    min-height: 42px;
+
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================================================
+   SEARCH DROPDOWN — SCREENSHOT STYLE
+   Attached directly under the search input
+========================================================= */
+
+.rsvp-search-wrapper {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+}
+
+.rsvp-search-input {
+  width: 100%;
+  height: 58px;
+
+  padding:
+    10px
+    16px
+    10px
+    46px;
+
+  border: 1px solid #9d978b;
+  border-radius: 0;
+
+  background: rgba(247, 241, 226, 0.96);
+
+  color: #4d4840;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 1.05rem;
+}
+
+.rsvp-search-icon {
+  left: 17px;
+
+  color: #716d66;
+
+  font-size: 1.3rem;
+}
+
+/* Dropdown container */
+.rsvp-results {
+  width: 100%;
+  max-width: 390px;
+
+  margin: 0 auto;
+
+  gap: 0;
+
+  overflow: visible;
+
+  border: 1px solid #111111;
+  border-radius: 0;
+
+  background: rgba(247, 241, 226, 0.98);
+
+  box-shadow: none;
+}
+
+/* Each matching name */
+.rsvp-result {
+  width: 100%;
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 12px 26px;
+
+  border: none;
+  border-bottom: 3px solid #111111;
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #171717;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.rsvp-result:last-child {
+  border-bottom: none;
+}
+
+.rsvp-result:hover,
+.rsvp-result:focus-visible {
+  background: rgba(120, 112, 90, 0.08);
+}
+
+.rsvp-result:focus-visible {
+  outline: none;
+}
+
+/* Keep the dropdown connected to the field */
+.rsvp-search-wrapper + .rsvp-results {
+  margin-top: 0;
+}
+
+/* =========================
+   MOBILE SEARCH DROPDOWN
+========================= */
+
+@media (max-width: 600px) {
+  .rsvp-search-wrapper,
+  .rsvp-results {
+    max-width: 100%;
+  }
+
+  .rsvp-search-input {
+    height: 54px;
+
+    padding-left: 43px;
+
+    font-size: 0.92rem;
+  }
+
+  .rsvp-search-icon {
+    left: 15px;
+
+    font-size: 1.18rem;
+  }
+
+  .rsvp-results {
+    border-width: 2px;
+  }
+
+  .rsvp-result {
+    min-height: 56px;
+
+    padding: 10px 20px;
+
+    border-bottom-width: 2px;
+
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .rsvp-search-input {
+    height: 50px;
+
+    font-size: 0.86rem;
+  }
+
+  .rsvp-result {
+    min-height: 52px;
+
+    padding: 9px 17px;
+
+    font-size: 0.82rem;
+  }
+}
+
+/* =========================================================
+   RSVP TEXT SPACING — MATCH REFERENCE
+========================================================= */
+
+/* Keep the text sections compact like the reference image */
+.rsvp-info-section {
+  margin-bottom: 34px;
+}
+
+.rsvp-info-section h2 {
+  margin-bottom: 16px;
+}
+
+/* How to RSVP: close line spacing */
+.rsvp-instructions {
+  margin: 0;
+}
+
+.rsvp-instructions p {
+  margin: 1px 0;
+  line-height: 1.18;
+}
+
+/* Gentle Note spacing */
+.rsvp-note-section h2 {
+  margin-bottom: 15px;
+}
+
+.rsvp-note-intro {
+  margin-top: 0;
+  margin-bottom: 18px;
+  line-height: 1.2;
+}
+
+.rsvp-note-list {
+  margin: 0;
+}
+
+.rsvp-note-list p {
+  margin: 1px 0;
+  line-height: 1.18;
+}
+
+/* =========================
+   MOBILE — closest to screenshot
+========================= */
+
+@media (max-width: 600px) {
+  .rsvp-info-section {
+    margin-bottom: 32px;
+  }
+
+  .rsvp-info-section h2 {
+    margin-bottom: 15px;
+  }
+
+  .rsvp-instructions p {
+    margin: 1px 0;
+    line-height: 1.16;
+  }
+
+  .rsvp-note-section h2 {
+    margin-bottom: 14px;
+  }
+
+  .rsvp-note-intro {
+    margin-bottom: 18px;
+    line-height: 1.18;
+  }
+
+  .rsvp-note-list p {
+    margin: 1px 0;
+    line-height: 1.16;
+  }
+}
+
+@media (max-width: 390px) {
+  .rsvp-info-section {
+    margin-bottom: 30px;
+  }
+
+  .rsvp-info-section h2 {
+    margin-bottom: 14px;
+  }
+
+  .rsvp-note-section h2 {
+    margin-bottom: 13px;
+  }
+
+  .rsvp-note-intro {
+    margin-bottom: 16px;
+  }
+
+  .rsvp-instructions p,
+  .rsvp-note-list p {
+    line-height: 1.14;
+  }
+}
+
+/* =========================================================
+   RSVP TYPOGRAPHY UPDATE
+   - Normal text appears lighter/thinner
+   - Bold and important text appears stronger/thicker
+========================================================= */
+
+/* =========================
+   NORMAL TEXT — LIGHTER
+========================= */
+
+.rsvp-instructions p,
+.rsvp-note-intro,
+.rsvp-note-list p {
+  font-family: "Adobe Jenson Pro", serif;
+  font-weight: 300;
+
+  /*
+     Use AJensonPro-Lt.ttf for normal RSVP text and keep
+     the shadow soft so the letters stay clean against the
+     textured background.
+  */
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.22);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Example remains light and italic */
+.rsvp-example {
+  font-weight: 300 !important;
+  font-style: italic;
+
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================
+   SECTION TITLES — THICKER
+========================= */
+
+.rsvp-info-section h2,
+.rsvp-note-section h2 {
+  font-weight: 600;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.48);
+}
+
+/* =========================
+   BOLD WORDS — THICKER
+========================= */
+
+.rsvp-instructions strong,
+.rsvp-note-intro strong,
+.rsvp-note-list strong {
+  font-weight: 600;
+
+  text-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Notes marked as important in RSVP.jsx */
+.rsvp-note-list .important-note {
+  font-weight: 600;
+
+  text-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.4);
+}
+

@@ -1,0 +1,840 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap");
+
+/* =========================
+   FONTS
+========================= */
+
+@font-face {
+  font-family: "Sloop ScriptTwo";
+  src: url("../assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sloop Script Regular";
+  src: url("../assets/fonts/Sloop-Script-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.entourage-page {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  margin: 0 auto;
+
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: repeat-y;
+
+  color: white;
+
+  overflow-x: hidden;
+}
+
+.entourage-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 15, 0.05),
+    rgba(10, 20, 15, 0.12),
+    rgba(10, 20, 15, 0.22)
+  );
+
+  pointer-events: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.entourage-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  padding: 70px 24px 80px;
+}
+
+/* =========================
+   MONOGRAM
+========================= */
+
+.entourage-monogram {
+  margin: 0;
+
+  font-family: "Sloop ScriptTwo", "Great Vibes", cursive;
+
+  font-size: 2rem;
+
+  font-weight: normal;
+
+  line-height: 1;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+
+  animation:
+    entourageSoftFadeIn
+    0.8s
+    ease
+    0.05s
+    forwards;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.entourage-heading {
+  margin: 80px 0 45px;
+
+  font-family: "Sloop Script Regular", "Great Vibes", cursive;
+
+  font-size: clamp(4.5rem, 13vw, 7rem);
+
+  font-weight: 400;
+
+  line-height: 0.95;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+  transform: translateX(-70px);
+
+  animation:
+    entourageSlideLeftToRight
+    1.05s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.15s
+    forwards;
+}
+
+/* =========================
+   ENTOURAGE LIST
+========================= */
+
+.entourage-list {
+  width: 100%;
+
+  max-width: 650px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  opacity: 0;
+
+  animation:
+    entourageSoftFadeIn
+    1s
+    ease
+    0.55s
+    forwards;
+}
+
+/* =========================
+   ROLE GROUPS
+========================= */
+
+.entourage-group {
+  margin-bottom: 34px;
+}
+
+.entourage-group h2 {
+  margin: 0 0 6px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(1rem, 3vw, 1.2rem);
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.entourage-group p {
+  margin: 1px 0;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+
+  font-weight: 300;
+
+  line-height: 1.25;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   GROOMSMEN / BRIDESMAIDS
+========================= */
+
+.entourage-columns {
+  width: 100%;
+
+  max-width: 360px;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 22px;
+
+  align-items: start;
+
+  margin: 12px auto 34px;
+}
+
+.entourage-column {
+  min-width: 0;
+}
+
+/* GROOMSMEN */
+
+.entourage-column:first-child {
+  text-align: right;
+}
+
+/* BRIDESMAIDS */
+
+.entourage-column:last-child {
+  text-align: left;
+}
+
+.entourage-column h2 {
+  margin: 0 0 6px;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  line-height: 1.15;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.entourage-column p {
+  margin: 1px 0;
+
+  font-family: "Adobe Jenson Pro", serif;
+
+  font-size: 0.82rem;
+
+  font-weight: 300;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes entourageSlideLeftToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-70px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes entourageSoftFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .entourage-monogram,
+  .entourage-heading,
+  .entourage-list {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .entourage-page {
+    width: 100%;
+
+    background-size: 100% auto;
+    background-position: top center;
+  }
+
+  .entourage-content {
+    padding:
+      40px
+      22px
+      60px;
+  }
+
+  .entourage-heading {
+    margin-top: 35px;
+    margin-bottom: 35px;
+
+    font-size: clamp(4rem, 18vw, 5.5rem);
+  }
+
+  .entourage-list {
+    max-width: 390px;
+  }
+
+  /* More separation between roles */
+
+  .entourage-group {
+    margin-bottom: 30px;
+  }
+
+  /* Keep heading close to names */
+
+  .entourage-group h2 {
+    margin-bottom: 4px;
+
+    font-size: 0.82rem;
+
+    line-height: 1.15;
+  }
+
+  /* Keep names close together */
+
+  .entourage-group p {
+    margin: 1px 0;
+
+    font-size: 0.7rem;
+
+    line-height: 1.2;
+  }
+
+  /* GROOMSMEN / BRIDESMAIDS */
+
+  .entourage-columns {
+    max-width: 300px;
+
+    gap: 16px;
+
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .entourage-column h2 {
+    margin-bottom: 4px;
+
+    font-size: 0.82rem;
+
+    line-height: 1.15;
+  }
+
+  .entourage-column p {
+    margin: 1px 0;
+
+    font-size: 0.68rem;
+
+    line-height: 1.18;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  .entourage-page {
+    background-size: 100% auto;
+  }
+
+  .entourage-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .entourage-heading {
+    font-size: 4rem;
+
+    margin-bottom: 30px;
+  }
+
+  .entourage-list {
+    max-width: 350px;
+  }
+
+  .entourage-group {
+    margin-bottom: 27px;
+  }
+
+  .entourage-group h2 {
+    margin-bottom: 4px;
+
+    font-size: 0.76rem;
+  }
+
+  .entourage-group p {
+    margin: 1px 0;
+
+    font-size: 0.64rem;
+
+    line-height: 1.18;
+  }
+
+  .entourage-columns {
+    max-width: 275px;
+
+    gap: 12px;
+
+    margin-bottom: 27px;
+  }
+
+  .entourage-column h2 {
+    margin-bottom: 4px;
+
+    font-size: 0.76rem;
+  }
+
+  .entourage-column p {
+    font-size: 0.62rem;
+
+    line-height: 1.16;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 601px) and (max-width: 849px) {
+  .entourage-page {
+    width: 100%;
+
+    max-width: 760px;
+
+    min-height: 1150px;
+
+    margin: 0 auto;
+
+    background-size: 100% auto;
+    background-position: top center;
+
+    box-shadow:
+      0 0 35px rgba(0, 0, 0, 0.22);
+  }
+
+  .entourage-content {
+    min-height: 1150px;
+
+    padding-top: 70px;
+  }
+
+  .entourage-monogram {
+    font-size: 2rem;
+  }
+
+  .entourage-heading {
+    font-size: 6rem;
+
+    margin-top: 35px;
+    margin-bottom: 45px;
+  }
+
+  .entourage-list {
+    max-width: 580px;
+  }
+
+  .entourage-group {
+    margin-bottom: 38px;
+  }
+
+  .entourage-group h2 {
+    margin-bottom: 6px;
+
+    font-size: 1.2rem;
+  }
+
+  .entourage-group p {
+    margin: 1px 0;
+
+    font-size: 1rem;
+
+    line-height: 1.3;
+  }
+
+  .entourage-columns {
+    max-width: 380px;
+
+    gap: 24px;
+
+    margin-top: 14px;
+    margin-bottom: 38px;
+  }
+
+  .entourage-column h2 {
+    margin-bottom: 6px;
+
+    font-size: 1.05rem;
+  }
+
+  .entourage-column p {
+    margin: 1px 0;
+
+    font-size: 0.86rem;
+
+    line-height: 1.2;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 850px) {
+  .entourage-page {
+    width: 100%;
+
+    max-width: 1100px;
+
+    min-height: 1700px;
+
+    margin: 0 auto;
+
+    background-size: 100% auto;
+    background-position: top center;
+
+    box-shadow:
+      0 0 50px rgba(0, 0, 0, 0.28);
+  }
+
+  .entourage-content {
+    min-height: 1700px;
+
+    padding-top: 120px;
+
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 100px;
+  }
+
+  .entourage-monogram {
+    font-size: 2.8rem;
+  }
+
+  .entourage-heading {
+    margin-top: 80px;
+    margin-bottom: 60px;
+
+    font-size: 9rem;
+  }
+
+  .entourage-list {
+    max-width: 700px;
+  }
+
+  .entourage-group {
+    margin-bottom: 42px;
+  }
+
+  .entourage-group h2 {
+    margin-bottom: 7px;
+
+    font-size: 1.35rem;
+  }
+
+  .entourage-group p {
+    margin: 2px 0;
+
+    font-size: 1.15rem;
+
+    line-height: 1.3;
+  }
+
+  .entourage-columns {
+    max-width: 420px;
+
+    gap: 30px;
+
+    margin-top: 16px;
+    margin-bottom: 42px;
+  }
+
+  .entourage-column h2 {
+    margin-bottom: 7px;
+
+    font-size: 1.15rem;
+  }
+
+  .entourage-column p {
+    margin: 2px 0;
+
+    font-size: 0.95rem;
+
+    line-height: 1.22;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1400px) {
+  .entourage-page {
+    max-width: 1200px;
+
+    min-height: 1850px;
+
+    background-size: 100% auto;
+    background-position: top center;
+  }
+
+  .entourage-content {
+    min-height: 1850px;
+
+    padding-top: 135px;
+  }
+
+  .entourage-monogram {
+    font-size: 3rem;
+  }
+
+  .entourage-heading {
+    font-size: 8.5rem;
+
+    margin-bottom: 70px;
+  }
+
+  .entourage-list {
+    max-width: 750px;
+  }
+
+  .entourage-group {
+    margin-bottom: 48px;
+  }
+
+  .entourage-group h2 {
+    margin-bottom: 7px;
+
+    font-size: 1.5rem;
+  }
+
+  .entourage-group p {
+    margin: 2px 0;
+
+    font-size: 1.25rem;
+
+    line-height: 1.3;
+  }
+
+  .entourage-columns {
+    max-width: 440px;
+
+    gap: 34px;
+
+    margin-bottom: 48px;
+  }
+
+  .entourage-column h2 {
+    margin-bottom: 7px;
+
+    font-size: 1.2rem;
+  }
+
+  .entourage-column p {
+    margin: 2px 0;
+
+    font-size: 1rem;
+
+    line-height: 1.22;
+  }
+}
+
+/* =========================================================
+   ENTOURAGE TYPOGRAPHY UPDATE
+   - AJensonPro-Lt.ttf for normal names/text
+   - Semibold stays thicker for role headings
+========================================================= */
+
+.entourage-group p,
+.entourage-column p {
+  font-family: "Adobe Jenson Pro", serif;
+  font-weight: 300;
+
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.24);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.entourage-group h2,
+.entourage-column h2 {
+  font-family: "Adobe Jenson Pro", serif;
+  font-weight: 600;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.48);
+}
+
+/* =========================================================
+   GROOMSMEN / BRIDESMAIDS SIZE MATCH
+   Match the same heading and name sizes as the other roles
+========================================================= */
+
+/* Default */
+.entourage-column h2 {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+}
+
+.entourage-column p {
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  line-height: 1.25;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .entourage-column h2 {
+    font-size: 0.82rem;
+    line-height: 1.15;
+  }
+
+  .entourage-column p {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 390px) {
+  .entourage-column h2 {
+    font-size: 0.76rem;
+  }
+
+  .entourage-column p {
+    font-size: 0.64rem;
+    line-height: 1.18;
+  }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 849px) {
+  .entourage-column h2 {
+    font-size: 1.2rem;
+  }
+
+  .entourage-column p {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+}
+
+/* Desktop */
+@media (min-width: 850px) {
+  .entourage-column h2 {
+    font-size: 1.35rem;
+  }
+
+  .entourage-column p {
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+  .entourage-column h2 {
+    font-size: 1.5rem;
+  }
+
+  .entourage-column p {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+}
+

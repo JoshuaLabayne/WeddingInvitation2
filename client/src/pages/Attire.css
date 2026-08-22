@@ -1,0 +1,587 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap");
+
+/* =========================
+   FONTS
+========================= */
+
+@font-face {
+  font-family: "Sloop ScriptTwo";
+  src: url("../assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sloop Script Regular";
+  src: url("../assets/fonts/Sloop-Script-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.attire-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0 auto;
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: repeat-y;
+  color: white;
+  overflow-x: hidden;
+}
+
+.attire-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 15, 0.05),
+    rgba(10, 20, 15, 0.12),
+    rgba(10, 20, 15, 0.22)
+  );
+  pointer-events: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.attire-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 70px 24px 90px;
+}
+
+/* =========================
+   MONOGRAM
+   FADE ANIMATION
+========================= */
+
+.attire-monogram {
+  margin: 0;
+  line-height: 1;
+
+  opacity: 0;
+  animation:
+    attireSoftFadeIn
+    0.8s
+    ease
+    0.05s
+    forwards;
+}
+
+.attire-monogram-icon {
+  width: 28px;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   TITLE
+   LEFT TO RIGHT ANIMATION
+========================= */
+
+.attire-heading {
+  margin: 80px 0 45px;
+  font-family: "Sloop Script Regular", "Great Vibes", cursive;
+  font-size: clamp(4.5rem, 13vw, 7rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+  transform: translateX(-70px);
+
+  animation:
+    attireSlideLeftToRight
+    1.05s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.15s
+    forwards;
+}
+
+/* =========================
+   SECTIONS
+   FADE ANIMATION
+========================= */
+
+.attire-section {
+  width: 100%;
+  max-width: 650px;
+  margin-bottom: 60px;
+
+  opacity: 0;
+  animation:
+    attireSoftFadeIn
+    1s
+    ease
+    0.55s
+    forwards;
+}
+
+.attire-section h2 {
+  margin: 0 0 22px;
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(1.3rem, 4vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.attire-block {
+  margin-bottom: 22px;
+}
+
+.attire-block h3 {
+  margin: 0 0 6px;
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.attire-block p {
+  margin: 0;
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(0.9rem, 2.8vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.attire-note {
+  margin-top: 4px !important;
+  font-weight: 300 !important;
+  font-style: italic;
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem) !important;
+}
+
+/* =========================
+   ILLUSTRATIONS
+========================= */
+
+.attire-illustration {
+  display: block;
+  margin: 28px auto 0;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.attire-illustration-top {
+  max-width: 180px;
+}
+
+.attire-illustration-bottom {
+  max-width: 270px;
+}
+
+/* =========================
+   COLOR PALETTE
+========================= */
+
+.attire-palette {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 18px auto 26px;
+}
+
+.attire-palette-image {
+  display: block;
+
+  width: 140px;
+  max-width: 100%;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes attireSlideLeftToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-70px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes attireSoftFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .attire-monogram,
+  .attire-heading,
+  .attire-section {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .attire-content {
+    padding: 40px 22px 60px;
+  }
+
+  .attire-monogram-icon {
+    width: 24px;
+  }
+
+  .attire-heading {
+    margin-top: 35px;
+    margin-bottom: 35px;
+    font-size: clamp(4rem, 18vw, 5.5rem);
+  }
+
+  .attire-section {
+    max-width: 390px;
+    margin-bottom: 48px;
+  }
+
+  .attire-section h2 {
+    margin-bottom: 18px;
+    font-size: 1.25rem;
+  }
+
+  .attire-block {
+    margin-bottom: 18px;
+  }
+
+  .attire-block h3 {
+    font-size: 0.95rem;
+  }
+
+  .attire-block p {
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  .attire-note {
+    font-size: 0.76rem !important;
+  }
+
+  .attire-illustration-top {
+    max-width: 140px;
+  }
+
+  .attire-illustration-bottom {
+    max-width: 220px;
+  }
+
+  .palette-color {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  .attire-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .attire-heading {
+    font-size: 4rem;
+    margin-bottom: 30px;
+  }
+
+  .attire-section h2 {
+    font-size: 1.15rem;
+  }
+
+  .attire-block h3 {
+    font-size: 0.88rem;
+  }
+
+  .attire-block p {
+    font-size: 0.8rem;
+  }
+
+  .attire-note {
+    font-size: 0.72rem !important;
+  }
+
+  .attire-illustration-top {
+    max-width: 125px;
+  }
+
+  .attire-illustration-bottom {
+    max-width: 200px;
+  }
+
+  .palette-color {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 601px) and (max-width: 849px) {
+  .attire-page {
+    width: 100%;
+    max-width: 760px;
+    min-height: 1150px;
+    margin: 0 auto;
+    box-shadow:
+      0 0 35px rgba(0, 0, 0, 0.22);
+  }
+
+  .attire-content {
+    min-height: 1150px;
+    padding-top: 70px;
+  }
+
+  .attire-monogram-icon {
+    width: 26px;
+  }
+
+  .attire-heading {
+    font-size: 6rem;
+    margin-top: 35px;
+    margin-bottom: 45px;
+  }
+
+  .attire-section {
+    max-width: 580px;
+    margin-bottom: 55px;
+  }
+
+  .attire-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .attire-block h3 {
+    font-size: 1.08rem;
+  }
+
+  .attire-block p {
+    font-size: 1rem;
+  }
+
+  .attire-illustration-top {
+    max-width: 170px;
+  }
+
+  .attire-illustration-bottom {
+    max-width: 250px;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 850px) {
+  .attire-page {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 1700px;
+    margin: 0 auto;
+    box-shadow:
+      0 0 50px rgba(0, 0, 0, 0.28);
+  }
+
+  .attire-content {
+    min-height: 1700px;
+    padding-top: 120px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 100px;
+  }
+
+  .attire-monogram-icon {
+    width: 32px;
+  }
+
+  .attire-heading {
+    margin-top: 80px;
+    margin-bottom: 60px;
+    font-size: 9rem;
+  }
+
+  .attire-section {
+    max-width: 700px;
+    margin-bottom: 70px;
+  }
+
+  .attire-section h2 {
+    margin-bottom: 28px;
+    font-size: 1.75rem;
+  }
+
+  .attire-block {
+    margin-bottom: 24px;
+  }
+
+  .attire-block h3 {
+    font-size: 1.2rem;
+  }
+
+  .attire-block p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+  }
+
+  .attire-note {
+    font-size: 0.95rem !important;
+  }
+
+  .attire-illustration-top {
+    max-width: 210px;
+    margin-top: 34px;
+  }
+
+  .attire-illustration-bottom {
+    max-width: 320px;
+    margin-top: 34px;
+  }
+
+  .attire-palette {
+    max-width: 190px;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .palette-color {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1400px) {
+  .attire-page {
+    max-width: 1200px;
+    min-height: 1850px;
+  }
+
+  .attire-content {
+    min-height: 1850px;
+    padding-top: 135px;
+  }
+
+  .attire-monogram-icon {
+    width: 34px;
+  }
+
+  .attire-heading {
+    font-size: 8.5rem;
+    margin-bottom: 70px;
+  }
+
+  .attire-section {
+    max-width: 750px;
+    margin-bottom: 75px;
+  }
+
+  .attire-section h2 {
+    font-size: 2rem;
+  }
+
+  .attire-block h3 {
+    font-size: 1.3rem;
+  }
+
+  .attire-block p {
+    font-size: 1.2rem;
+  }
+
+  .attire-illustration-top {
+    max-width: 230px;
+  }
+
+  .attire-illustration-bottom {
+    max-width: 370px;
+  }
+
+  .palette-color {
+    width: 36px;
+    height: 36px;
+  }
+}

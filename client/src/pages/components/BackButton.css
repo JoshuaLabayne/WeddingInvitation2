@@ -1,0 +1,45 @@
+.back-image-button {
+  position: absolute;
+
+  top: 40px;
+  left: 40px;
+
+  z-index: 9999;
+
+  padding: 0;
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.back-image-button img {
+  display: block;
+
+  width: 40px;
+  height: auto;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.back-image-button:hover img {
+  transform: scale(1.08);
+}
+
+.back-image-button:active img {
+  transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+  .back-image-button {
+    top: 22px;
+    left: 22px;
+  }
+
+  .back-image-button img {
+    width: 30px;
+  }
+}

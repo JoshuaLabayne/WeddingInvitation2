@@ -1,0 +1,644 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap");
+
+/* =========================
+   FONTS
+========================= */
+
+@font-face {
+  font-family: "Sloop ScriptTwo";
+  src: url("../assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sloop Script Regular";
+  src: url("../assets/fonts/Sloop-Script-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.venue-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0 auto;
+
+  /* Fit the full background image to the page width without cropping */
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-color: #203127;
+
+  color: white;
+  overflow: hidden;
+}
+
+.venue-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 15, 0.05),
+    rgba(10, 20, 15, 0.12),
+    rgba(10, 20, 15, 0.22)
+  );
+
+  pointer-events: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.venue-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  padding: 70px 24px 80px;
+}
+
+/* =========================
+   VENUE TITLE
+   LEFT TO RIGHT ANIMATION
+========================= */
+
+.venue-heading {
+  margin: 80px 0 45px;
+
+  font-family: "Sloop Script Regular", "Great Vibes", cursive;
+  font-size: clamp(4.5rem, 13vw, 7rem);
+  font-weight: 400;
+  line-height: 0.95;
+
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+  transform: translateX(-70px);
+
+  animation:
+    venueSlideLeftToRight
+    1.05s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.12s
+    forwards;
+}
+
+/* =========================
+   LIGHT ITALIC TEXT
+========================= */
+
+.venue-light-italic {
+  font-family: "Adobe Jenson Pro", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* =========================
+   GOOGLE MAP
+   FADE ANIMATION
+========================= */
+
+.venue-map-wrapper {
+  width: min(60vw, 290px);
+
+  border: 3px solid #99116d;
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: white;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+
+  animation:
+    venueSoftFadeIn
+    0.9s
+    ease
+    0.42s
+    forwards;
+}
+
+.venue-map {
+  display: block;
+
+  width: 100%;
+  height: 270px;
+
+  border: 0;
+  border-radius: 7px;
+}
+
+/* =========================
+   VENUE DETAILS
+   FADE ANIMATION
+========================= */
+
+.venue-details {
+  width: 100%;
+  max-width: 650px;
+
+  margin-top: 42px;
+
+  opacity: 0;
+
+  animation:
+    venueSoftFadeIn
+    0.95s
+    ease
+    0.68s
+    forwards;
+}
+
+.venue-details h2 {
+  margin: 0 0 24px;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(1.7rem, 5.5vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.25;
+
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   PARAGRAPHS
+========================= */
+
+.venue-description {
+  margin: 0 0 45px;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(0.9rem, 2.8vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.6;
+
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.venue-description strong {
+  font-family: "Adobe Jenson Pro", serif;
+  font-weight: 700;
+}
+
+.venue-description.venue-light-italic {
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* =========================
+   GO TO MAP BUTTON
+   FADE ANIMATION
+========================= */
+
+.go-to-map-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 165px;
+
+  margin-top: 5px;
+  padding: 9px 28px;
+
+  border: none;
+  border-radius: 5px;
+
+  background: #97156a;
+  color: white;
+
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  letter-spacing: 1px;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+
+  animation:
+    venueSoftFadeIn
+    0.95s
+    ease
+    0.94s
+    forwards;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.go-to-map-btn:hover {
+  background: #af1c7b;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes venueSlideLeftToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-70px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes venueSoftFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .venue-heading,
+  .venue-map-wrapper,
+  .venue-details,
+  .go-to-map-btn {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .venue-page {
+    width: 100%;
+
+    background-size: 100% auto;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  .venue-content {
+    padding: 40px 22px 60px;
+  }
+
+  .venue-heading {
+    margin-top: 35px;
+    margin-bottom: 35px;
+
+    font-size: clamp(4rem, 18vw, 5.5rem);
+  }
+
+  .venue-map-wrapper {
+    width: min(88vw, 300px);
+
+    border-width: 3px;
+    border-radius: 10px;
+  }
+
+  .venue-map {
+    height: 200px;
+
+    border-radius: 7px;
+  }
+
+  .venue-details {
+    max-width: 390px;
+
+    margin-top: 32px;
+  }
+
+  .venue-details h2 {
+    margin-bottom: 20px;
+
+    font-size: 1.3rem;
+  }
+
+  .venue-description {
+    margin-bottom: 34px;
+
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .go-to-map-btn {
+    min-width: 145px;
+
+    padding: 8px 24px;
+
+    font-size: 0.76rem;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  .venue-page {
+    background-size: 100% auto;
+  }
+
+  .venue-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .venue-heading {
+    font-size: 4rem;
+
+    margin-bottom: 30px;
+  }
+
+  .venue-map-wrapper {
+    width: 80vw;
+  }
+
+  .venue-map {
+    height: 240px;
+  }
+
+  .venue-details {
+    margin-top: 28px;
+  }
+
+  .venue-details h2 {
+    margin-bottom: 18px;
+
+    font-size: 1.2rem;
+  }
+
+  .venue-description {
+    margin-bottom: 30px;
+
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 601px) and (max-width: 849px) {
+  .venue-page {
+    width: 100%;
+    max-width: 760px;
+    min-height: 1150px;
+
+    margin: 0 auto;
+
+    background-size: 100% auto;
+    background-position: top center;
+
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.22);
+  }
+
+  .venue-content {
+    min-height: 1150px;
+
+    padding-top: 70px;
+  }
+
+  .venue-heading {
+    font-size: 6rem;
+
+    margin-top: 35px;
+    margin-bottom: 45px;
+  }
+
+  .venue-map-wrapper {
+    width: 460px;
+
+    border-radius: 10px;
+  }
+
+  .venue-map {
+    height: 340px;
+  }
+
+  .venue-details {
+    max-width: 580px;
+
+    margin-top: 40px;
+  }
+
+  .venue-details h2 {
+    margin-bottom: 24px;
+
+    font-size: 1.5rem;
+  }
+
+  .venue-description {
+    margin-bottom: 42px;
+
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 850px) {
+  .venue-page {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 1700px;
+
+    margin: 0 auto;
+
+    background-size: 100% auto;
+    background-position: top center;
+
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.28);
+  }
+
+  .venue-content {
+    min-height: 1700px;
+
+    padding-top: 120px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 100px;
+  }
+
+  .venue-heading {
+    margin-top: 80px;
+    margin-bottom: 60px;
+
+    font-size: 9rem;
+  }
+
+  .venue-map-wrapper {
+    width: 760px;
+
+    border-width: 4px;
+    border-radius: 12px;
+  }
+
+  .venue-map {
+    height: 460px;
+
+    border-radius: 8px;
+  }
+
+  .venue-details {
+    max-width: 700px;
+
+    margin-top: 55px;
+  }
+
+  .venue-details h2 {
+    margin-bottom: 28px;
+
+    font-size: 1.75rem;
+  }
+
+  .venue-description {
+    margin-bottom: 50px;
+
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+
+  .go-to-map-btn {
+    min-width: 190px;
+
+    padding: 11px 32px;
+
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1400px) {
+  .venue-page {
+    max-width: 1200px;
+    min-height: 1850px;
+
+    background-size: 100% auto;
+    background-position: top center;
+  }
+
+  .venue-content {
+    min-height: 1850px;
+
+    padding-top: 135px;
+  }
+
+  .venue-heading {
+    font-size: 8.5rem;
+
+    margin-bottom: 70px;
+  }
+
+  .venue-map-wrapper {
+    width: 650px;
+
+    border-radius: 12px;
+  }
+
+  .venue-map {
+    height: 400px;
+  }
+
+  .venue-details {
+    max-width: 750px;
+
+    margin-top: 65px;
+  }
+
+  .venue-details h2 {
+    margin-bottom: 32px;
+
+    font-size: 2.5rem;
+  }
+
+  .venue-description {
+    margin-bottom: 55px;
+
+    font-size: 1.6rem;
+    line-height: 1.45;
+  }
+
+  .go-to-map-btn {
+    min-width: 210px;
+
+    padding: 13px 36px;
+
+    font-size: 1.08rem;
+  }
+}
