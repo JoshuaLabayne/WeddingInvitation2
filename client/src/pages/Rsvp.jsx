@@ -12,11 +12,19 @@ import BackButton from "./components/BackButton.jsx";
    BACKEND URL
 ========================= */
 
-const API_BASE =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.PROD
-    ? "https://were-getting-married-jayelandaimee.onrender.com"
-    : "http://localhost:5000");
+/*
+ * Local development:
+ *   http://localhost:5000
+ *
+ * Render production:
+ *   https://were-getting-married-jayelandaimee.onrender.com
+ *
+ * Using import.meta.env.DEV here prevents an incorrectly configured
+ * VITE_API_URL from forcing the deployed site back to localhost.
+ */
+const API_BASE = import.meta.env.DEV
+  ? "http://localhost:5000"
+  : "https://were-getting-married-jayelandaimee.onrender.com";
 
 const API =
   `${API_BASE}/api/invites`;
