@@ -15,13 +15,6 @@ import editIcon from "../assets/edit.png";
    BACKEND URL
 ========================= */
 
-/*
- * Local development:
- *   http://localhost:5000
- *
- * Production on Render:
- *   https://were-getting-married-jayelandaimee.onrender.com
- */
 const API_BASE = import.meta.env.DEV
   ? "http://localhost:5000"
   : "https://were-getting-married-jayelandaimee.onrender.com";
@@ -31,6 +24,36 @@ const API =
 
 const ADMIN_API =
   `${API_BASE}/api/admin`;
+
+/* =========================
+   ADMIN TOKEN HELPERS
+========================= */
+
+const getAdminToken = () =>
+  sessionStorage.getItem("adminToken");
+
+const getAdminHeaders = (
+  extraHeaders = {}
+) => {
+  const token = getAdminToken();
+
+  return {
+    ...extraHeaders,
+
+    ...(token
+      ? {
+          Authorization:
+            `Bearer ${token}`,
+        }
+      : {}),
+  };
+};
+
+const clearAdminToken = () => {
+  sessionStorage.removeItem(
+    "adminToken"
+  );
+};
 
 /* =========================
    EMPTY MEMBER
@@ -132,16 +155,14 @@ function Admin() {
   const checkAdminSession =
     useCallback(async () => {
       try {
-        const response =
-          await fetch(
-            `${ADMIN_API}/check`,
-            {
-              credentials:
-                "include",
-            }
+        const token =
+          getAdminToken();
+
+        if (!token) {
+          console.error(
+            "No admin token found."
           );
 
-        if (!response.ok) {
           navigate("/", {
             replace: true,
           });
@@ -149,12 +170,44 @@ function Admin() {
           return false;
         }
 
+        const response =
+          await fetch(
+            `${ADMIN_API}/check`,
+            {
+              method: "GET",
+
+              headers:
+                getAdminHeaders(),
+            }
+          );
+
+        if (!response.ok) {
+          console.error(
+            "Admin session check failed:",
+            response.status
+          );
+
+          clearAdminToken();
+
+          navigate("/", {
+            replace: true,
+          });
+
+          return false;
+        }
+
+        console.log(
+          "✅ Admin authenticated"
+        );
+
         return true;
       } catch (error) {
         console.error(
           "Admin session check failed:",
           error
         );
+
+        clearAdminToken();
 
         navigate("/", {
           replace: true,
@@ -173,14 +226,16 @@ function Admin() {
       try {
         const response =
           await fetch(API, {
-            credentials:
-              "include",
+            headers:
+              getAdminHeaders(),
           });
 
         if (
           response.status === 401 ||
           response.status === 403
         ) {
+          clearAdminToken();
+
           navigate("/", {
             replace: true,
           });
@@ -214,8 +269,8 @@ function Admin() {
           await fetch(
             `${API}/stats`,
             {
-              credentials:
-                "include",
+              headers:
+                getAdminHeaders(),
             }
           );
 
@@ -223,6 +278,8 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
+          clearAdminToken();
+
           navigate("/", {
             replace: true,
           });
@@ -462,13 +519,11 @@ function Admin() {
             {
               method: "POST",
 
-              credentials:
-                "include",
-
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
+              headers:
+                getAdminHeaders({
+                  "Content-Type":
+                    "application/json",
+                }),
 
               body:
                 JSON.stringify({
@@ -485,6 +540,8 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
+          clearAdminToken();
+
           navigate("/", {
             replace: true,
           });
@@ -720,13 +777,11 @@ function Admin() {
         {
           method: "PATCH",
 
-          credentials:
-            "include",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+          headers:
+            getAdminHeaders({
+              "Content-Type":
+                "application/json",
+            }),
           body: JSON.stringify({
             groupName:
               editGroupName.trim(),
@@ -864,8 +919,9 @@ function Admin() {
                 `${API}/${member._id}`,
                 {
                   method: "DELETE",
-                  credentials:
-                    "include",
+
+                  headers:
+                    getAdminHeaders(),
                 }
               )
           )
@@ -940,8 +996,8 @@ function Admin() {
               method:
                 "DELETE",
 
-              credentials:
-                "include",
+              headers:
+                getAdminHeaders(),
             }
           );
 
@@ -949,6 +1005,8 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
+          clearAdminToken();
+
           navigate("/", {
             replace: true,
           });
@@ -1200,19 +1258,28 @@ function Admin() {
 
   const handleLogout = async () => {
     try {
-      await fetch(
-        `${ADMIN_API}/logout`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const token =
+        getAdminToken();
+
+      if (token) {
+        await fetch(
+          `${ADMIN_API}/logout`,
+          {
+            method: "POST",
+
+            headers:
+              getAdminHeaders(),
+          }
+        );
+      }
     } catch (error) {
       console.error(
         "Logout error:",
         error
       );
     } finally {
+      clearAdminToken();
+
       navigate("/", {
         replace: true,
       });
