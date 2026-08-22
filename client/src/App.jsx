@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
 } from "react";
 
@@ -6,7 +7,6 @@ import "./App.css";
 
 import mainBack from "./assets/main-back.png";
 import mainEnvelop from "./assets/main-envelop.png";
-import sandig from "./assets/sandig.MP3";
 
 import {
   useNavigate,
@@ -22,33 +22,144 @@ const API_URL =
 
 /* =========================
    BACKGROUND WEDDING MUSIC
-
-   This Audio object lives outside App,
-   so it keeps playing even when App
-   unmounts after navigating to another route.
 ========================= */
 
-const weddingMusic = new Audio(sandig);
+/*
+ * IMPORTANT:
+ *
+ * The audio file should be here:
+ *
+ * client/public/sandig.MP3
+ *
+ * Because it is inside public/,
+ * we access it directly using:
+ *
+ * /sandig.MP3
+ */
+
+const weddingMusic =
+  new Audio("/sandig.MP3");
 
 weddingMusic.loop = true;
 weddingMusic.volume = 0.5;
 weddingMusic.preload = "auto";
 
-const startWeddingMusic = () => {
-  if (!weddingMusic.paused) {
-    return;
-  }
+/* =========================
+   AUDIO DEBUGGING
+========================= */
 
-  weddingMusic.play().catch((error) => {
+weddingMusic.addEventListener(
+  "canplaythrough",
+  () => {
     console.log(
-      "Music playback is waiting for user interaction:",
-      error
+      "✅ Wedding music loaded successfully"
     );
-  });
-};
+  }
+);
+
+weddingMusic.addEventListener(
+  "error",
+  () => {
+    console.error(
+      "❌ Wedding music failed to load:",
+      weddingMusic.error,
+      weddingMusic.src
+    );
+  }
+);
+
+/* =========================
+   APP
+========================= */
 
 function App() {
   const navigate = useNavigate();
+
+  /* =========================
+     START MUSIC AFTER FIRST
+     USER INTERACTION
+  ========================= */
+
+  useEffect(() => {
+    const startMusic = async () => {
+      /*
+       * If already playing,
+       * don't call play() again.
+       */
+      if (!weddingMusic.paused) {
+        removeMusicListeners();
+        return;
+      }
+
+      try {
+        weddingMusic.volume = 0.5;
+
+        await weddingMusic.play();
+
+        console.log(
+          "✅ Wedding music started"
+        );
+
+        /*
+         * Once music successfully starts,
+         * we don't need these listeners
+         * anymore.
+         */
+        removeMusicListeners();
+      } catch (error) {
+        console.error(
+          "❌ Wedding music could not play:",
+          error
+        );
+      }
+    };
+
+    const removeMusicListeners = () => {
+      document.removeEventListener(
+        "pointerdown",
+        startMusic
+      );
+
+      document.removeEventListener(
+        "touchstart",
+        startMusic
+      );
+
+      document.removeEventListener(
+        "click",
+        startMusic
+      );
+    };
+
+    /*
+     * Pointerdown works for most
+     * desktop/mobile browsers.
+     *
+     * touchstart and click are included
+     * as fallbacks.
+     */
+    document.addEventListener(
+      "pointerdown",
+      startMusic
+    );
+
+    document.addEventListener(
+      "touchstart",
+      startMusic,
+      {
+        passive: true,
+      }
+    );
+
+    document.addEventListener(
+      "click",
+      startMusic
+    );
+
+    return () => {
+      removeMusicListeners();
+    };
+  }, []);
 
   /* =========================
      ADMIN LOGIN STATES
@@ -199,16 +310,14 @@ function App() {
       }
     };
 
+  /* =========================
+     PAGE
+  ========================= */
+
   return (
     <>
       <main
         className="wedding-page"
-        onPointerDownCapture={
-          startWeddingMusic
-        }
-        onClickCapture={
-          startWeddingMusic
-        }
       >
         <section
           className="hero-section"
@@ -217,19 +326,29 @@ function App() {
               `url(${mainBack})`,
           }}
         >
-          <div className="overlay" />
+          <div
+            className="overlay"
+          />
 
-          <div className="hero-content">
+          <div
+            className="hero-content"
+          >
             {/* =========================
                 COUPLE NAMES
             ========================= */}
 
-            <div className="names-section">
-              <h1 className="couple-name jayel-name">
+            <div
+              className="names-section"
+            >
+              <h1
+                className="couple-name jayel-name"
+              >
                 Jay-el de Dios
               </h1>
 
-              {/* SECRET ADMIN ACCESS */}
+              {/* =========================
+                  SECRET ADMIN ACCESS
+              ========================= */}
 
               <p
                 className="and-text"
@@ -255,7 +374,9 @@ function App() {
                 AND
               </p>
 
-              <h1 className="couple-name aimee-name">
+              <h1
+                className="couple-name aimee-name"
+              >
                 Aimee Avanceña
               </h1>
             </div>
@@ -264,8 +385,12 @@ function App() {
                 WEDDING INFO
             ========================= */}
 
-            <div className="wedding-info">
-              <p className="invite-text">
+            <div
+              className="wedding-info"
+            >
+              <p
+                className="invite-text"
+              >
                 Invite you to the
                 ceremony and
                 <br />
@@ -273,19 +398,27 @@ function App() {
                 marriage on
               </p>
 
-              <h2 className="wedding-date">
+              <h2
+                className="wedding-date"
+              >
                 10.13.2026
               </h2>
 
-              <p className="venue-text">
+              <p
+                className="venue-text"
+              >
                 2PM at Sofia&apos;s
                 Lake Resort, Cavinti,
                 Laguna
               </p>
 
-              <p className="boat-text">
+              <p
+                className="boat-text"
+              >
                 Be there at{" "}
-                <span className="boat-time">
+                <span
+                  className="boat-time"
+                >
                   12:30
                 </span>{" "}
                 for the boat ride!
@@ -296,7 +429,9 @@ function App() {
                 ENVELOPE MENU
             ========================= */}
 
-            <div className="envelope-menu-wrapper">
+            <div
+              className="envelope-menu-wrapper"
+            >
               <img
                 src={
                   mainEnvelop
@@ -305,7 +440,9 @@ function App() {
                 className="envelope-menu-image"
               />
 
-              <div className="envelope-buttons">
+              <div
+                className="envelope-buttons"
+              >
                 <button
                   type="button"
                   onClick={() =>
@@ -400,7 +537,6 @@ function App() {
               ×
             </button>
 
-           
             <h2
               id="admin-login-title"
               className="admin-login-title"
@@ -408,7 +544,9 @@ function App() {
               Admin
             </h2>
 
-            <p className="admin-login-description">
+            <p
+              className="admin-login-description"
+            >
               Please enter the
               administrator password
               to continue.
@@ -419,7 +557,9 @@ function App() {
                 handleAdminLogin
               }
             >
-              <div className="admin-password-wrapper">
+              <div
+                className="admin-password-wrapper"
+              >
                 <input
                   type="password"
                   value={
@@ -448,7 +588,9 @@ function App() {
               </div>
 
               {adminError && (
-                <p className="admin-login-error">
+                <p
+                  className="admin-login-error"
+                >
                   {adminError}
                 </p>
               )}
