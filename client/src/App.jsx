@@ -6,7 +6,7 @@ import "./App.css";
 
 import mainBack from "./assets/main-back.png";
 import mainEnvelop from "./assets/main-envelop.png";
-import sandig from "./assets/sandig.mp3";
+import sandig from "./assets/sandig.MP3";
 
 import {
   useNavigate,
