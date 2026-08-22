@@ -11,9 +11,20 @@ import "./Admin.css";
 
 import editIcon from "../assets/edit.png";
 
-const API_BASE =
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:5000";
+/* =========================
+   BACKEND URL
+========================= */
+
+/*
+ * Local development:
+ *   http://localhost:5000
+ *
+ * Production on Render:
+ *   https://were-getting-married-jayelandaimee.onrender.com
+ */
+const API_BASE = import.meta.env.DEV
+  ? "http://localhost:5000"
+  : "https://were-getting-married-jayelandaimee.onrender.com";
 
 const API =
   `${API_BASE}/api/invites`;
@@ -786,7 +797,7 @@ function Admin() {
       );
 
       setEditMessage(
-        "Could not save changes. Make sure the backend server is running on port 5000."
+        "Could not save changes. Please check the backend connection and try again."
       );
     } finally {
       setSavingEdit(false);
