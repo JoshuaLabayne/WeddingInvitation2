@@ -11,7 +11,7 @@ const TOKEN_LIFETIME =
   24 * 60 * 60 * 1000;
 
 /* =========================
-   CREATE TOKEN
+   CREATE ADMIN TOKEN
 ========================= */
 
 function createAdminToken() {
@@ -48,26 +48,34 @@ function createAdminToken() {
 }
 
 /* =========================
-   VERIFY TOKEN
+   VERIFY ADMIN TOKEN
 ========================= */
 
 function verifyAdminToken(token) {
   try {
     if (!token) {
+      console.log(
+        "❌ No token provided"
+      );
+
+      return false;
+    }
+
+    const parts =
+      token.split(".");
+
+    if (parts.length !== 2) {
+      console.log(
+        "❌ Invalid token format"
+      );
+
       return false;
     }
 
     const [
       encodedPayload,
       providedSignature,
-    ] = token.split(".");
-
-    if (
-      !encodedPayload ||
-      !providedSignature
-    ) {
-      return false;
-    }
+    ] = parts;
 
     const expectedSignature =
       crypto
@@ -80,28 +88,38 @@ function verifyAdminToken(token) {
 
     const providedBuffer =
       Buffer.from(
-        providedSignature
+        providedSignature,
+        "utf8"
       );
 
     const expectedBuffer =
       Buffer.from(
-        expectedSignature
+        expectedSignature,
+        "utf8"
       );
 
     if (
       providedBuffer.length !==
       expectedBuffer.length
     ) {
+      console.log(
+        "❌ Signature length mismatch"
+      );
+
       return false;
     }
 
-    const signatureValid =
+    const validSignature =
       crypto.timingSafeEqual(
         providedBuffer,
         expectedBuffer
       );
 
-    if (!signatureValid) {
+    if (!validSignature) {
+      console.log(
+        "❌ Invalid token signature"
+      );
+
       return false;
     }
 
@@ -118,6 +136,10 @@ function verifyAdminToken(token) {
     if (
       payload.role !== "admin"
     ) {
+      console.log(
+        "❌ Invalid token role"
+      );
+
       return false;
     }
 
@@ -126,13 +148,17 @@ function verifyAdminToken(token) {
       Date.now() >
         payload.expiresAt
     ) {
+      console.log(
+        "❌ Admin token expired"
+      );
+
       return false;
     }
 
     return true;
   } catch (error) {
     console.error(
-      "Token verification error:",
+      "❌ Token verification error:",
       error
     );
 
@@ -144,9 +170,16 @@ function verifyAdminToken(token) {
    GET BEARER TOKEN
 ========================= */
 
-function getAdminToken(req) {
+function getBearerToken(req) {
   const authorization =
     req.headers.authorization;
+
+  console.log(
+    "Authorization header:",
+    authorization
+      ? "Bearer token received"
+      : "NO AUTHORIZATION HEADER"
+  );
 
   if (!authorization) {
     return null;
@@ -217,15 +250,13 @@ router.post(
         .json({
           success: true,
           authenticated: true,
-
           token,
-
           message:
             "Login successful.",
         });
     } catch (error) {
       console.error(
-        "Admin login error:",
+        "❌ Admin login error:",
         error
       );
 
@@ -241,7 +272,7 @@ router.post(
 );
 
 /* =========================
-   CHECK ADMIN SESSION
+   CHECK ADMIN
 ========================= */
 
 router.get(
@@ -249,15 +280,13 @@ router.get(
   (req, res) => {
     try {
       const token =
-        getAdminToken(req);
+        getBearerToken(req);
 
       if (
-        !verifyAdminToken(
-          token
-        )
+        !verifyAdminToken(token)
       ) {
         console.log(
-          "❌ Invalid admin token"
+          "❌ Admin authentication failed"
         );
 
         return res
@@ -271,7 +300,7 @@ router.get(
       }
 
       console.log(
-        "✅ Admin authenticated"
+        "✅ Admin token verified"
       );
 
       return res
@@ -282,7 +311,7 @@ router.get(
         });
     } catch (error) {
       console.error(
-        "Admin check error:",
+        "❌ Admin check error:",
         error
       );
 
@@ -291,6 +320,8 @@ router.get(
         .json({
           success: false,
           authenticated: false,
+          message:
+            "Unable to verify admin.",
         });
     }
   }
@@ -304,9 +335,9 @@ router.post(
   "/logout",
   (req, res) => {
     /*
-     * With this authentication method
-     * logout happens by deleting the
-     * token from sessionStorage.
+     * No server-side session exists.
+     * The frontend deletes adminToken
+     * from sessionStorage.
      */
 
     return res
@@ -321,7 +352,17 @@ router.post(
 );
 
 /* =========================
-   EXPORT
+   EXPORT HELPERS
+========================= */
+
+router.verifyAdminToken =
+  verifyAdminToken;
+
+router.getBearerToken =
+  getBearerToken;
+
+/* =========================
+   EXPORT ROUTER
 ========================= */
 
 module.exports = router;
