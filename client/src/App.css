@@ -2,39 +2,42 @@
 
 @font-face {
   font-family: "Sloop ScriptTwo";
-  src: url("./assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
+  src: url("/Sloop-ScriptTwo.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Sloop Script Regular";
-  src: url("./assets/fonts/Sloop-Script-Regular.otf") format("opentype");
+  src: url("/Sloop-Script-Regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("./assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
-  font-weight: normal;
+  src: url("/AdobeJensonPro-Regular.otf") format("opentype");
+  font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("./assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  src: url("/AdobeJensonPro-Semibold.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("./assets/fonts/AdobeJensonPro-LightItalic.otf") format("opentype");
+  src: url("/AdobeJensonPro-LightItalic.otf") format("opentype");
   font-weight: 300;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("./assets/fonts/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  src: url("/AdobeJensonPro-BoldItalic.otf") format("opentype");
   font-weight: 700;
   font-style: italic;
 }
