@@ -249,14 +249,19 @@ function App() {
         setAdminLoading(true);
         setAdminError("");
 
+        /*
+         * Remove any old/expired admin token
+         * before attempting a new login.
+         */
+        sessionStorage.removeItem(
+          "adminToken"
+        );
+
         const response =
           await fetch(
             `${API_URL}/api/admin/login`,
             {
               method: "POST",
-
-              credentials:
-                "include",
 
               headers: {
                 "Content-Type":
@@ -289,6 +294,37 @@ function App() {
           return;
         }
 
+        /*
+         * The backend now returns a signed
+         * Bearer token instead of relying on
+         * a cross-service Render cookie.
+         */
+        if (!data.token) {
+          console.error(
+            "Admin login succeeded but no token was returned:",
+            data
+          );
+
+          setAdminError(
+            "Login succeeded, but the server did not return an admin token."
+          );
+
+          return;
+        }
+
+        /*
+         * sessionStorage keeps the token only
+         * for this browser tab/session.
+         */
+        sessionStorage.setItem(
+          "adminToken",
+          data.token
+        );
+
+        console.log(
+          "✅ Admin token saved"
+        );
+
         setShowAdminLogin(false);
         setAdminPassword("");
         setAdminError("");
@@ -300,6 +336,10 @@ function App() {
         console.error(
           "Admin login error:",
           error
+        );
+
+        sessionStorage.removeItem(
+          "adminToken"
         );
 
         setAdminError(
