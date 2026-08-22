@@ -5,12 +5,173 @@ const Invite = require(
   "../models/Invite"
 );
 
-const requireAdmin = require(
-  "../middleware/requireAdmin"
-);
-
 const router =
   express.Router();
+
+/* =========================
+   ADMIN TOKEN AUTH
+   Matches adminAuthRoutes.js
+========================= */
+
+const verifyAdminToken = (
+  token
+) => {
+  try {
+    if (!token) {
+      return false;
+    }
+
+    const parts =
+      token.split(".");
+
+    if (parts.length !== 2) {
+      return false;
+    }
+
+    const [
+      encodedPayload,
+      providedSignature,
+    ] = parts;
+
+    const expectedSignature =
+      crypto
+        .createHmac(
+          "sha256",
+          process.env.COOKIE_SECRET
+        )
+        .update(encodedPayload)
+        .digest("base64url");
+
+    const providedBuffer =
+      Buffer.from(
+        providedSignature,
+        "utf8"
+      );
+
+    const expectedBuffer =
+      Buffer.from(
+        expectedSignature,
+        "utf8"
+      );
+
+    if (
+      providedBuffer.length !==
+      expectedBuffer.length
+    ) {
+      return false;
+    }
+
+    const signatureIsValid =
+      crypto.timingSafeEqual(
+        providedBuffer,
+        expectedBuffer
+      );
+
+    if (!signatureIsValid) {
+      return false;
+    }
+
+    const payload =
+      JSON.parse(
+        Buffer
+          .from(
+            encodedPayload,
+            "base64url"
+          )
+          .toString("utf8")
+      );
+
+    if (
+      payload.role !== "admin"
+    ) {
+      return false;
+    }
+
+    if (
+      !payload.expiresAt ||
+      Date.now() >
+        payload.expiresAt
+    ) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error(
+      "Admin token verification error:",
+      error
+    );
+
+    return false;
+  }
+};
+
+const requireAdmin = (
+  req,
+  res,
+  next
+) => {
+  const authorization =
+    req.headers.authorization;
+
+  if (!authorization) {
+    console.log(
+      "❌ Admin route: no Authorization header"
+    );
+
+    return res
+      .status(401)
+      .json({
+        success: false,
+        message:
+          "Unauthorized.",
+      });
+  }
+
+  const [
+    type,
+    token,
+  ] = authorization.split(" ");
+
+  if (
+    type !== "Bearer" ||
+    !token
+  ) {
+    console.log(
+      "❌ Admin route: invalid Authorization header"
+    );
+
+    return res
+      .status(401)
+      .json({
+        success: false,
+        message:
+          "Unauthorized.",
+      });
+  }
+
+  if (
+    !verifyAdminToken(token)
+  ) {
+    console.log(
+      "❌ Admin route: Bearer token rejected"
+    );
+
+    return res
+      .status(401)
+      .json({
+        success: false,
+        message:
+          "Unauthorized.",
+      });
+  }
+
+  console.log(
+    "✅ Admin route: Bearer token verified"
+  );
+
+  next();
+};
 
 /* =========================
    HELPERS
@@ -697,4 +858,4 @@ router.delete(
   }
 );
 
-module.exports = router;    
+module.exports = router;
