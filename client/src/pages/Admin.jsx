@@ -72,6 +72,9 @@ function Admin() {
   const [checkingAuth, setCheckingAuth] =
     useState(true);
 
+  const [authError, setAuthError] =
+    useState("");
+
   const [invites, setInvites] = useState([]);
 
   const [stats, setStats] = useState({
@@ -158,14 +161,15 @@ function Admin() {
         const token =
           getAdminToken();
 
-        if (!token) {
-          console.error(
-            "No admin token found."
-          );
+        console.log(
+          "Admin token exists:",
+          Boolean(token)
+        );
 
-          navigate("/", {
-            replace: true,
-          });
+        if (!token) {
+          setAuthError(
+            "No admin token was found. Please return to the home page and log in again."
+          );
 
           return false;
         }
@@ -177,24 +181,55 @@ function Admin() {
               method: "GET",
 
               headers:
-                getAdminHeaders(),
+                getAdminHeaders({
+                  Accept:
+                    "application/json",
+                }),
             }
           );
 
+        const responseText =
+          await response.text();
+
+        let data = {};
+
+        if (responseText) {
+          try {
+            data =
+              JSON.parse(
+                responseText
+              );
+          } catch {
+            data = {
+              message:
+                responseText,
+            };
+          }
+        }
+
+        console.log(
+          "/api/admin/check:",
+          response.status,
+          data
+        );
+
         if (!response.ok) {
-          console.error(
-            "Admin session check failed:",
-            response.status
+          /*
+           * IMPORTANT:
+           * Do not immediately navigate back to "/".
+           * Keeping the user on /admin makes it possible
+           * to see the real authentication error instead
+           * of flashing back to App.jsx.
+           */
+          setAuthError(
+            data.message ||
+              `Admin authentication failed (${response.status}). The backend rejected the Bearer token.`
           );
-
-          clearAdminToken();
-
-          navigate("/", {
-            replace: true,
-          });
 
           return false;
         }
+
+        setAuthError("");
 
         console.log(
           "✅ Admin authenticated"
@@ -207,15 +242,13 @@ function Admin() {
           error
         );
 
-        clearAdminToken();
-
-        navigate("/", {
-          replace: true,
-        });
+        setAuthError(
+          "Unable to verify admin access. Please check the backend deployment and try again."
+        );
 
         return false;
       }
-    }, [navigate]);
+    }, []);
 
   /* =========================
      FETCH INVITES
@@ -234,11 +267,9 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
-          clearAdminToken();
-
-          navigate("/", {
-            replace: true,
-          });
+          setAuthError(
+            "The backend rejected the admin token while loading invitations."
+          );
 
           return;
         }
@@ -278,11 +309,9 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
-          clearAdminToken();
-
-          navigate("/", {
-            replace: true,
-          });
+          setAuthError(
+            "The backend rejected the admin token while loading statistics."
+          );
 
           return;
         }
@@ -340,6 +369,28 @@ function Admin() {
     fetchInvites,
     fetchStats,
   ]);
+
+  /* =========================
+     RETRY ADMIN AUTH
+  ========================= */
+
+  const retryAdminAuthentication =
+    async () => {
+      setCheckingAuth(true);
+      setAuthError("");
+
+      const authenticated =
+        await checkAdminSession();
+
+      if (authenticated) {
+        await Promise.all([
+          fetchInvites(),
+          fetchStats(),
+        ]);
+      }
+
+      setCheckingAuth(false);
+    };
 
   /* =========================
      ADD MEMBER ROW
@@ -540,11 +591,9 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
-          clearAdminToken();
-
-          navigate("/", {
-            replace: true,
-          });
+          setAuthError(
+            "The backend rejected the admin token while saving an invitation."
+          );
 
           return;
         }
@@ -794,9 +843,9 @@ function Admin() {
         response.status === 401 ||
         response.status === 403
       ) {
-        navigate("/", {
-          replace: true,
-        });
+        setAuthError(
+          "The backend rejected the admin token while editing a group."
+        );
 
         return;
       }
@@ -935,9 +984,10 @@ function Admin() {
         );
 
       if (unauthorized) {
-        navigate("/", {
-          replace: true,
-        });
+        setAuthError(
+          "The backend rejected the admin token while deleting a group."
+        );
+
         return;
       }
 
@@ -1005,11 +1055,9 @@ function Admin() {
           response.status === 401 ||
           response.status === 403
         ) {
-          clearAdminToken();
-
-          navigate("/", {
-            replace: true,
-          });
+          setAuthError(
+            "The backend rejected the admin token while deleting an invitation."
+          );
 
           return;
         }
@@ -1310,6 +1358,64 @@ function Admin() {
           <p className="admin-message">
             Checking admin access...
           </p>
+        </div>
+      </main>
+    );
+  }
+
+  if (authError) {
+    return (
+      <main className="admin-page">
+        <div className="admin-dashboard">
+          <h1 className="admin-title">
+            Admin Access
+          </h1>
+
+          <p className="admin-message">
+            {authError}
+          </p>
+
+          <p className="admin-message">
+            Your login token is still saved.
+            If this says 401, the backend
+            /api/admin/check route is rejecting
+            the Bearer token.
+          </p>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              justifyContent:
+                "center",
+              flexWrap: "wrap",
+              marginTop: "16px",
+            }}
+          >
+            <button
+              type="button"
+              className="save-invite-button"
+              onClick={
+                retryAdminAuthentication
+              }
+            >
+              Retry
+            </button>
+
+            <button
+              type="button"
+              className="edit-cancel-button"
+              onClick={() => {
+                clearAdminToken();
+
+                navigate("/", {
+                  replace: true,
+                });
+              }}
+            >
+              Back to Home
+            </button>
+          </div>
         </div>
       </main>
     );
