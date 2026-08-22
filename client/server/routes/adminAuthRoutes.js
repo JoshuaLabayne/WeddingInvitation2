@@ -1,45 +1,171 @@
 const express = require("express");
+const crypto = require("crypto");
 
 const router = express.Router();
 
 /* =========================
-   COOKIE SETTINGS
+   CONFIG
 ========================= */
 
-const COOKIE_NAME = "adminSession";
+const TOKEN_LIFETIME =
+  24 * 60 * 60 * 1000;
 
-const getCookieOptions = () => {
-  const isProduction =
-    process.env.NODE_ENV === "production";
+/* =========================
+   CREATE TOKEN
+========================= */
 
-  return {
-    httpOnly: true,
+function createAdminToken() {
+  const payload = {
+    role: "admin",
 
-    /*
-     * Render uses HTTPS.
-     */
-    secure: isProduction,
+    expiresAt:
+      Date.now() +
+      TOKEN_LIFETIME,
 
-    /*
-     * Frontend and backend are on
-     * different origins.
-     */
-    sameSite: isProduction
-      ? "none"
-      : "lax",
-
-    /*
-     * cookie-parser will sign the cookie
-     * using COOKIE_SECRET.
-     */
-    signed: true,
-
-    path: "/",
-
-    maxAge:
-      24 * 60 * 60 * 1000,
+    nonce:
+      crypto
+        .randomBytes(16)
+        .toString("hex"),
   };
-};
+
+  const encodedPayload =
+    Buffer
+      .from(
+        JSON.stringify(payload)
+      )
+      .toString("base64url");
+
+  const signature =
+    crypto
+      .createHmac(
+        "sha256",
+        process.env.COOKIE_SECRET
+      )
+      .update(encodedPayload)
+      .digest("base64url");
+
+  return `${encodedPayload}.${signature}`;
+}
+
+/* =========================
+   VERIFY TOKEN
+========================= */
+
+function verifyAdminToken(token) {
+  try {
+    if (!token) {
+      return false;
+    }
+
+    const [
+      encodedPayload,
+      providedSignature,
+    ] = token.split(".");
+
+    if (
+      !encodedPayload ||
+      !providedSignature
+    ) {
+      return false;
+    }
+
+    const expectedSignature =
+      crypto
+        .createHmac(
+          "sha256",
+          process.env.COOKIE_SECRET
+        )
+        .update(encodedPayload)
+        .digest("base64url");
+
+    const providedBuffer =
+      Buffer.from(
+        providedSignature
+      );
+
+    const expectedBuffer =
+      Buffer.from(
+        expectedSignature
+      );
+
+    if (
+      providedBuffer.length !==
+      expectedBuffer.length
+    ) {
+      return false;
+    }
+
+    const signatureValid =
+      crypto.timingSafeEqual(
+        providedBuffer,
+        expectedBuffer
+      );
+
+    if (!signatureValid) {
+      return false;
+    }
+
+    const payload =
+      JSON.parse(
+        Buffer
+          .from(
+            encodedPayload,
+            "base64url"
+          )
+          .toString("utf8")
+      );
+
+    if (
+      payload.role !== "admin"
+    ) {
+      return false;
+    }
+
+    if (
+      !payload.expiresAt ||
+      Date.now() >
+        payload.expiresAt
+    ) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error(
+      "Token verification error:",
+      error
+    );
+
+    return false;
+  }
+}
+
+/* =========================
+   GET BEARER TOKEN
+========================= */
+
+function getAdminToken(req) {
+  const authorization =
+    req.headers.authorization;
+
+  if (!authorization) {
+    return null;
+  }
+
+  const [
+    type,
+    token,
+  ] = authorization.split(" ");
+
+  if (
+    type !== "Bearer" ||
+    !token
+  ) {
+    return null;
+  }
+
+  return token;
+}
 
 /* =========================
    LOGIN
@@ -53,11 +179,13 @@ router.post(
         req.body;
 
       if (!password) {
-        return res.status(400).json({
-          success: false,
-          message:
-            "Password is required.",
-        });
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message:
+              "Password is required.",
+          });
       }
 
       if (
@@ -68,106 +196,102 @@ router.post(
           "❌ Incorrect admin password"
         );
 
-        return res.status(401).json({
-          success: false,
-          message:
-            "Incorrect password.",
-        });
+        return res
+          .status(401)
+          .json({
+            success: false,
+            message:
+              "Incorrect password.",
+          });
       }
 
-      /*
-       * Create signed session cookie.
-       */
-      res.cookie(
-        COOKIE_NAME,
-        "authenticated",
-        getCookieOptions()
-      );
+      const token =
+        createAdminToken();
 
       console.log(
-        "✅ Admin logged in — session cookie created"
+        "✅ Admin login successful"
       );
 
-      return res.status(200).json({
-        success: true,
-        authenticated: true,
-        message:
-          "Login successful.",
-      });
+      return res
+        .status(200)
+        .json({
+          success: true,
+          authenticated: true,
+
+          token,
+
+          message:
+            "Login successful.",
+        });
     } catch (error) {
       console.error(
-        "❌ Admin login error:",
+        "Admin login error:",
         error
       );
 
-      return res.status(500).json({
-        success: false,
-        message:
-          "Unable to log in.",
-      });
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Unable to log in.",
+        });
     }
   }
 );
 
 /* =========================
-   CHECK SESSION
+   CHECK ADMIN SESSION
 ========================= */
 
 router.get(
   "/check",
   (req, res) => {
     try {
-      /*
-       * Because the cookie was created
-       * with signed: true, read it from
-       * req.signedCookies.
-       */
-      const adminSession =
-        req.signedCookies?.[
-          COOKIE_NAME
-        ];
-
-      console.log(
-        "Admin session:",
-        adminSession
-      );
+      const token =
+        getAdminToken(req);
 
       if (
-        adminSession !==
-        "authenticated"
+        !verifyAdminToken(
+          token
+        )
       ) {
         console.log(
-          "❌ Admin session not valid"
+          "❌ Invalid admin token"
         );
 
-        return res.status(401).json({
-          success: false,
-          authenticated: false,
-          message:
-            "Unauthorized.",
-        });
+        return res
+          .status(401)
+          .json({
+            success: false,
+            authenticated: false,
+            message:
+              "Unauthorized.",
+          });
       }
 
       console.log(
-        "✅ Admin session valid"
+        "✅ Admin authenticated"
       );
 
-      return res.status(200).json({
-        success: true,
-        authenticated: true,
-      });
+      return res
+        .status(200)
+        .json({
+          success: true,
+          authenticated: true,
+        });
     } catch (error) {
       console.error(
-        "❌ Admin session check error:",
+        "Admin check error:",
         error
       );
 
-      return res.status(500).json({
-        success: false,
-        authenticated: false,
-        message:
-          "Unable to verify admin session.",
-      });
+      return res
+        .status(500)
+        .json({
+          success: false,
+          authenticated: false,
+        });
     }
   }
 );
@@ -179,51 +303,25 @@ router.get(
 router.post(
   "/logout",
   (req, res) => {
-    try {
-      const isProduction =
-        process.env.NODE_ENV ===
-        "production";
+    /*
+     * With this authentication method
+     * logout happens by deleting the
+     * token from sessionStorage.
+     */
 
-      res.clearCookie(
-        COOKIE_NAME,
-        {
-          httpOnly: true,
-
-          secure:
-            isProduction,
-
-          sameSite:
-            isProduction
-              ? "none"
-              : "lax",
-
-          path: "/",
-        }
-      );
-
-      console.log(
-        "✅ Admin logged out"
-      );
-
-      return res.status(200).json({
+    return res
+      .status(200)
+      .json({
         success: true,
         authenticated: false,
         message:
           "Logged out successfully.",
       });
-    } catch (error) {
-      console.error(
-        "❌ Logout error:",
-        error
-      );
-
-      return res.status(500).json({
-        success: false,
-        message:
-          "Unable to log out.",
-      });
-    }
   }
 );
+
+/* =========================
+   EXPORT
+========================= */
 
 module.exports = router;
