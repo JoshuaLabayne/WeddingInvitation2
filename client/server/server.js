@@ -15,7 +15,7 @@ const adminAuthRoutes = require("./routes/adminAuthRoutes");
 const app = express();
 
 /* =========================
-   ENVIRONMENT VARIABLES
+   REQUIRED ENV VARIABLES
 ========================= */
 
 const requiredEnvVariables = [
@@ -27,7 +27,7 @@ const requiredEnvVariables = [
 for (const variable of requiredEnvVariables) {
   if (!process.env[variable]) {
     console.error(
-      `❌ ${variable} is missing from the environment variables.`
+      `❌ ${variable} is missing from environment variables.`
     );
 
     process.exit(1);
@@ -35,15 +35,12 @@ for (const variable of requiredEnvVariables) {
 }
 
 /* =========================
-   TRUST RENDER PROXY
+   RENDER / HTTPS
 ========================= */
 
 /*
- * Render terminates HTTPS before forwarding
- * requests to your Express server.
- *
- * This allows Express to correctly recognize
- * secure HTTPS requests and secure cookies.
+ * Required because Render puts Express
+ * behind its HTTPS reverse proxy.
  */
 app.set("trust proxy", 1);
 
@@ -58,78 +55,71 @@ app.use(
 );
 
 /* =========================
-   FRONTEND URLS
+   CORS
 ========================= */
 
-const PRODUCTION_FRONTEND =
+const FRONTEND_URL =
   "https://weddinginvitation2.onrender.com";
 
-const allowedOrigins = new Set(
-  [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    PRODUCTION_FRONTEND,
-    process.env.CLIENT_URL,
-  ].filter(Boolean)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  FRONTEND_URL,
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      /*
+       * Allow requests without Origin,
+       * such as Postman/curl.
+       */
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.error(
+        `❌ CORS blocked: ${origin}`
+      );
+
+      return callback(
+        new Error(
+          `Origin ${origin} is not allowed by CORS`
+        )
+      );
+    },
+
+    /*
+     * Required because Admin.jsx and App.jsx
+     * use credentials: "include".
+     */
+    credentials: true,
+
+    methods: [
+      "GET",
+      "POST",
+      "PATCH",
+      "PUT",
+      "DELETE",
+      "OPTIONS",
+    ],
+
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+    ],
+
+    optionsSuccessStatus: 204,
+  })
 );
 
 /* =========================
-   CORS CONFIGURATION
-========================= */
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    /*
-     * Requests made directly through
-     * Postman/curl may have no Origin.
-     */
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    if (allowedOrigins.has(origin)) {
-      return callback(null, true);
-    }
-
-    console.error(
-      `❌ CORS blocked origin: ${origin}`
-    );
-
-    return callback(
-      new Error(
-        `Origin ${origin} is not allowed by CORS`
-      )
-    );
-  },
-
-  /*
-   * VERY IMPORTANT:
-   * Allows browser cookies to travel
-   * between the frontend and backend.
-   */
-  credentials: true,
-
-  methods: [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS",
-  ],
-
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-  ],
-
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
-
-/* =========================
-   BODY PARSER
+   BODY PARSERS
 ========================= */
 
 app.use(
@@ -150,7 +140,9 @@ app.use(
 ========================= */
 
 /*
- * adminAuthRoutes should read cookies using:
+ * IMPORTANT:
+ *
+ * adminAuthRoutes must access the session with:
  *
  * req.signedCookies.adminSession
  */
@@ -161,27 +153,23 @@ app.use(
 );
 
 /* =========================
-   REQUEST LOGGING
+   SIMPLE REQUEST LOGGER
 ========================= */
 
-/*
- * Helpful while debugging Render.
- * Does NOT print passwords or cookies.
- */
 app.use((req, res, next) => {
   console.log(
-    `${req.method} ${req.path}`
+    `${req.method} ${req.originalUrl}`
   );
 
   next();
 });
 
 /* =========================
-   HEALTH ROUTES
+   HEALTH CHECK
 ========================= */
 
 app.get("/", (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
     message:
       "Wedding Invitation API is running.",
@@ -191,18 +179,15 @@ app.get("/", (req, res) => {
 app.get(
   "/api/health",
   (req, res) => {
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       status: "healthy",
-      environment:
-        process.env.NODE_ENV ||
-        "production",
     });
   }
 );
 
 /* =========================
-   API ROUTES
+   ADMIN ROUTES
 ========================= */
 
 app.use(
@@ -210,17 +195,21 @@ app.use(
   adminAuthRoutes
 );
 
+/* =========================
+   INVITE ROUTES
+========================= */
+
 app.use(
   "/api/invites",
   inviteRoutes
 );
 
 /* =========================
-   404 HANDLER
+   404
 ========================= */
 
 app.use((req, res) => {
-  res.status(404).json({
+  return res.status(404).json({
     success: false,
     message: "Route not found.",
   });
@@ -234,12 +223,9 @@ app.use(
   (error, req, res, next) => {
     console.error(
       "❌ Express error:",
-      error.message
+      error
     );
 
-    /*
-     * Handle CORS failures cleanly.
-     */
     if (
       error.message?.includes(
         "not allowed by CORS"
@@ -261,13 +247,14 @@ app.use(
 );
 
 /* =========================
-   SERVER CONFIGURATION
+   SERVER
 ========================= */
 
 const PORT =
   process.env.PORT || 5000;
 
-const HOST = "0.0.0.0";
+const HOST =
+  "0.0.0.0";
 
 /* =========================
    START SERVER
@@ -296,38 +283,29 @@ async function startServer() {
         );
 
         console.log(
-          `✅ Frontend allowed: ${PRODUCTION_FRONTEND}`
+          `✅ Frontend allowed: ${FRONTEND_URL}`
         );
-
-        if (
-          process.env.CLIENT_URL
-        ) {
-          console.log(
-            `✅ CLIENT_URL: ${process.env.CLIENT_URL}`
-          );
-        }
       }
     );
   } catch (error) {
     console.error(
-      "❌ Failed to start server:"
+      "❌ Failed to start server:",
+      error
     );
-
-    console.error(error);
 
     process.exit(1);
   }
 }
 
 /* =========================
-   DATABASE EVENTS
+   MONGODB EVENTS
 ========================= */
 
 mongoose.connection.on(
   "error",
   (error) => {
     console.error(
-      "❌ MongoDB connection error:",
+      "❌ MongoDB error:",
       error
     );
   }
