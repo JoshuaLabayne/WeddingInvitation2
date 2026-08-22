@@ -8,8 +8,18 @@ import "./Rsvp.css";
 import entourageBack from "../assets/entourage-back.png";
 import BackButton from "./components/BackButton.jsx";
 
+/* =========================
+   BACKEND URL
+========================= */
+
+const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD
+    ? "https://were-getting-married-jayelandaimee.onrender.com"
+    : "http://localhost:5000");
+
 const API =
-  "http://localhost:5000/api/invites";
+  `${API_BASE}/api/invites`;
 
 function Rsvp() {
   const [search, setSearch] =
