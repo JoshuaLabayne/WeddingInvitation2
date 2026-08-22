@@ -3,42 +3,54 @@ const express = require("express");
 const router = express.Router();
 
 /* =========================
-   COOKIE CONFIGURATION
+   COOKIE SETTINGS
 ========================= */
 
-const getCookieOptions = () => ({
-  httpOnly: true,
+const COOKIE_NAME = "adminSession";
 
-  // Render uses HTTPS in production
-  secure:
-    process.env.NODE_ENV === "production",
+const getCookieOptions = () => {
+  const isProduction =
+    process.env.NODE_ENV === "production";
 
-  // Required when frontend/backend
-  // are served from different origins
-  sameSite:
-    process.env.NODE_ENV === "production"
+  return {
+    httpOnly: true,
+
+    /*
+     * Render uses HTTPS.
+     */
+    secure: isProduction,
+
+    /*
+     * Frontend and backend are on
+     * different origins.
+     */
+    sameSite: isProduction
       ? "none"
       : "lax",
 
-  signed: true,
+    /*
+     * cookie-parser will sign the cookie
+     * using COOKIE_SECRET.
+     */
+    signed: true,
 
-  path: "/",
+    path: "/",
 
-  maxAge:
-    24 * 60 * 60 * 1000,
-});
+    maxAge:
+      24 * 60 * 60 * 1000,
+  };
+};
 
 /* =========================
-   ADMIN LOGIN
+   LOGIN
 ========================= */
 
 router.post(
   "/login",
   (req, res) => {
     try {
-      const {
-        password,
-      } = req.body;
+      const { password } =
+        req.body;
 
       if (!password) {
         return res.status(400).json({
@@ -52,6 +64,10 @@ router.post(
         password !==
         process.env.ADMIN_PASSWORD
       ) {
+        console.log(
+          "❌ Incorrect admin password"
+        );
+
         return res.status(401).json({
           success: false,
           message:
@@ -60,23 +76,27 @@ router.post(
       }
 
       /*
-       * Store a signed admin session
-       * cookie in the browser.
+       * Create signed session cookie.
        */
       res.cookie(
-        "adminSession",
+        COOKIE_NAME,
         "authenticated",
         getCookieOptions()
       );
 
+      console.log(
+        "✅ Admin logged in — session cookie created"
+      );
+
       return res.status(200).json({
         success: true,
+        authenticated: true,
         message:
-          "Admin login successful.",
+          "Login successful.",
       });
     } catch (error) {
       console.error(
-        "Admin login error:",
+        "❌ Admin login error:",
         error
       );
 
@@ -90,28 +110,36 @@ router.post(
 );
 
 /* =========================
-   CHECK ADMIN SESSION
+   CHECK SESSION
 ========================= */
 
 router.get(
   "/check",
   (req, res) => {
     try {
+      /*
+       * Because the cookie was created
+       * with signed: true, read it from
+       * req.signedCookies.
+       */
       const adminSession =
-        req.signedCookies
-          ?.adminSession;
+        req.signedCookies?.[
+          COOKIE_NAME
+        ];
 
       console.log(
-        "Admin session check:",
+        "Admin session:",
         adminSession
-          ? "cookie received"
-          : "no cookie"
       );
 
       if (
         adminSession !==
         "authenticated"
       ) {
+        console.log(
+          "❌ Admin session not valid"
+        );
+
         return res.status(401).json({
           success: false,
           authenticated: false,
@@ -120,13 +148,17 @@ router.get(
         });
       }
 
+      console.log(
+        "✅ Admin session valid"
+      );
+
       return res.status(200).json({
         success: true,
         authenticated: true,
       });
     } catch (error) {
       console.error(
-        "Admin check error:",
+        "❌ Admin session check error:",
         error
       );
 
@@ -141,27 +173,27 @@ router.get(
 );
 
 /* =========================
-   ADMIN LOGOUT
+   LOGOUT
 ========================= */
 
 router.post(
   "/logout",
   (req, res) => {
     try {
+      const isProduction =
+        process.env.NODE_ENV ===
+        "production";
+
       res.clearCookie(
-        "adminSession",
+        COOKIE_NAME,
         {
           httpOnly: true,
 
           secure:
-            process.env
-              .NODE_ENV ===
-            "production",
+            isProduction,
 
           sameSite:
-            process.env
-              .NODE_ENV ===
-            "production"
+            isProduction
               ? "none"
               : "lax",
 
@@ -169,14 +201,19 @@ router.post(
         }
       );
 
+      console.log(
+        "✅ Admin logged out"
+      );
+
       return res.status(200).json({
         success: true,
+        authenticated: false,
         message:
           "Logged out successfully.",
       });
     } catch (error) {
       console.error(
-        "Admin logout error:",
+        "❌ Logout error:",
         error
       );
 
