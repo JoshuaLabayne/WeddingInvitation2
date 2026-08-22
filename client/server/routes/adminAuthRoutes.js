@@ -3,90 +3,190 @@ const express = require("express");
 const router = express.Router();
 
 /* =========================
+   COOKIE CONFIGURATION
+========================= */
+
+const getCookieOptions = () => ({
+  httpOnly: true,
+
+  // Render uses HTTPS in production
+  secure:
+    process.env.NODE_ENV === "production",
+
+  // Required when frontend/backend
+  // are served from different origins
+  sameSite:
+    process.env.NODE_ENV === "production"
+      ? "none"
+      : "lax",
+
+  signed: true,
+
+  path: "/",
+
+  maxAge:
+    24 * 60 * 60 * 1000,
+});
+
+/* =========================
    ADMIN LOGIN
 ========================= */
 
-router.post("/login", (req, res) => {
-  const { password } = req.body;
+router.post(
+  "/login",
+  (req, res) => {
+    try {
+      const {
+        password,
+      } = req.body;
 
-  if (!password) {
-    return res.status(400).json({
-      message: "Password is required.",
-    });
+      if (!password) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "Password is required.",
+        });
+      }
+
+      if (
+        password !==
+        process.env.ADMIN_PASSWORD
+      ) {
+        return res.status(401).json({
+          success: false,
+          message:
+            "Incorrect password.",
+        });
+      }
+
+      /*
+       * Store a signed admin session
+       * cookie in the browser.
+       */
+      res.cookie(
+        "adminSession",
+        "authenticated",
+        getCookieOptions()
+      );
+
+      return res.status(200).json({
+        success: true,
+        message:
+          "Admin login successful.",
+      });
+    } catch (error) {
+      console.error(
+        "Admin login error:",
+        error
+      );
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Unable to log in.",
+      });
+    }
   }
-
-  if (
-    password !== process.env.ADMIN_PASSWORD
-  ) {
-    return res.status(401).json({
-      message: "Incorrect password.",
-    });
-  }
-
-  const isProduction =
-    process.env.NODE_ENV === "production";
-
-  res.cookie("admin", "yes", {
-    httpOnly: true,
-    signed: true,
-
-    secure: isProduction,
-
-    sameSite: isProduction
-      ? "none"
-      : "lax",
-
-    maxAge:
-      8 * 60 * 60 * 1000,
-  });
-
-  res.json({
-    success: true,
-    message: "Login successful.",
-  });
-});
+);
 
 /* =========================
-   CHECK ADMIN LOGIN
+   CHECK ADMIN SESSION
 ========================= */
 
-router.get("/check", (req, res) => {
-  if (
-    req.signedCookies.admin === "yes"
-  ) {
-    return res.json({
-      authenticated: true,
-    });
-  }
+router.get(
+  "/check",
+  (req, res) => {
+    try {
+      const adminSession =
+        req.signedCookies
+          ?.adminSession;
 
-  return res.status(401).json({
-    authenticated: false,
-  });
-});
+      console.log(
+        "Admin session check:",
+        adminSession
+          ? "cookie received"
+          : "no cookie"
+      );
+
+      if (
+        adminSession !==
+        "authenticated"
+      ) {
+        return res.status(401).json({
+          success: false,
+          authenticated: false,
+          message:
+            "Unauthorized.",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        authenticated: true,
+      });
+    } catch (error) {
+      console.error(
+        "Admin check error:",
+        error
+      );
+
+      return res.status(500).json({
+        success: false,
+        authenticated: false,
+        message:
+          "Unable to verify admin session.",
+      });
+    }
+  }
+);
 
 /* =========================
-   LOGOUT
+   ADMIN LOGOUT
 ========================= */
 
-router.post("/logout", (req, res) => {
-  const isProduction =
-    process.env.NODE_ENV === "production";
+router.post(
+  "/logout",
+  (req, res) => {
+    try {
+      res.clearCookie(
+        "adminSession",
+        {
+          httpOnly: true,
 
-  res.clearCookie("admin", {
-    httpOnly: true,
+          secure:
+            process.env
+              .NODE_ENV ===
+            "production",
 
-    signed: true,
+          sameSite:
+            process.env
+              .NODE_ENV ===
+            "production"
+              ? "none"
+              : "lax",
 
-    secure: isProduction,
+          path: "/",
+        }
+      );
 
-    sameSite: isProduction
-      ? "none"
-      : "lax",
-  });
+      return res.status(200).json({
+        success: true,
+        message:
+          "Logged out successfully.",
+      });
+    } catch (error) {
+      console.error(
+        "Admin logout error:",
+        error
+      );
 
-  res.json({
-    success: true,
-  });
-});
+      return res.status(500).json({
+        success: false,
+        message:
+          "Unable to log out.",
+      });
+    }
+  }
+);
 
 module.exports = router;
