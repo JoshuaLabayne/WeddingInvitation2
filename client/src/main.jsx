@@ -57,7 +57,7 @@ const Admin = lazy(() =>
 ========================= */
 
 function DelayedLoadingSpinner({
-  delay = 180,
+  delay = 195,
 }) {
   const [
     showSpinner,
@@ -266,7 +266,7 @@ function PageWithLoader({
     <>
       {!imagesLoaded && (
         <DelayedLoadingSpinner
-          delay={180}
+          delay={195}
         />
       )}
 
@@ -362,7 +362,7 @@ createRoot(
       <Suspense
         fallback={
           <DelayedLoadingSpinner
-            delay={180}
+            delay={195}
           />
         }
       >
