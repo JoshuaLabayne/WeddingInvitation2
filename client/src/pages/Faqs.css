@@ -1,0 +1,453 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap");
+
+/* =========================
+   FONTS
+========================= */
+
+@font-face {
+  font-family: "Sloop Script Regular";
+  src: url("../assets/fonts/Sloop-Script-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+.faqs-card strong {
+  font-family: "Adobe Jenson Pro", serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #3f3a33;
+}
+.faqs-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0 auto;
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: repeat-y;
+  background-color: #203127;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.faqs-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 15, 0.02),
+    rgba(10, 20, 15, 0.05),
+    rgba(10, 20, 15, 0.12)
+  );
+  pointer-events: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.faqs-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 24px 100px;
+  text-align: center;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.faqs-heading {
+  margin: 80px 0 50px;
+  font-family: "Sloop Script Regular", "Great Vibes", cursive;
+  font-size: clamp(4.5rem, 13vw, 7rem);
+  font-weight: 400;
+  line-height: 0.95;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+
+  opacity: 0;
+  transform: translateX(-70px);
+  animation:
+    faqsSlideLeftToRight
+    1.05s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.12s
+    forwards;
+}
+
+/* =========================
+   FAQ LIST
+========================= */
+
+.faqs-list {
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* =========================
+   FAQ CARD
+========================= */
+
+.faqs-card {
+  position: relative;
+  width: 100%;
+  padding: 23px 34px 25px;
+  border: 1px solid rgba(177, 164, 139, 0.72);
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      rgba(247, 241, 226, 0.97),
+      rgba(247, 241, 226, 0.97)
+    );
+  color: #4f4a42;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+
+  opacity: 0;
+  animation:
+    faqsSoftFadeIn
+    0.9s
+    ease
+    forwards;
+}
+
+.faqs-card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(181, 168, 140, 0.35);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.faqs-card h2 {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 5px;
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(0.9rem, 2.4vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #3d4c41;
+  letter-spacing: 0.02em;
+}
+
+.faqs-card p {
+  position: relative;
+  z-index: 2;
+  max-width: 530px;
+  margin: 0 auto;
+  font-family: "Adobe Jenson Pro", serif;
+  font-size: clamp(0.72rem, 2vw, 0.88rem);
+  font-weight: 300;
+  line-height: 1.28;
+  color: #575148;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================
+   DECORATIVE DIVIDER
+========================= */
+
+.faqs-divider {
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  z-index: 5;
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transform: translateX(-50%);
+  color: #d8ceb9;
+}
+
+.faqs-divider span:not(.faqs-divider-symbol) {
+  width: 30px;
+  height: 1px;
+  background: rgba(226, 216, 195, 0.68);
+}
+
+.faqs-divider-symbol {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes faqsSlideLeftToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-70px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes faqsSoftFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faqs-heading,
+  .faqs-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .faqs-content {
+    padding: 40px 44px 70px;
+  }
+
+  .faqs-heading {
+    margin-top: 35px;
+    margin-bottom: 38px;
+    font-size: clamp(4rem, 18vw, 5.5rem);
+  }
+
+  .faqs-list {
+    max-width: 390px;
+    gap: 14px;
+  }
+
+  .faqs-card {
+    padding: 19px 22px 21px;
+    border-radius: 8px;
+  }
+
+  .faqs-card::before {
+    inset: 6px;
+    border-radius: 5px;
+  }
+
+  .faqs-card h2 {
+    margin-bottom: 4px;
+    font-size: 0.78rem;
+  }
+
+  .faqs-card p {
+    font-size: 0.65rem;
+    line-height: 1.25;
+  }
+
+  .faqs-divider {
+    bottom: -17px;
+    width: 90px;
+  }
+
+  .faqs-divider span:not(.faqs-divider-symbol) {
+    width: 24px;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 390px) {
+  .faqs-content {
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+
+  .faqs-heading {
+    font-size: 4rem;
+    margin-bottom: 32px;
+  }
+
+  .faqs-list {
+    gap: 12px;
+  }
+
+  .faqs-card {
+    padding: 17px 18px 19px;
+  }
+
+  .faqs-card h2 {
+    font-size: 0.7rem;
+  }
+
+  .faqs-card p {
+    font-size: 0.59rem;
+    line-height: 1.22;
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 601px) and (max-width: 849px) {
+  .faqs-page {
+    max-width: 760px;
+    min-height: 1150px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.22);
+  }
+
+  .faqs-content {
+    min-height: 1150px;
+    padding-top: 70px;
+  }
+
+  .faqs-heading {
+    margin-top: 35px;
+    margin-bottom: 45px;
+    font-size: 6rem;
+  }
+
+  .faqs-list {
+    max-width: 570px;
+    gap: 18px;
+  }
+
+  .faqs-card {
+    padding: 25px 38px 27px;
+  }
+
+  .faqs-card h2 {
+    font-size: 1rem;
+  }
+
+  .faqs-card p {
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 850px) {
+  .faqs-page {
+    max-width: 1100px;
+    min-height: 1700px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.28);
+  }
+
+  .faqs-content {
+    min-height: 1700px;
+    padding: 120px 80px 120px;
+  }
+
+  .faqs-heading {
+    margin-top: 80px;
+    margin-bottom: 60px;
+    font-size: 9rem;
+  }
+
+  .faqs-list {
+    max-width: 700px;
+    gap: 22px;
+  }
+
+  .faqs-card {
+    padding: 30px 55px 32px;
+  }
+
+  .faqs-card h2 {
+    font-size: 1.18rem;
+  }
+
+  .faqs-card p {
+    font-size: 0.96rem;
+    line-height: 1.32;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1400px) {
+  .faqs-page {
+    max-width: 1200px;
+    min-height: 1850px;
+  }
+
+  .faqs-content {
+    min-height: 1850px;
+    padding-top: 135px;
+  }
+
+  .faqs-heading {
+    margin-bottom: 70px;
+    font-size: 8.5rem;
+  }
+
+  .faqs-list {
+    max-width: 750px;
+    gap: 24px;
+  }
+
+  .faqs-card {
+    padding: 32px 60px 34px;
+  }
+
+  .faqs-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .faqs-card p {
+    font-size: 1.05rem;
+  }
+}
