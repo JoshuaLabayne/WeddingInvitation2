@@ -1,17 +1,70 @@
+/* =========================
+   ADOBE JENSON PRO FONTS
+   Files are inside client/public/
+========================= */
+
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AdobeJensonPro-Regular.otf")
-    format("opentype");
-  font-weight: 400;
+  src: url("/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf")
-    format("opentype");
+  src: url("/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-Bold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-It.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-It.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-BoldIt.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-BoldIt.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 /* =========================
@@ -22,8 +75,18 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
+
+  font-synthesis: none;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* =========================
@@ -61,7 +124,11 @@ body {
 
   font-family: "Adobe Jenson Pro", serif;
 
-  font-size: clamp(1.8rem, 6vw, 2.7rem);
+  font-size: clamp(
+    1.8rem,
+    6vw,
+    2.7rem
+  );
 
   font-weight: 400;
 }
@@ -113,7 +180,10 @@ body {
   top: 50%;
   left: 50%;
 
-  transform: translate(-50%, -50%);
+  transform: translate(
+    -50%,
+    -50%
+  );
 
   background: #ffffff;
 
@@ -200,7 +270,14 @@ body {
 }
 
 .admin-search input:focus {
-  box-shadow: 0 0 0 2px rgba(190, 0, 32, 0.12);
+  box-shadow:
+    0 0 0 2px
+    rgba(
+      190,
+      0,
+      32,
+      0.12
+    );
 }
 
 .admin-search-icon {
@@ -209,9 +286,12 @@ body {
   top: 50%;
   left: 15px;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 1.7rem;
 
@@ -231,7 +311,9 @@ body {
 
   display: flex;
 
-  justify-content: space-between;
+  justify-content:
+    space-between;
+
   align-items: center;
 
   margin-bottom: 22px;
@@ -263,7 +345,9 @@ body {
 .add-icon-button {
   color: #707900;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 2.7rem;
 
@@ -312,8 +396,10 @@ body {
   background: #cc1e36;
 }
 
-.filter-lines span:nth-child(1)::after,
-.filter-lines span:nth-child(3)::after {
+.filter-lines
+  span:nth-child(1)::after,
+.filter-lines
+  span:nth-child(3)::after {
   content: "";
 
   position: absolute;
@@ -324,16 +410,20 @@ body {
   width: 6px;
   height: 6px;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   background: #ffffff;
 
-  border: 2px solid #cc1e36;
+  border:
+    2px solid
+    #cc1e36;
 
   border-radius: 50%;
 }
 
-.filter-lines span:nth-child(2)::after {
+.filter-lines
+  span:nth-child(2)::after {
   content: "";
 
   position: absolute;
@@ -344,11 +434,14 @@ body {
   width: 6px;
   height: 6px;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   background: #ffffff;
 
-  border: 2px solid #cc1e36;
+  border:
+    2px solid
+    #cc1e36;
 
   border-radius: 50%;
 }
@@ -384,7 +477,10 @@ body {
 
   margin-bottom: 24px;
 
-  padding: 28px 30px 34px;
+  padding:
+    28px
+    30px
+    34px;
 
   background: #ffffff;
 
@@ -394,7 +490,9 @@ body {
 .admin-add-popup h2 {
   margin: 0 0 28px;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 1.45rem;
 
@@ -418,7 +516,9 @@ body {
 
   margin-bottom: 9px;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 1rem;
 
@@ -426,7 +526,6 @@ body {
 
   color: #222222;
 }
-
 
 .admin-member-header-three {
   grid-template-columns:
@@ -465,7 +564,6 @@ body {
   gap: 16px;
 }
 
-
 .admin-member-input-row-three {
   grid-template-columns:
     minmax(0, 1.35fr)
@@ -483,7 +581,9 @@ body {
 
   padding: 0 14px;
 
-  border: 1px solid #cfcfcf;
+  border:
+    1px solid
+    #cfcfcf;
 
   border-radius: 0;
 
@@ -491,25 +591,31 @@ body {
 
   color: #222222;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 1rem;
 
   outline: none;
 }
 
-.admin-member-input-row input::placeholder {
+.admin-member-input-row
+  input::placeholder {
   color: #a09a92;
 }
 
-.admin-member-input-row input:focus,
-.admin-member-input-row select:focus {
+.admin-member-input-row
+  input:focus,
+.admin-member-input-row
+  select:focus {
   border-color: #7b7b00;
 }
 
-
-.admin-member-input-row-three input,
-.admin-member-input-row-three select {
+.admin-member-input-row-three
+  input,
+.admin-member-input-row-three
+  select {
   min-width: 0;
   width: 100%;
 }
@@ -524,7 +630,8 @@ body {
   top: 50%;
   right: -25px;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   width: 22px;
   height: 30px;
@@ -542,7 +649,9 @@ body {
 
   color: #bd001d;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 1.4rem;
 
@@ -572,7 +681,9 @@ body {
 
   padding: 0;
 
-  border: 3px solid #7b7b00;
+  border:
+    3px solid
+    #7b7b00;
 
   border-radius: 14px;
 
@@ -580,7 +691,9 @@ body {
 
   color: #737800;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 2.6rem;
 
@@ -612,7 +725,9 @@ body {
 }
 
 .admin-group-name-section label {
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 1rem;
 
@@ -628,31 +743,39 @@ body {
 
   padding: 0 14px;
 
-  border: 1px solid #cfcfcf;
+  border:
+    1px solid
+    #cfcfcf;
 
   background: #ffffff;
 
   color: #222222;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 1rem;
 
   outline: none;
 }
 
-.admin-group-name-section input::placeholder {
+.admin-group-name-section
+  input::placeholder {
   color: #a09a92;
 }
 
-.admin-group-name-section input:focus {
+.admin-group-name-section
+  input:focus {
   border-color: #7b7b00;
 }
 
 .admin-group-name-section small {
   color: #777777;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.75rem;
 }
@@ -666,7 +789,9 @@ body {
 
   color: #555555;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.9rem;
 }
@@ -698,7 +823,9 @@ body {
 
   color: #ffffff;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.9rem;
 
@@ -724,7 +851,10 @@ body {
 
   margin-bottom: 28px;
 
-  padding: 8px 0 10px;
+  padding:
+    8px
+    0
+    10px;
 
   background: transparent;
 }
@@ -746,7 +876,9 @@ body {
 .filter-section h2 {
   margin: 0 0 18px;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 2.1rem;
 
@@ -767,7 +899,10 @@ body {
   display: grid;
 
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
 
   gap: 10px;
 }
@@ -788,7 +923,9 @@ body {
 
   padding: 6px 8px;
 
-  border: 2px solid #111111;
+  border:
+    2px solid
+    #111111;
 
   border-radius: 5px;
 
@@ -796,7 +933,9 @@ body {
 
   color: #111111;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.78rem;
 
@@ -816,7 +955,8 @@ body {
 }
 
 .filter-box:hover {
-  transform: translateY(-1px);
+  transform:
+    translateY(-1px);
 }
 
 /* =========================
@@ -872,7 +1012,10 @@ body {
 
   margin-bottom: 28px;
 
-  padding: 24px 30px 29px;
+  padding:
+    24px
+    30px
+    29px;
 
   background: #ffffff;
 
@@ -883,7 +1026,8 @@ body {
   display: flex;
 
   align-items: center;
-  justify-content: space-between;
+  justify-content:
+    space-between;
 
   margin-bottom: 20px;
 }
@@ -891,7 +1035,9 @@ body {
 .family-card-header h2 {
   margin: 0;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 1rem;
 
@@ -932,9 +1078,18 @@ body {
   display: grid;
 
   grid-template-columns:
-    minmax(120px, 1.2fr)
-    minmax(120px, 1.1fr)
-    minmax(90px, 0.7fr)
+    minmax(
+      120px,
+      1.2fr
+    )
+    minmax(
+      120px,
+      1.1fr
+    )
+    minmax(
+      90px,
+      0.7fr
+    )
     20px;
 
   align-items: center;
@@ -943,7 +1098,9 @@ body {
 
   min-height: 40px;
 
-  border-bottom: 1px dashed #999999;
+  border-bottom:
+    1px dashed
+    #999999;
 
   font-size: 0.88rem;
 }
@@ -1009,16 +1166,21 @@ body {
 
   color: #c90027;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 1.2rem;
 
   cursor: pointer;
 
-  transition: opacity 0.2s ease;
+  transition:
+    opacity
+    0.2s ease;
 }
 
-.family-member:hover .member-delete {
+.family-member:hover
+  .member-delete {
   opacity: 1;
 }
 
@@ -1038,6 +1200,9 @@ body {
   color: #777777;
 }
 
+/* =========================
+   DESKTOP ADD FORM
+========================= */
 
 @media (min-width: 801px) {
   .admin-member-header-three {
@@ -1060,8 +1225,10 @@ body {
     gap: 8px;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     height: 46px;
 
     padding: 0 9px;
@@ -1117,9 +1284,12 @@ body {
     gap: 6px;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     min-width: 0;
+
     width: 100%;
     height: 42px;
 
@@ -1283,8 +1453,10 @@ body {
     gap: 10px;
   }
 
-  .admin-member-input-row input,
-  .admin-member-input-row select {
+  .admin-member-input-row
+    input,
+  .admin-member-input-row
+    select {
     height: 45px;
 
     padding: 0 10px;
@@ -1312,8 +1484,10 @@ body {
     gap: 4px;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     min-width: 0;
     width: 100%;
     height: 40px;
@@ -1374,7 +1548,10 @@ body {
 
   .filter-button-grid {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
 
     gap: 8px;
   }
@@ -1492,8 +1669,10 @@ body {
     gap: 8px;
   }
 
-  .admin-member-input-row input,
-  .admin-member-input-row select {
+  .admin-member-input-row
+    input,
+  .admin-member-input-row
+    select {
     padding: 0 8px;
 
     font-size: 0.7rem;
@@ -1519,8 +1698,10 @@ body {
     gap: 3px;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     min-width: 0;
     width: 100%;
     height: 38px;
@@ -1600,8 +1781,10 @@ body {
   gap: 8px;
 }
 
-.admin-member-input-row-three input,
-.admin-member-input-row-three select {
+.admin-member-input-row-three
+  input,
+.admin-member-input-row-three
+  select {
   min-width: 0;
   width: 100%;
 }
@@ -1612,7 +1795,10 @@ body {
 
 .filter-button-grid {
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
 
   gap: 7px;
 }
@@ -1623,14 +1809,19 @@ body {
 
   padding: 4px 5px;
 
-  border: 0.7px solid #111111;
+  border:
+    0.7px solid
+    #111111;
+
   border-radius: 4px;
 
   font-size: 0.68rem;
   line-height: 1.05;
 
   white-space: normal;
+
   overflow-wrap: anywhere;
+
   word-break: normal;
 }
 
@@ -1643,6 +1834,7 @@ body {
   height: 42px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -1671,7 +1863,10 @@ body {
 }
 
 .family-edit-button:focus-visible {
-  outline: 2px solid #747400;
+  outline:
+    2px solid
+    #747400;
+
   outline-offset: 2px;
 }
 
@@ -1704,13 +1899,16 @@ body {
   width: 100%;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 7px;
 }
 
 .edit-group-name-field label {
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.9rem;
 
@@ -1725,25 +1923,37 @@ body {
 
   padding: 0 12px;
 
-  border: 1px solid #cccccc;
+  border:
+    1px solid
+    #cccccc;
+
   border-radius: 4px;
 
   background: #ffffff;
 
   color: #222222;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.9rem;
 
   outline: none;
 }
 
-.edit-group-name-field input:focus {
+.edit-group-name-field
+  input:focus {
   border-color: #747400;
 
   box-shadow:
-    0 0 0 1px rgba(116, 116, 0, 0.12);
+    0 0 0 1px
+    rgba(
+      116,
+      116,
+      0,
+      0.12
+    );
 }
 
 /* =========================
@@ -1769,7 +1979,9 @@ body {
 
   padding: 0 2px;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.72rem;
 
@@ -1786,6 +1998,7 @@ body {
   width: 100%;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 9px;
@@ -1810,31 +2023,46 @@ body {
 .edit-member-row input,
 .edit-member-row select {
   width: 100%;
+
   min-width: 0;
+
   height: 40px;
 
   padding: 0 8px;
 
-  border: 1px solid #cccccc;
+  border:
+    1px solid
+    #cccccc;
+
   border-radius: 4px;
 
   background: #ffffff;
 
   color: #222222;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.72rem;
 
   outline: none;
 }
 
-.edit-member-row input:focus,
-.edit-member-row select:focus {
+.edit-member-row
+  input:focus,
+.edit-member-row
+  select:focus {
   border-color: #747400;
 
   box-shadow:
-    0 0 0 1px rgba(116, 116, 0, 0.12);
+    0 0 0 1px
+    rgba(
+      116,
+      116,
+      0,
+      0.12
+    );
 }
 
 /* =========================
@@ -1846,19 +2074,23 @@ body {
   height: 34px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   padding: 0;
 
   border: none;
+
   border-radius: 4px;
 
   background: transparent;
 
   color: #c90027;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
 
   font-size: 1.35rem;
 
@@ -1880,7 +2112,9 @@ body {
 
   color: #c90027;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.8rem;
 }
@@ -1893,7 +2127,10 @@ body {
   width: 100%;
 
   display: flex;
-  justify-content: flex-end;
+
+  justify-content:
+    flex-end;
+
   align-items: center;
 
   gap: 9px;
@@ -1910,7 +2147,9 @@ body {
 
   border-radius: 4px;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   font-size: 0.78rem;
 
@@ -1918,7 +2157,9 @@ body {
 }
 
 .edit-cancel-button {
-  border: 1px solid #777777;
+  border:
+    1px solid
+    #777777;
 
   background: #ffffff;
 
@@ -1930,7 +2171,9 @@ body {
 }
 
 .edit-save-button {
-  border: 1px solid #747400;
+  border:
+    1px solid
+    #747400;
 
   background: #747400;
 
@@ -1966,10 +2209,14 @@ body {
     font-size: 0.9rem;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     min-width: 0;
+
     width: 100%;
+
     height: 46px;
 
     padding: 0 9px;
@@ -1985,13 +2232,17 @@ body {
 @media (max-width: 800px) {
   .filter-button-grid {
     grid-template-columns:
-      repeat(4, minmax(0, 1fr));
+      repeat(
+        4,
+        minmax(0, 1fr)
+      );
 
     gap: 6px;
   }
 
   .filter-box {
     min-width: 0;
+
     min-height: 33px;
 
     padding: 3px 4px;
@@ -1999,6 +2250,7 @@ body {
     border-width: 0.7px;
 
     font-size: 0.62rem;
+
     line-height: 1.05;
   }
 
@@ -2066,10 +2318,14 @@ body {
     gap: 4px;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     min-width: 0;
+
     width: 100%;
+
     height: 40px;
 
     padding: 0 4px;
@@ -2079,25 +2335,33 @@ body {
 
   .filter-button-grid {
     grid-template-columns:
-      repeat(4, minmax(0, 1fr));
+      repeat(
+        4,
+        minmax(0, 1fr)
+      );
 
     gap: 4px;
   }
 
   .filter-box {
     min-width: 0;
+
     min-height: 30px;
 
     padding: 2px 2px;
 
     border-width: 0.7px;
+
     border-radius: 4px;
 
     font-size: 0.48rem;
+
     line-height: 1;
 
     white-space: normal;
+
     overflow-wrap: anywhere;
+
     word-break: normal;
   }
 
@@ -2194,9 +2458,12 @@ body {
     gap: 3px;
   }
 
-  .admin-member-input-row-three input,
-  .admin-member-input-row-three select {
+  .admin-member-input-row-three
+    input,
+  .admin-member-input-row-three
+    select {
     min-width: 0;
+
     width: 100%;
     height: 38px;
 
@@ -2207,13 +2474,17 @@ body {
 
   .filter-button-grid {
     grid-template-columns:
-      repeat(4, minmax(0, 1fr));
+      repeat(
+        4,
+        minmax(0, 1fr)
+      );
 
     gap: 3px;
   }
 
   .filter-box {
     min-width: 0;
+
     min-height: 28px;
 
     padding: 2px 1px;
@@ -2221,6 +2492,7 @@ body {
     border-width: 0.7px;
 
     font-size: 0.4rem;
+
     line-height: 1;
   }
 
@@ -2269,6 +2541,7 @@ body {
 
 .admin-list-button {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -2288,14 +2561,19 @@ body {
 
 .admin-list-button.active {
   background: #747400;
+
   color: #ffffff;
 }
 
 .view-toggle-symbol {
   display: block;
 
-  font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    sans-serif;
+
   font-size: 1.55rem;
+
   line-height: 1;
 
   pointer-events: none;
@@ -2313,8 +2591,11 @@ body {
   width: 100%;
 
   display: flex;
+
   align-items: center;
-  justify-content: space-between;
+
+  justify-content:
+    space-between;
 
   gap: 12px;
 
@@ -2324,8 +2605,12 @@ body {
 .admin-table-heading h2 {
   margin: 0;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
+
   font-size: 1.25rem;
+
   font-weight: 600;
 
   color: #111111;
@@ -2334,7 +2619,10 @@ body {
 .admin-table-heading span {
   color: #777777;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
+
   font-size: 0.8rem;
 }
 
@@ -2347,17 +2635,21 @@ body {
 
   border-radius: 12px;
 
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling:
+    touch;
 }
 
 .admin-invite-table {
   width: 100%;
 
-  border-collapse: collapse;
+  border-collapse:
+    collapse;
 
   background: #ffffff;
 
-  font-family: "Adobe Jenson Pro", serif;
+  font-family:
+    "Adobe Jenson Pro",
+    serif;
 
   table-layout: fixed;
 }
@@ -2366,9 +2658,12 @@ body {
 .admin-invite-table td {
   padding: 13px 12px;
 
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom:
+    1px solid
+    #e5e5e5;
 
   text-align: left;
+
   vertical-align: middle;
 }
 
@@ -2378,6 +2673,7 @@ body {
   color: #222222;
 
   font-size: 0.76rem;
+
   font-weight: 600;
 
   white-space: nowrap;
@@ -2391,36 +2687,51 @@ body {
   overflow-wrap: anywhere;
 }
 
-.admin-invite-table th:nth-child(1),
-.admin-invite-table td:nth-child(1) {
+.admin-invite-table
+  th:nth-child(1),
+.admin-invite-table
+  td:nth-child(1) {
   width: 24%;
 }
 
-.admin-invite-table th:nth-child(2),
-.admin-invite-table td:nth-child(2) {
+.admin-invite-table
+  th:nth-child(2),
+.admin-invite-table
+  td:nth-child(2) {
   width: 23%;
 }
 
-.admin-invite-table th:nth-child(3),
-.admin-invite-table td:nth-child(3) {
+.admin-invite-table
+  th:nth-child(3),
+.admin-invite-table
+  td:nth-child(3) {
   width: 25%;
 }
 
-.admin-invite-table th:nth-child(4),
-.admin-invite-table td:nth-child(4) {
+.admin-invite-table
+  th:nth-child(4),
+.admin-invite-table
+  td:nth-child(4) {
   width: 20%;
 }
 
-.admin-invite-table th:nth-child(5),
-.admin-invite-table td:nth-child(5) {
+.admin-invite-table
+  th:nth-child(5),
+.admin-invite-table
+  td:nth-child(5) {
   width: 8%;
 }
 
-.admin-invite-table tbody tr:last-child td {
+.admin-invite-table
+  tbody
+  tr:last-child
+  td {
   border-bottom: none;
 }
 
-.admin-invite-table tbody tr:hover {
+.admin-invite-table
+  tbody
+  tr:hover {
   background: #fafafa;
 }
 
@@ -2437,7 +2748,8 @@ body {
 
 .table-action-heading,
 .table-action-cell {
-  text-align: center !important;
+  text-align:
+    center !important;
 }
 
 .table-edit-button {
@@ -2445,12 +2757,14 @@ body {
   height: 34px;
 
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
   padding: 0;
 
   border: none;
+
   border-radius: 5px;
 
   background: transparent;
