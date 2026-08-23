@@ -518,6 +518,11 @@ function App() {
 
                 <button
                   type="button"
+                  onClick={() =>
+                    navigateToPage(
+                      "/faqs"
+                    )
+                  }
                 >
                   FAQS
                 </button>
