@@ -21,23 +21,48 @@ import LoadingSpinner from "./pages/components/LoadingSpinner.jsx";
    LAZY LOAD PAGES
 ========================= */
 
-const App = lazy(() => import("./App.jsx"));
-const Venue = lazy(() => import("./pages/Venue.jsx"));
-const Entourage = lazy(() => import("./pages/Entourage.jsx"));
-const Attire = lazy(() => import("./pages/Attire.jsx"));
-const Rsvp = lazy(() => import("./pages/Rsvp.jsx"));
-const Admin = lazy(() => import("./pages/Admin.jsx"));
+const App = lazy(() =>
+  import("./App.jsx")
+);
+
+const Venue = lazy(() =>
+  import("./pages/Venue.jsx")
+);
+
+const Entourage = lazy(() =>
+  import("./pages/Entourage.jsx")
+);
+
+const Attire = lazy(() =>
+  import("./pages/Attire.jsx")
+);
+
+const Faqs = lazy(() =>
+  import("./pages/Faqs.jsx")
+);
+
+const Rsvp = lazy(() =>
+  import("./pages/Rsvp.jsx")
+);
+
+const Admin = lazy(() =>
+  import("./pages/Admin.jsx")
+);
 
 /* =========================
    PAGE IMAGE LOADER
    NO WRAPPER DIV
 ========================= */
 
-function PageWithLoader({ children }) {
+function PageWithLoader({
+  children,
+}) {
   const location = useLocation();
 
-  const [imagesLoaded, setImagesLoaded] =
-    useState(false);
+  const [
+    imagesLoaded,
+    setImagesLoaded,
+  ] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -54,108 +79,134 @@ function PageWithLoader({ children }) {
       behavior: "auto",
     });
 
-    const waitForImages = async () => {
-      /*
-        Wait until React has rendered
-        the current page into the DOM.
-      */
-      await new Promise((resolve) =>
-        requestAnimationFrame(resolve)
-      );
+    const waitForImages =
+      async () => {
+        /*
+          Wait until React has rendered
+          the current page into the DOM.
+        */
 
-      await new Promise((resolve) =>
-        requestAnimationFrame(resolve)
-      );
+        await new Promise(
+          (resolve) =>
+            requestAnimationFrame(
+              resolve
+            )
+        );
 
-      if (cancelled) return;
+        await new Promise(
+          (resolve) =>
+            requestAnimationFrame(
+              resolve
+            )
+        );
 
-      const imageUrls = new Set();
-
-      /* =========================
-         NORMAL <img> ELEMENTS
-      ========================= */
-
-      const images =
-        document.querySelectorAll("img");
-
-      images.forEach((img) => {
-        const src =
-          img.currentSrc ||
-          img.src;
-
-        if (src) {
-          imageUrls.add(src);
-        }
-      });
-
-      /* =========================
-         CSS BACKGROUND IMAGES
-      ========================= */
-
-      const elements =
-        document.querySelectorAll("*");
-
-      elements.forEach((element) => {
-        const style =
-          window.getComputedStyle(element);
-
-        const background =
-          style.backgroundImage;
-
-        if (
-          !background ||
-          background === "none"
-        ) {
+        if (cancelled) {
           return;
         }
 
-        const matches = [
-          ...background.matchAll(
-            /url\(["']?(.*?)["']?\)/g
-          ),
-        ];
+        const imageUrls =
+          new Set();
 
-        matches.forEach((match) => {
-          if (match[1]) {
-            imageUrls.add(match[1]);
+        /* =========================
+           NORMAL <img> ELEMENTS
+        ========================= */
+
+        const images =
+          document.querySelectorAll(
+            "img"
+          );
+
+        images.forEach((img) => {
+          const src =
+            img.currentSrc ||
+            img.src;
+
+          if (src) {
+            imageUrls.add(src);
           }
         });
-      });
 
-      /* =========================
-         PRELOAD ALL IMAGES
-      ========================= */
+        /* =========================
+           CSS BACKGROUND IMAGES
+        ========================= */
 
-      const promises = [
-        ...imageUrls,
-      ].map((url) => {
-        return new Promise((resolve) => {
-          const image =
-            new Image();
+        const elements =
+          document.querySelectorAll(
+            "*"
+          );
 
-          image.onload =
-            resolve;
+        elements.forEach(
+          (element) => {
+            const style =
+              window.getComputedStyle(
+                element
+              );
 
-          image.onerror =
-            resolve;
+            const background =
+              style.backgroundImage;
 
-          image.src =
-            url;
+            if (
+              !background ||
+              background === "none"
+            ) {
+              return;
+            }
 
-          if (image.complete) {
-            resolve();
+            const matches = [
+              ...background.matchAll(
+                /url\(["']?(.*?)["']?\)/g
+              ),
+            ];
+
+            matches.forEach(
+              (match) => {
+                if (match[1]) {
+                  imageUrls.add(
+                    match[1]
+                  );
+                }
+              }
+            );
           }
+        );
+
+        /* =========================
+           PRELOAD ALL IMAGES
+        ========================= */
+
+        const promises = [
+          ...imageUrls,
+        ].map((url) => {
+          return new Promise(
+            (resolve) => {
+              const image =
+                new Image();
+
+              image.onload =
+                resolve;
+
+              image.onerror =
+                resolve;
+
+              image.src = url;
+
+              if (
+                image.complete
+              ) {
+                resolve();
+              }
+            }
+          );
         });
-      });
 
-      await Promise.allSettled(
-        promises
-      );
+        await Promise.allSettled(
+          promises
+        );
 
-      if (!cancelled) {
-        setImagesLoaded(true);
-      }
-    };
+        if (!cancelled) {
+          setImagesLoaded(true);
+        }
+      };
 
     waitForImages();
 
@@ -234,6 +285,15 @@ function AppRoutes() {
       />
 
       <Route
+        path="/faqs"
+        element={
+          <PageWithLoader>
+            <Faqs />
+          </PageWithLoader>
+        }
+      />
+
+      <Route
         path="/rsvp"
         element={
           <PageWithLoader>
@@ -259,7 +319,9 @@ function AppRoutes() {
 ========================= */
 
 createRoot(
-  document.getElementById("root")
+  document.getElementById(
+    "root"
+  )
 ).render(
   <StrictMode>
     <BrowserRouter>
