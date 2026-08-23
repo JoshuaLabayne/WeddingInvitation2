@@ -61,10 +61,20 @@ app.use(
 const FRONTEND_URL =
   "https://weddinginvitation2.onrender.com";
 
+const CUSTOM_FRONTEND_URL =
+  "https://kasalnanijayelataimee.site";
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
+
+  /* Render frontend */
   FRONTEND_URL,
+
+  /* Custom production domain */
+  CUSTOM_FRONTEND_URL,
+
+  /* Optional environment variable */
   process.env.CLIENT_URL,
 ].filter(Boolean);
 
@@ -95,8 +105,8 @@ app.use(
     },
 
     /*
-     * Required because Admin.jsx and App.jsx
-     * use credentials: "include".
+     * Keep credentials enabled for any
+     * routes that use signed cookies.
      */
     credentials: true,
 
@@ -142,9 +152,8 @@ app.use(
 /*
  * IMPORTANT:
  *
- * adminAuthRoutes must access the session with:
- *
- * req.signedCookies.adminSession
+ * adminAuthRoutes may access signed
+ * cookies through req.signedCookies.
  */
 app.use(
   cookieParser(
@@ -283,7 +292,11 @@ async function startServer() {
         );
 
         console.log(
-          `✅ Frontend allowed: ${FRONTEND_URL}`
+          `✅ Render frontend allowed: ${FRONTEND_URL}`
+        );
+
+        console.log(
+          `✅ Custom frontend allowed: ${CUSTOM_FRONTEND_URL}`
         );
       }
     );
