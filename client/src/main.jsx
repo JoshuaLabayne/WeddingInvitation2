@@ -50,6 +50,38 @@ const Admin = lazy(() =>
 );
 
 /* =========================
+   DELAYED LOADING SPINNER
+
+   Prevents quick spinner flashes
+   when pages load very fast.
+========================= */
+
+function DelayedLoadingSpinner({
+  delay = 180,
+}) {
+  const [
+    showSpinner,
+    setShowSpinner,
+  ] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSpinner(true);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [delay]);
+
+  if (!showSpinner) {
+    return null;
+  }
+
+  return <LoadingSpinner />;
+}
+
+/* =========================
    PAGE IMAGE LOADER
    NO WRAPPER DIV
 ========================= */
@@ -233,7 +265,9 @@ function PageWithLoader({
   return (
     <>
       {!imagesLoaded && (
-        <LoadingSpinner />
+        <DelayedLoadingSpinner
+          delay={180}
+        />
       )}
 
       {children}
@@ -327,7 +361,9 @@ createRoot(
     <BrowserRouter>
       <Suspense
         fallback={
-          <LoadingSpinner />
+          <DelayedLoadingSpinner
+            delay={180}
+          />
         }
       >
         <AppRoutes />
