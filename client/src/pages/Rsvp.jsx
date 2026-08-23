@@ -45,7 +45,7 @@ const RSVP_DEADLINE_LABEL =
 
 const RSVP_CLOSE_AT =
   new Date(
-    "2026-09-06T00:00:00+08:00"
+    "2026-08-06T00:00:00+08:00"
   ).getTime();
 
 function Rsvp() {
