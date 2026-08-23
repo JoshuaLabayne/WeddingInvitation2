@@ -2,47 +2,89 @@
 
 @font-face {
   font-family: "Sloop ScriptTwo";
-  src: url("/Sloop-ScriptTwo.otf") format("opentype");
-  font-weight: normal;
+  src: url("./assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Sloop Script Regular";
-  src: url("/Sloop-Script-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Adobe Jenson Pro";
-  src: url("/AdobeJensonPro-Regular.otf") format("opentype");
+  src: url("./assets/fonts/Sloop-Script-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+
+/* Adobe Jenson Pro files are served from client/public/ */
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("/AdobeJensonPro-Semibold.otf") format("opentype");
+  src: url("/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-Bold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("/AdobeJensonPro-LightItalic.otf") format("opentype");
+  src: url("/AJensonPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-It.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  src: url("/AJensonPro-It.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-BoldIt.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
+  font-display: swap;
 }
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-synthesis: none;
 }
 
 html,
@@ -174,7 +216,7 @@ button {
 
   font-family: "Adobe Jenson Pro", serif;
 
-  font-size: 400px;
+  font-size: 0.8rem;
   font-weight: normal;
 
   letter-spacing: 5px;
