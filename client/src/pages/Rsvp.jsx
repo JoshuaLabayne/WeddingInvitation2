@@ -41,11 +41,11 @@ const API =
 ========================= */
 
 const RSVP_DEADLINE_LABEL =
-  "Aug 5, 2026 at 11:59 PM";
+  "Sept 5, 2026 at 11:59 PM";
 
 const RSVP_CLOSE_AT =
   new Date(
-    "2026-08-06T00:00:00+08:00"
+    "2026-09-06T00:00:00+08:00"
   ).getTime();
 
 function Rsvp() {
