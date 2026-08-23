@@ -41,7 +41,7 @@ const API =
 ========================= */
 
 const RSVP_DEADLINE_LABEL =
-  "Sept 5, 2026 at 11:59 PM";
+  "Aug 5, 2026 at 11:59 PM";
 
 const RSVP_CLOSE_AT =
   new Date(
