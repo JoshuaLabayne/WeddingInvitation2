@@ -29,6 +29,25 @@ const API_BASE = import.meta.env.DEV
 const API =
   `${API_BASE}/api/invites`;
 
+/* =========================
+   RSVP DEADLINE
+   Philippine Time (UTC+8)
+
+   Guests can RSVP through:
+   Sept 5, 2026 at 11:59 PM.
+
+   The form closes at midnight
+   starting Sept 6, 2026.
+========================= */
+
+const RSVP_DEADLINE_LABEL =
+  "Sept 5, 2026 at 11:59 PM";
+
+const RSVP_CLOSE_AT =
+  new Date(
+    "2026-09-06T00:00:00+08:00"
+  ).getTime();
+
 function Rsvp() {
   const [search, setSearch] =
     useState("");
@@ -57,11 +76,81 @@ function Rsvp() {
   const [popupStep, setPopupStep] =
     useState(null);
 
+  const [
+    isRsvpClosed,
+    setIsRsvpClosed,
+  ] = useState(
+    () =>
+      Date.now() >=
+      RSVP_CLOSE_AT
+  );
+
+  /* =========================
+     CHECK RSVP DEADLINE
+
+     Re-check regularly so a guest
+     who leaves this page open will
+     still be locked out when the
+     deadline passes.
+  ========================= */
+
+  useEffect(() => {
+    const checkDeadline = () => {
+      setIsRsvpClosed(
+        Date.now() >=
+          RSVP_CLOSE_AT
+      );
+    };
+
+    checkDeadline();
+
+    const deadlineTimer =
+      window.setInterval(
+        checkDeadline,
+        15000
+      );
+
+    return () => {
+      window.clearInterval(
+        deadlineTimer
+      );
+    };
+  }, []);
+
+  /* =========================
+     CLEAR ACTIVE RSVP WHEN CLOSED
+  ========================= */
+
+  useEffect(() => {
+    if (!isRsvpClosed) {
+      return;
+    }
+
+    setSearch("");
+    setResults([]);
+    setLoading(false);
+    setMessage("");
+    setDoneMessage("");
+    setDraftStatuses({});
+    setSavingGroup(false);
+    setSelectedGroupId(null);
+    setPopupStep(null);
+  }, [isRsvpClosed]);
+
   /* =========================
      SEARCH MONGODB INVITES
   ========================= */
 
   useEffect(() => {
+    if (isRsvpClosed) {
+      setResults([]);
+      setMessage("");
+      setLoading(false);
+      setSelectedGroupId(null);
+      setPopupStep(null);
+      return;
+    }
+
     const searchText =
       search.trim();
 
@@ -152,7 +241,10 @@ function Rsvp() {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [search]);
+  }, [
+    search,
+    isRsvpClosed,
+  ]);
 
   /* =========================
      GROUP SEARCH RESULTS
@@ -315,6 +407,10 @@ function Rsvp() {
   const openRsvpPopup = (
     invite
   ) => {
+    if (isRsvpClosed) {
+      return;
+    }
+
     setSelectedGroupId(
       invite.groupId ||
         invite._id
@@ -365,6 +461,13 @@ function Rsvp() {
 
   const finishRsvp =
     async () => {
+      if (isRsvpClosed) {
+        setMessage(
+          `RSVP closed on ${RSVP_DEADLINE_LABEL}.`
+        );
+        return;
+      }
+
       if (
         !selectedGroup ||
         !selectedGroupIsComplete
@@ -538,7 +641,10 @@ function Rsvp() {
     member,
     selectedStatus
   ) => {
-    if (savingGroup) {
+    if (
+      isRsvpClosed ||
+      savingGroup
+    ) {
       return;
     }
 
@@ -704,7 +810,13 @@ function Rsvp() {
             SEARCH CARD
         ========================= */}
 
-        <div className="rsvp-card">
+        <div
+          className={`rsvp-card ${
+            isRsvpClosed
+              ? "rsvp-card-is-closed"
+              : ""
+          }`}
+        >
           <div className="rsvp-card-decoration">
             <span />
             <span className="rsvp-flower">
@@ -713,111 +825,139 @@ function Rsvp() {
             <span />
           </div>
 
-          <p className="rsvp-card-text">
-            Please enter the first
-            and last name of one
-            member
-            <br />
-            of your party below. If
-            you&apos;re responding
-            for you and
-            <br />
-            a guest (or your family),
-            you&apos;ll be able to
-            RSVP for
-            <br />
-            your entire group below.
-          </p>
+          {isRsvpClosed ? (
+            <div className="rsvp-closed-content">
+              <h2 className="rsvp-closed-title">
+                RSVP is now closed
+              </h2>
 
-          <div className="rsvp-search-wrapper">
-            <span className="rsvp-search-icon">
-              ⌕
-            </span>
-
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => {
-                setSearch(
-                  e.target.value
-                );
-                setDoneMessage("");
-              }}
-              placeholder="Search your name"
-              className="rsvp-search-input"
-              autoComplete="off"
-            />
-          </div>
-
-          {/* =========================
-              LOADING
-          ========================= */}
-
-          {loading && (
-            <p className="rsvp-search-message">
-              Searching...
-            </p>
-          )}
-
-          {/* =========================
-              SEARCH RESULTS
-              ONLY SHOW MATCHING NAMES
-          ========================= */}
-
-          {!loading &&
-            search.trim() &&
-            matchingNames.length >
-              0 && (
-              <div className="rsvp-results">
-                {matchingNames.map(
-                  (invite) => (
-                    <button
-                      type="button"
-                      className="rsvp-result"
-                      key={
-                        invite._id
-                      }
-                      onClick={() =>
-                        openRsvpPopup(
-                          invite
-                        )
-                      }
-                    >
-                      {invite.name}
-                    </button>
-                  )
-                )}
-              </div>
-            )}
-
-          {/* =========================
-              NO RESULT
-          ========================= */}
-
-          {!loading &&
-            search.trim() &&
-            matchingNames.length ===
-              0 &&
-            !message && (
-              <p className="rsvp-no-result">
-                No guest found or this group has already completed the RSVP.
+              <p className="rsvp-card-text">
+                Our RSVP deadline was
+                <br />
+                <strong>
+                  {RSVP_DEADLINE_LABEL}
+                </strong>
+                .
               </p>
-            )}
 
-          {/* =========================
-              MESSAGE
-          ========================= */}
+              <p className="rsvp-closed-message">
+                Thank you for your
+                understanding. If you
+                need to reach us about
+                your attendance, please
+                contact the couple
+                directly.
+              </p>
+            </div>
+          ) : (
+            <>
+              <p className="rsvp-card-text">
+                Please enter the first
+                and last name of one
+                member
+                <br />
+                of your party below. If
+                you&apos;re responding
+                for you and
+                <br />
+                a guest (or your family),
+                you&apos;ll be able to
+                RSVP for
+                <br />
+                your entire group below.
+              </p>
 
-          {message && (
-            <p className="rsvp-search-message">
-              {message}
-            </p>
-          )}
+              <div className="rsvp-search-wrapper">
+                <span className="rsvp-search-icon">
+                  ⌕
+                </span>
 
-          {doneMessage && (
-            <p className="rsvp-done-success">
-              {doneMessage}
-            </p>
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(
+                      e.target.value
+                    );
+                    setDoneMessage("");
+                  }}
+                  placeholder="Search your name"
+                  className="rsvp-search-input"
+                  autoComplete="off"
+                />
+              </div>
+
+              {/* =========================
+                  LOADING
+              ========================= */}
+
+              {loading && (
+                <p className="rsvp-search-message">
+                  Searching...
+                </p>
+              )}
+
+              {/* =========================
+                  SEARCH RESULTS
+                  ONLY SHOW MATCHING NAMES
+              ========================= */}
+
+              {!loading &&
+                search.trim() &&
+                matchingNames.length >
+                  0 && (
+                  <div className="rsvp-results">
+                    {matchingNames.map(
+                      (invite) => (
+                        <button
+                          type="button"
+                          className="rsvp-result"
+                          key={
+                            invite._id
+                          }
+                          onClick={() =>
+                            openRsvpPopup(
+                              invite
+                            )
+                          }
+                        >
+                          {invite.name}
+                        </button>
+                      )
+                    )}
+                  </div>
+                )}
+
+              {/* =========================
+                  NO RESULT
+              ========================= */}
+
+              {!loading &&
+                search.trim() &&
+                matchingNames.length ===
+                  0 &&
+                !message && (
+                  <p className="rsvp-no-result">
+                    No guest found or this group has already completed the RSVP.
+                  </p>
+                )}
+
+              {/* =========================
+                  MESSAGE
+              ========================= */}
+
+              {message && (
+                <p className="rsvp-search-message">
+                  {message}
+                </p>
+              )}
+
+              {doneMessage && (
+                <p className="rsvp-done-success">
+                  {doneMessage}
+                </p>
+              )}
+            </>
           )}
         </div>
 
@@ -825,7 +965,8 @@ function Rsvp() {
             VISITOR TYPE / RSVP POPUP
         ========================= */}
 
-        {selectedGroup &&
+        {!isRsvpClosed &&
+          selectedGroup &&
           popupStep && (
           <div
             className="rsvp-popup-backdrop"
@@ -1137,6 +1278,46 @@ function Rsvp() {
         ========================= */}
 
         <style>{`
+          .rsvp-card-is-closed {
+            padding-top: 34px;
+            padding-bottom: 34px;
+          }
+
+          .rsvp-closed-content {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            max-width: 430px;
+            margin: 0 auto;
+            text-align: center;
+          }
+
+          .rsvp-closed-title {
+            margin: 0 0 14px;
+            color: #1f4734;
+            font-family: "Adobe Jenson Pro", serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+          }
+
+          .rsvp-closed-content .rsvp-card-text {
+            margin-bottom: 14px;
+          }
+
+          .rsvp-closed-content .rsvp-card-text strong {
+            font-weight: 600;
+          }
+
+          .rsvp-closed-message {
+            margin: 0 auto;
+            max-width: 390px;
+            color: #5f5a51;
+            font-family: "Adobe Jenson Pro", serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+          }
+
           .rsvp-results {
             width: 100%;
             display: flex;
@@ -1488,6 +1669,20 @@ function Rsvp() {
           }
 
           @media (max-width: 600px) {
+            .rsvp-card-is-closed {
+              padding-top: 28px;
+              padding-bottom: 28px;
+            }
+
+            .rsvp-closed-title {
+              font-size: 1.12rem;
+            }
+
+            .rsvp-closed-message {
+              font-size: 0.78rem;
+              line-height: 1.35;
+            }
+
             .rsvp-popup-backdrop {
               padding: 14px;
             }
