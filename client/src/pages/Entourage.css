@@ -4,53 +4,80 @@
    FONTS
 ========================= */
 
+/* Sloop fonts - served from client/public/ */
+
 @font-face {
   font-family: "Sloop ScriptTwo";
-  src: url("../assets/fonts/Sloop-ScriptTwo.otf") format("opentype");
-  font-weight: normal;
+  src: url("/Sloop-ScriptTwo.otf") format("opentype");
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Sloop Script Regular";
-  src: url("../assets/fonts/Sloop-Script-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AdobeJensonPro-Regular.otf") format("opentype");
+  src: url("/Sloop-Script-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+
+/* Adobe Jenson Pro fonts - served from client/public/ */
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AdobeJensonPro-Semibold.otf") format("opentype");
+  src: url("/AJensonPro-Lt.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-Bold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AJensonPro-Lt.ttf") format("truetype");
-  font-weight: 300;
+  src: url("/AJensonPro-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AdobeJensonPro-LightItalic.otf") format("opentype");
+  src: url("/AJensonPro-It.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Adobe Jenson Pro";
-  src: url("../assets/fonts/AdobeJensonPro-BoldItalic.otf") format("opentype");
+  src: url("/AJensonPro-It.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Adobe Jenson Pro";
+  src: url("/AJensonPro-BoldIt.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
+  font-display: swap;
 }
 
 /* =========================
@@ -59,6 +86,17 @@
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .entourage-page {
@@ -738,7 +776,7 @@
 /* =========================================================
    ENTOURAGE TYPOGRAPHY UPDATE
    - AJensonPro-Lt.ttf for normal names/text
-   - Semibold stays thicker for role headings
+   - Bold font for role headings
 ========================================================= */
 
 .entourage-group p,
@@ -768,6 +806,7 @@
 ========================================================= */
 
 /* Default */
+
 .entourage-column h2 {
   font-size: clamp(1rem, 3vw, 1.2rem);
 }
@@ -778,6 +817,7 @@
 }
 
 /* Mobile */
+
 @media (max-width: 600px) {
   .entourage-column h2 {
     font-size: 0.82rem;
@@ -791,6 +831,7 @@
 }
 
 /* Very small phones */
+
 @media (max-width: 390px) {
   .entourage-column h2 {
     font-size: 0.76rem;
@@ -803,6 +844,7 @@
 }
 
 /* Tablet */
+
 @media (min-width: 601px) and (max-width: 849px) {
   .entourage-column h2 {
     font-size: 1.2rem;
@@ -815,6 +857,7 @@
 }
 
 /* Desktop */
+
 @media (min-width: 850px) {
   .entourage-column h2 {
     font-size: 1.35rem;
@@ -827,6 +870,7 @@
 }
 
 /* Large desktop */
+
 @media (min-width: 1400px) {
   .entourage-column h2 {
     font-size: 1.5rem;
@@ -837,4 +881,3 @@
     line-height: 1.3;
   }
 }
-
