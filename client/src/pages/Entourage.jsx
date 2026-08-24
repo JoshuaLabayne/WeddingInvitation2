@@ -54,7 +54,7 @@ function Entourage() {
             <p>Mr. Ricardo and Mrs. Heidi Chua</p>
             <p>Mr. Byx and Mrs. Leizel Buyoc</p>
             <p>Mr. Aris and Mrs. Cindy Rome</p>
-            <p>Mrs. Joephine Casin</p>
+            <p>Mrs. Josephine Casin</p>
             <p>Mr. Benjamin and Mrs. Evelyn Dato</p>
             <p>Mr. Dante Calualhatian</p>
             <p>Mrs. Elena Retamar</p>
@@ -100,7 +100,7 @@ function Entourage() {
 
           <div className="entourage-group">
             <h2>Coin Bearer</h2>
-            <p>Eli de Dios</p>
+            <p>Mirakel Ellie de Dios</p>
           </div>
 
           <div className="entourage-group">
@@ -133,7 +133,7 @@ function Entourage() {
               <p>Chloe Pojas</p>
               <p>Rica Alcantara</p>
               <p>Ma. Angelica Sabong</p>
-              <p>HHannah Lynne Pigao</p>
+              <p>Hannah Lyne Pigao</p>
               <p>Joana Aquino</p>
             </div>
           </div>
