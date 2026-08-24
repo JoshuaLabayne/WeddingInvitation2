@@ -1,0 +1,39 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
+>
+  <style>
+    /*
+      Light browser tab:
+      Use a dark icon
+    */
+    .icon {
+      fill: #202124;
+    }
+
+    /*
+      Dark browser tab:
+      Use a light icon
+    */
+    @media (prefers-color-scheme: dark) {
+      .icon {
+        fill: #f1f3f4;
+      }
+    }
+  </style>
+
+  <!-- Heart / wedding favicon -->
+  <path
+    class="icon"
+    d="
+      M50 88
+      C45 83 15 62 15 37
+      C15 22 25 13 38 13
+      C45 13 49 17 50 22
+      C51 17 55 13 62 13
+      C75 13 85 22 85 37
+      C85 62 55 83 50 88
+      Z
+    "
+  />
+</svg>
