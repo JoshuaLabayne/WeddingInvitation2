@@ -4,13 +4,31 @@
     <meta charset="UTF-8" />
 
     <!-- =========================
-         ADAPTIVE LIGHT / DARK FAVICON
+         LIGHT / DARK TAB FAVICON
     ========================== -->
 
+    <!--
+      Browser/tab is LIGHT
+      → title text is DARK
+      → use dark-icon.png
+    -->
     <link
       rel="icon"
-      type="image/svg+xml"
-      href="/favicon.svg"
+      type="image/png"
+      href="/dark-icon.png"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <!--
+      Browser/tab is DARK
+      → title text is LIGHT
+      → use light-icon.png
+    -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/light-icon.png"
+      media="(prefers-color-scheme: dark)"
     />
 
     <meta
