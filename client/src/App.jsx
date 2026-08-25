@@ -383,7 +383,7 @@ function App() {
               <h1
                 className="couple-name jayel-name"
               >
-                Jay-el de Dios
+                Jay-el Jonathan de Dios
               </h1>
 
               {/* =========================
@@ -417,7 +417,7 @@ function App() {
               <h1
                 className="couple-name aimee-name"
               >
-                Aimee Avanceña
+                Ma. Aimee Andrea Avanceña
               </h1>
             </div>
 
