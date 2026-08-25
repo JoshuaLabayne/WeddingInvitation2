@@ -63,7 +63,7 @@ function Entourage() {
             <p>Engr. Pablo and Mrs. Rose Cañadido</p>
             <p>Mr. Roberto Eribal Jr.</p>
             <p>Mr. Adriano and Mrs Beverly Petacio</p>
-            <p>Ms. Suzeth Mingi</p>
+            <p>Mrs. Ma. Zuzith Mingi</p>
           </div>
 
           <div className="entourage-group">
