@@ -32,7 +32,7 @@ const faqItems = [
   {
     question: "DO YOU HAVE ANY GIFT PREFERENCES?",
     answer:
-      "As love is what this day is all about, your presence is one we couldn’t celebrate without. However, should you insist that a gift is worth giving, a monetary gift would be sincerely appreciated as we start our new life together.",
+      "Your presence is the one we couldn't celebrate without, as love is the essence of this day. However, if you insist that a gift is worth giving, we would sincerely appreciate a monetary gift as we begin our new life together.",
   },
   {
     question: "CAN I TAKE PICTURES?",
