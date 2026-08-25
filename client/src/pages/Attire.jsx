@@ -99,6 +99,11 @@ function Attire() {
             <p>
               Long Satin Dress, Flats
             </p>
+
+            <p className="attire-note">
+              (Recommended, for easier
+              walking around the island)
+            </p>
           </div>
 
           {/* =========================
