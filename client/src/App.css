@@ -187,15 +187,23 @@ button {
   justify-content: center;
 
   gap: 4px;
+
+  /* Keeps each complete name on one line */
   white-space: nowrap;
 }
 
 .couple-name {
   margin: 0;
 
-  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  /*
+   * Slightly increased.
+   * Still small enough to keep long names
+   * on a single line.
+   */
+  font-size: clamp(1.55rem, 4.3vw, 2.8rem);
 
   font-weight: normal;
+
   line-height: 1;
 
   white-space: nowrap;
@@ -205,6 +213,7 @@ button {
     0 4px 15px rgba(0, 0, 0, 0.2);
 
   opacity: 0;
+
   transform: translateX(-70px);
 
   animation:
@@ -246,6 +255,7 @@ button {
   font-size: 0.7rem;
 
   font-weight: normal;
+
   letter-spacing: 4px;
 
   white-space: nowrap;
@@ -571,16 +581,32 @@ button {
 
   .names-section {
     gap: 3px;
+
+    max-width: 100%;
   }
 
   .couple-name {
-    font-size: clamp(1rem, 4.8vw, 1.5rem);
+    /*
+     * Slightly bigger than before:
+     * 1rem -> 1.1rem
+     */
+    font-size:
+      clamp(
+        1.1rem,
+        5.1vw,
+        1.65rem
+      );
+
     margin: 0;
+
+    white-space: nowrap;
   }
 
   .and-text {
     margin: 2px 0 4px;
+
     font-size: 0.55rem;
+
     letter-spacing: 2.5px;
   }
 
@@ -629,6 +655,19 @@ button {
   .hero-content {
     padding-top: 26vh;
   }
+
+  .names-section {
+    max-width: 100%;
+  }
+
+  .couple-name {
+    font-size:
+      clamp(
+        1.05rem,
+        5vw,
+        1.55rem
+      );
+  }
 }
 
 @media (max-width: 390px) {
@@ -638,11 +677,25 @@ button {
 
   .names-section {
     gap: 4px;
+
+    width: 100%;
+    max-width: 100%;
   }
 
   .couple-name {
-    font-size: clamp(0.85rem, 4.5vw, 1.3rem);
+    /*
+     * Slightly bigger than previous 0.85rem range
+     */
+    font-size:
+      clamp(
+        0.95rem,
+        4.8vw,
+        1.4rem
+      );
+
     margin: 0;
+
+    white-space: nowrap;
   }
 
   .wedding-info {
@@ -691,10 +744,13 @@ button {
 
   .names-section {
     gap: 8px;
+
+    max-width: 100%;
   }
 
   .and-text {
     font-size: 0.7rem;
+
     letter-spacing: 3px;
   }
 
@@ -714,8 +770,14 @@ button {
   }
 
   .couple-name {
-    font-size: 2.3rem;
+    /*
+     * Increased from 2.3rem
+     */
+    font-size: 2.55rem;
+
     margin: 0;
+
+    white-space: nowrap;
   }
 
   .envelope-menu-wrapper {
@@ -774,20 +836,27 @@ button {
 
   .names-section {
     max-width: 1050px;
+
     gap: 12px;
+
+    white-space: nowrap;
   }
 
   /*
-   * Reduced from 7.5rem.
-   * This is the main desktop adjustment.
+   * Slightly increased from 3rem.
+   * Each name remains on one line.
    */
   .couple-name {
-    font-size: 3rem;
+    font-size: 3.3rem;
+
     margin: 0;
+
+    white-space: nowrap;
   }
 
   .and-text {
     font-size: 0.8rem;
+
     letter-spacing: 4px;
   }
 
@@ -862,11 +931,18 @@ button {
   }
 
   /*
-   * Reduced from 8rem.
+   * Slightly increased from 4.4rem.
    */
   .couple-name {
-    font-size: 4.4rem;
+    font-size: 4.8rem;
+
     margin: 0;
+
+    white-space: nowrap;
+  }
+
+  .names-section {
+    max-width: 1100px;
   }
 
   .wedding-info {
