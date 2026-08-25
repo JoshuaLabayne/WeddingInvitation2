@@ -16,7 +16,7 @@
   font-display: swap;
 }
 
-/* Adobe Jenson Pro files are served from client/public/ */
+/* Adobe Jenson Pro */
 
 @font-face {
   font-family: "Adobe Jenson Pro";
@@ -73,6 +73,10 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* =========================
+   GLOBAL
+========================= */
 
 * {
   box-sizing: border-box;
@@ -195,11 +199,11 @@ button {
   margin: 0;
 
   /*
-   * Base size.
-   * Responsive media queries below increase
-   * this further on phones and tablets.
+   * Bigger overall.
+   * Still keeps the complete name
+   * on one line.
    */
-  font-size: clamp(1.7rem, 4.5vw, 3rem);
+  font-size: clamp(1.7rem, 6vw, 3.2rem);
 
   font-weight: normal;
 
@@ -251,7 +255,7 @@ button {
     "Adobe Jenson Pro",
     serif;
 
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 
   font-weight: normal;
 
@@ -301,12 +305,11 @@ button {
     "Adobe Jenson Pro",
     serif;
 
-  font-size:
-    clamp(
-      0.9rem,
-      2.8vw,
-      1.05rem
-    );
+  font-size: clamp(
+    0.9rem,
+    2.8vw,
+    1.05rem
+  );
 
   font-weight: normal;
 
@@ -324,12 +327,11 @@ button {
     "Adobe Jenson Pro",
     serif;
 
-  font-size:
-    clamp(
-      1rem,
-      5vw,
-      2rem
-    );
+  font-size: clamp(
+    1rem,
+    5vw,
+    2rem
+  );
 
   font-weight: normal;
 
@@ -349,12 +351,11 @@ button {
     "Adobe Jenson Pro",
     serif;
 
-  font-size:
-    clamp(
-      0.9rem,
-      2.8vw,
-      1.05rem
-    );
+  font-size: clamp(
+    0.9rem,
+    2.8vw,
+    1.05rem
+  );
 
   font-weight: 600;
 
@@ -371,12 +372,11 @@ button {
     "Adobe Jenson Pro",
     serif;
 
-  font-size:
-    clamp(
-      0.8rem,
-      2.5vw,
-      0.95rem
-    );
+  font-size: clamp(
+    0.8rem,
+    2.5vw,
+    0.95rem
+  );
 
   font-weight: 300;
 
@@ -449,13 +449,12 @@ button {
 
   border-radius: 999px;
 
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.2
-    );
+  background: rgba(
+    255,
+    255,
+    255,
+    0.2
+  );
 
   color: #8e7b35;
 
@@ -474,16 +473,14 @@ button {
 }
 
 .envelope-buttons button:hover {
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.45
-    );
+  background: rgba(
+    255,
+    255,
+    255,
+    0.45
+  );
 
-  transform:
-    translateY(-1px);
+  transform: translateY(-1px);
 
   box-shadow:
     0 3px 8px
@@ -503,7 +500,7 @@ button {
 }
 
 /* =========================
-   PAGE ENTRANCE ANIMATIONS
+   ANIMATIONS
 ========================= */
 
 @keyframes nameSlideLeftToRight {
@@ -572,44 +569,38 @@ button {
   .hero-content {
     padding-top: 30vh;
 
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 16px;
+    padding-right: 16px;
 
     padding-bottom: 30px;
   }
 
   .names-section {
     width: 100%;
-    max-width: 100%;
 
-    gap: 4px;
-
-    white-space: nowrap;
+    gap: 5px;
   }
 
+  /*
+   * BIGGER PHONE NAMES
+   */
   .couple-name {
-    /*
-     * BIGGER PHONE SIZE
-     *
-     * Increased significantly while still
-     * keeping the names on one line.
-     */
     font-size:
       clamp(
-        1.45rem,
-        7.2vw,
-        2.2rem
+        1.75rem,
+        8vw,
+        2.5rem
       );
 
     margin: 0;
 
-    white-space: nowrap;
+    line-height: 1;
   }
 
   .and-text {
     margin: 3px 0 5px;
 
-    font-size: 0.62rem;
+    font-size: 0.65rem;
 
     letter-spacing: 3px;
   }
@@ -658,34 +649,23 @@ button {
 @media (max-width: 500px) {
   .hero-content {
     padding-top: 26vh;
-
-    padding-left: 12px;
-    padding-right: 12px;
   }
 
   .names-section {
-    width: 100%;
-    max-width: 100%;
-
-    gap: 4px;
+    gap: 5px;
   }
 
   .couple-name {
-    /*
-     * Bigger than the previous version.
-     */
     font-size:
       clamp(
-        1.35rem,
-        7vw,
-        2rem
+        1.65rem,
+        8vw,
+        2.25rem
       );
-
-    white-space: nowrap;
   }
 
   .and-text {
-    font-size: 0.6rem;
+    font-size: 0.62rem;
 
     letter-spacing: 2.8px;
   }
@@ -699,32 +679,27 @@ button {
   .hero-content {
     padding-top: 22vh;
 
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .names-section {
-    width: 100%;
-    max-width: 100%;
-
-    gap: 4px;
+    gap: 5px;
   }
 
+  /*
+   * Still considerably bigger
+   * than the previous version.
+   */
   .couple-name {
-    /*
-     * Still large on small phones,
-     * but controlled to prevent wrapping.
-     */
     font-size:
       clamp(
-        1.25rem,
-        6.8vw,
-        1.8rem
+        1.55rem,
+        8vw,
+        2rem
       );
 
     margin: 0;
-
-    white-space: nowrap;
   }
 
   .and-text {
@@ -780,16 +755,13 @@ button {
   }
 
   .names-section {
-    width: 100%;
-    max-width: 100%;
-
     gap: 8px;
 
-    white-space: nowrap;
+    max-width: 700px;
   }
 
   .and-text {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
 
     letter-spacing: 3px;
   }
@@ -807,20 +779,17 @@ button {
     min-height: 1150px;
 
     padding-top: 330px;
-
-    padding-left: 20px;
-    padding-right: 20px;
   }
 
+  /*
+   * BIGGER TABLET NAMES
+   */
   .couple-name {
-    /*
-     * BIGGER TABLET SIZE
-     */
     font-size: 3.2rem;
 
     margin: 0;
 
-    white-space: nowrap;
+    line-height: 1;
   }
 
   .envelope-menu-wrapper {
@@ -837,20 +806,6 @@ button {
     padding: 6px 8px;
 
     font-size: 0.8rem;
-  }
-}
-
-/* =========================
-   LARGE TABLETS
-========================= */
-
-@media (min-width: 700px) and (max-width: 849px) {
-  .couple-name {
-    font-size: 3.6rem;
-  }
-
-  .names-section {
-    gap: 9px;
   }
 }
 
@@ -895,20 +850,19 @@ button {
     max-width: 1050px;
 
     gap: 12px;
-
-    white-space: nowrap;
   }
 
+  /*
+   * BIGGER DESKTOP NAMES
+   */
   .couple-name {
-    font-size: 3.5rem;
+    font-size: 3.6rem;
 
     margin: 0;
-
-    white-space: nowrap;
   }
 
   .and-text {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 
     letter-spacing: 4px;
   }
@@ -983,16 +937,13 @@ button {
     padding-top: 620px;
   }
 
+  /*
+   * BIGGER LARGE DESKTOP NAMES
+   */
   .couple-name {
-    font-size: 4.8rem;
+    font-size: 5rem;
 
     margin: 0;
-
-    white-space: nowrap;
-  }
-
-  .names-section {
-    max-width: 1100px;
   }
 
   .wedding-info {
@@ -1108,8 +1059,6 @@ button {
     );
 }
 
-/* Close */
-
 .admin-login-close {
   position: absolute;
 
@@ -1141,13 +1090,8 @@ button {
   opacity: 0.65;
 }
 
-/* Label */
-
 .admin-login-label {
-  margin:
-    0
-    0
-    8px;
+  margin: 0 0 8px;
 
   color: #8d793b;
 
@@ -1162,13 +1106,8 @@ button {
   letter-spacing: 3px;
 }
 
-/* Title */
-
 .admin-login-title {
-  margin:
-    0
-    0
-    10px;
+  margin: 0 0 10px;
 
   color: #1f4734;
 
@@ -1189,15 +1128,10 @@ button {
   line-height: 1;
 }
 
-/* Description */
-
 .admin-login-description {
   max-width: 280px;
 
-  margin:
-    0
-    auto
-    24px;
+  margin: 0 auto 24px;
 
   color: #696358;
 
@@ -1210,8 +1144,6 @@ button {
   line-height: 1.45;
 }
 
-/* Password */
-
 .admin-password-wrapper {
   width: 100%;
 }
@@ -1221,9 +1153,7 @@ button {
 
   height: 48px;
 
-  padding:
-    10px
-    15px;
+  padding: 10px 15px;
 
   border:
     1px solid
@@ -1252,10 +1182,8 @@ button {
   text-align: center;
 
   transition:
-    border-color
-      0.2s ease,
-    box-shadow
-      0.2s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .admin-password-input:focus {
@@ -1276,13 +1204,8 @@ button {
   color: #aaa393;
 }
 
-/* Error */
-
 .admin-login-error {
-  margin:
-    11px
-    0
-    0;
+  margin: 11px 0 0;
 
   color: #bd001d;
 
@@ -1292,8 +1215,6 @@ button {
 
   font-size: 0.82rem;
 }
-
-/* Continue button */
 
 .admin-login-submit {
   width: 100%;
@@ -1339,8 +1260,7 @@ button {
 }
 
 .admin-login-submit:active {
-  transform:
-    translateY(3px);
+  transform: translateY(3px);
 
   box-shadow:
     0 1px 0
