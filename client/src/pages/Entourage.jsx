@@ -59,8 +59,8 @@ function Entourage() {
             <p>Mr. Dante Calualhatian</p>
             <p>Mrs. Elena Retamar</p>
             <p>Mr. Manny and Mrs. Monette Vertudazo</p>
-            <p>Mr. Patrick John Dela Cruz and Mrs. Maria Charisse Dela Cruz</p>
-            <p>Mr. Pablo and Mrs. Rose Canadido</p>
+            <p>Mr. Patrick John and Mrs. Maria Charisse Dela Cruz</p>
+            <p>Mr. Pablo and Mrs. Rose Cañadido</p>
             <p>Mr. Roberto Eribal Jr.</p>
             <p>Mr. Adriano and Mrs Beverly Petacio</p>
             <p>Ms. Suzeth Mingi</p>
@@ -134,7 +134,7 @@ function Entourage() {
               <p>Rica Alcantara</p>
               <p>Ma. Angelica Sabong</p>
               <p>Hannah Lyne Pigao</p>
-              <p>Joana Aquino</p>
+              <p>Joanna Aquino</p>
             </div>
           </div>
 
