@@ -179,21 +179,26 @@ button {
 
 .names-section {
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+  white-space: nowrap;
 }
 
 .couple-name {
-  margin: 16px;
+  margin: 0;
 
-  /*
-   * Reduced from the previous 7rem range
-   * because the full names are quite long.
-   */
-  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-size: clamp(1.8rem, 5vw, 3.4rem);
 
   font-weight: normal;
+  line-height: 1;
 
-  line-height: 0.92;
+  white-space: nowrap;
 
   text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.25),
@@ -232,17 +237,18 @@ button {
 }
 
 .and-text {
-  margin: 8px 0 10px;
+  margin: 3px 0 5px;
 
   font-family:
     "Adobe Jenson Pro",
     serif;
 
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 
   font-weight: normal;
+  letter-spacing: 4px;
 
-  letter-spacing: 5px;
+  white-space: nowrap;
 
   text-shadow:
     0 2px 5px rgba(0, 0, 0, 0.4);
@@ -563,21 +569,19 @@ button {
     padding-bottom: 30px;
   }
 
-  .couple-name {
-    font-size:
-      clamp(
-        2rem,
-        13vw,
-        2.3rem
-      );
+  .names-section {
+    gap: 3px;
+  }
 
-    margin: 14px;
+  .couple-name {
+    font-size: clamp(1.25rem, 6vw, 2rem);
+    margin: 0;
   }
 
   .and-text {
-    margin: 6px 0 8px;
-
-    font-size: 0.65rem;
+    margin: 2px 0 4px;
+    font-size: 0.55rem;
+    letter-spacing: 2.5px;
   }
 
   .wedding-info {
@@ -616,6 +620,7 @@ button {
     letter-spacing: 0.7px;
   }
 }
+}
 
 /* =========================
    VERY SMALL PHONES
@@ -632,15 +637,13 @@ button {
     padding-top: 22vh;
   }
 
-  .couple-name {
-    font-size:
-      clamp(
-        1.9rem,
-        13vw,
-        2.2rem
-      );
+  .names-section {
+    gap: 4px;
+  }
 
-    margin: 12px;
+  .couple-name {
+    font-size: clamp(1rem, 5.6vw, 1.55rem);
+    margin: 0;
   }
 
   .wedding-info {
@@ -669,6 +672,7 @@ button {
     font-size: 0.61rem;
   }
 }
+}
 
 /* =========================
    TABLET
@@ -687,8 +691,13 @@ button {
       rgba(0, 0, 0, 0.22);
   }
 
+  .names-section {
+    gap: 8px;
+  }
+
   .and-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
   }
 
   .hero-section {
@@ -707,9 +716,8 @@ button {
   }
 
   .couple-name {
-    font-size: 4.8rem;
-
-    margin: 14px;
+    font-size: 3rem;
+    margin: 0;
   }
 
   .envelope-menu-wrapper {
@@ -727,6 +735,7 @@ button {
 
     font-size: 0.8rem;
   }
+}
 }
 
 /* =========================
@@ -767,7 +776,8 @@ button {
   }
 
   .names-section {
-    max-width: 850px;
+    max-width: 1050px;
+    gap: 12px;
   }
 
   /*
@@ -775,15 +785,13 @@ button {
    * This is the main desktop adjustment.
    */
   .couple-name {
-    font-size: 5.5rem;
-
-    margin: 14px;
+    font-size: 4rem;
+    margin: 0;
   }
 
   .and-text {
-    font-size: 1rem;
-
-    letter-spacing: 5px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
   }
 
   .wedding-info {
@@ -836,6 +844,7 @@ button {
     letter-spacing: 1.3px;
   }
 }
+}
 
 /* =========================
    LARGE DESKTOP
@@ -860,9 +869,8 @@ button {
    * Reduced from 8rem.
    */
   .couple-name {
-    font-size: 6rem;
-
-    margin: 14px;
+    font-size: 4.4rem;
+    margin: 0;
   }
 
   .wedding-info {
@@ -892,6 +900,7 @@ button {
 
     letter-spacing: 1.5px;
   }
+}
 }
 
 /* =========================
