@@ -23,7 +23,7 @@ function Entourage() {
         <div className="entourage-list">
           <div className="entourage-group">
             <h2>Officiant</h2>
-            <p>Pastor Dave Domingo</p>
+            <p>Pastor David Domingo Jr.</p>
           </div>
 
           <div className="entourage-group">
@@ -49,10 +49,10 @@ function Entourage() {
             <p>Mr. Pompio Jr. and Mrs. Angela Floro</p>
             <p>Pastor Romie and Pastora Lina Labayne</p>
             <p>Pastor Joshua and Mrs. Gie Sebastian</p>
-            <p>Pastor Mao and Pastora Amazing Custodio</p>
-            <p>Pastor Dave and Mrs. Thelma Domingo</p>
+            <p>Pastor Maurice and Pastora Ma. Joanne Grace Custodio</p>
+            <p>Pastor David Jr. and Mrs. Thelma Domingo</p>
             <p>Mr. Ricardo and Mrs. Heidi Chua</p>
-            <p>Mr. Byx and Mrs. Leizel Buyoc</p>
+            <p>Mr. Byron and Mrs. Prescilla Buyoc</p>
             <p>Mr. Aris and Mrs. Cindy Rome</p>
             <p>Mrs. Josephine Casin</p>
             <p>Mr. Benjamin and Mrs. Evelyn Dato</p>
@@ -85,7 +85,7 @@ function Entourage() {
           <div className="entourage-group">
             <h2>Veil</h2>
             <p>John Koby Reodica</p>
-            <p>Bence Canadido</p>
+            <p>Bence Cañadido</p>
           </div>
 
           <div className="entourage-group">
