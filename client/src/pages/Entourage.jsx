@@ -138,6 +138,18 @@ function Entourage() {
             </div>
           </div>
 
+  <div className="entourage-group">
+            <h2>Flower Girls</h2>
+            <p>Princess Amira Raagas
+             <p>Princess Jhaira Raagas</p>
+<p>Sophia Angel Floro</p>
+<p>Doreen Liora Pam Floro</p>
+<p>Justine Macaila Floro</p>
+<p>John Mica Floro</p>
+<p>Jasmine Belle Gemoto</p>
+<p>Jeaneth Blessing Gemoto</p>
+          </div>
+
           <div className="entourage-group">
             <h2>Best Pup</h2>
             <p>Bugsy de Dios</p>
