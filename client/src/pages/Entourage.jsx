@@ -85,7 +85,7 @@ function Entourage() {
           <div className="entourage-group">
             <h2>Veil</h2>
             <p>John Koby Reodica</p>
-            <p>Bence Cañadido</p>
+            <p>Benia Nicatte Cañadido</p>
           </div>
 
           <div className="entourage-group">
