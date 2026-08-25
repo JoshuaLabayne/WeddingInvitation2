@@ -193,7 +193,7 @@ button {
 .couple-name {
   margin: 0;
 
-  font-size: clamp(1.8rem, 5vw, 3.4rem);
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
 
   font-weight: normal;
   line-height: 1;
@@ -574,7 +574,7 @@ button {
   }
 
   .couple-name {
-    font-size: clamp(1.25rem, 6vw, 2rem);
+    font-size: clamp(1rem, 4.8vw, 1.5rem);
     margin: 0;
   }
 
@@ -642,7 +642,7 @@ button {
   }
 
   .couple-name {
-    font-size: clamp(1rem, 5.6vw, 1.55rem);
+    font-size: clamp(0.85rem, 4.5vw, 1.3rem);
     margin: 0;
   }
 
@@ -716,7 +716,7 @@ button {
   }
 
   .couple-name {
-    font-size: 3rem;
+    font-size: 2.3rem;
     margin: 0;
   }
 
@@ -785,7 +785,7 @@ button {
    * This is the main desktop adjustment.
    */
   .couple-name {
-    font-size: 4rem;
+    font-size: 3rem;
     margin: 0;
   }
 
@@ -807,7 +807,7 @@ button {
   .wedding-date {
     margin-top: 20px;
 
-    font-size: 4.4rem;
+    font-size: 3.3rem;
   }
 
   .venue-text {
