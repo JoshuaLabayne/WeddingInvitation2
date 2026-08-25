@@ -140,7 +140,7 @@ function Entourage() {
 
   <div className="entourage-group">
             <h2>Flower Girls</h2>
-            <p>Princess Amira Raagas
+            <p>Princess Amira Raagas</p>
              <p>Princess Jhaira Raagas</p>
 <p>Sophia Angel Floro</p>
 <p>Doreen Liora Pam Floro</p>
