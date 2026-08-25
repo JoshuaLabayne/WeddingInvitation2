@@ -46,7 +46,7 @@ function Entourage() {
 
             <p>Mr. Ronaldo de Dios</p>
             <p>Mr. Jerry and Mrs. Maria Theresa Gemoto</p>
-            <p>Mr. Pompio and Mrs. Angela Floro</p>
+            <p>Mr. Pompio Jr. and Mrs. Angela Floro</p>
             <p>Pastor Romie and Pastora Lina Labayne</p>
             <p>Pastor Joshua and Mrs. Gie Sebastian</p>
             <p>Pastor Mao and Pastora Amazing Custodio</p>
@@ -60,7 +60,7 @@ function Entourage() {
             <p>Mrs. Elena Retamar</p>
             <p>Mr. Manny and Mrs. Monette Vertudazo</p>
             <p>Mr. Patrick John and Mrs. Maria Charisse Dela Cruz</p>
-            <p>Mr. Pablo and Mrs. Rose Cañadido</p>
+            <p>Engr. Pablo and Mrs. Rose Cañadido</p>
             <p>Mr. Roberto Eribal Jr.</p>
             <p>Mr. Adriano and Mrs Beverly Petacio</p>
             <p>Ms. Suzeth Mingi</p>
@@ -73,7 +73,7 @@ function Entourage() {
           <div className="entourage-group">
             <h2>Candle</h2>
             <p>Franco Polo Macasa</p>
-            <p>Chloe Pojas</p>
+            <p>Jan Chloe Pojas</p>
           </div>
 
           <div className="entourage-group">
@@ -129,8 +129,8 @@ function Entourage() {
             <div className="entourage-column">
               <h2>Bridesmaids</h2>
 
-              <p>Bence Canadido</p>
-              <p>Chloe Pojas</p>
+              <p>Bence Cañadido</p>
+              <p>Jan Chloe Pojas</p>
               <p>Rica Alcantara</p>
               <p>Ma. Angelica Sabong</p>
               <p>Hannah Lyne Pigao</p>
