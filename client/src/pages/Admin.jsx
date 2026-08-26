@@ -214,13 +214,6 @@ function Admin() {
         );
 
         if (!response.ok) {
-          /*
-           * IMPORTANT:
-           * Do not immediately navigate back to "/".
-           * Keeping the user on /admin makes it possible
-           * to see the real authentication error instead
-           * of flashing back to App.jsx.
-           */
           setAuthError(
             data.message ||
               `Admin authentication failed (${response.status}). The backend rejected the Bearer token.`
@@ -760,7 +753,9 @@ function Admin() {
     e.preventDefault();
 
     if (!editingGroupId) {
-      setEditMessage("No group is selected for editing.");
+      setEditMessage(
+        "No group is selected for editing."
+      );
       return;
     }
 
@@ -771,18 +766,24 @@ function Admin() {
       return;
     }
 
-    const cleanedMembers = editMembers.map(
-      (member) => ({
-        _id: member._id,
-        name: member.name.trim(),
-        rsvpStatus: member.rsvpStatus,
-        inviteType: member.inviteType,
-      })
-    );
+    const cleanedMembers =
+      editMembers.map(
+        (member) => ({
+          _id:
+            member._id,
+          name:
+            member.name.trim(),
+          rsvpStatus:
+            member.rsvpStatus,
+          inviteType:
+            member.inviteType,
+        })
+      );
 
-    const hasEmptyName = cleanedMembers.some(
-      (member) => !member.name
-    );
+    const hasEmptyName =
+      cleanedMembers.some(
+        (member) => !member.name
+      );
 
     if (hasEmptyName) {
       setEditMessage(
@@ -819,25 +820,29 @@ function Admin() {
       setSavingEdit(true);
       setEditMessage("");
 
-      const response = await fetch(
-        `${API}/group/${encodeURIComponent(
-          editingGroupId
-        )}`,
-        {
-          method: "PATCH",
+      const response =
+        await fetch(
+          `${API}/group/${encodeURIComponent(
+            editingGroupId
+          )}`,
+          {
+            method: "PATCH",
 
-          headers:
-            getAdminHeaders({
-              "Content-Type":
-                "application/json",
-            }),
-          body: JSON.stringify({
-            groupName:
-              editGroupName.trim(),
-            members: cleanedMembers,
-          }),
-        }
-      );
+            headers:
+              getAdminHeaders({
+                "Content-Type":
+                  "application/json",
+              }),
+
+            body:
+              JSON.stringify({
+                groupName:
+                  editGroupName.trim(),
+                members:
+                  cleanedMembers,
+              }),
+          }
+        );
 
       if (
         response.status === 401 ||
@@ -850,12 +855,6 @@ function Admin() {
         return;
       }
 
-      /*
-        Do not call response.json() directly.
-        Express may return plain text/HTML when a
-        route is missing, which would otherwise
-        hide the real error behind a JSON parse error.
-      */
       const responseText =
         await response.text();
 
@@ -863,9 +862,10 @@ function Admin() {
 
       if (responseText) {
         try {
-          data = JSON.parse(
-            responseText
-          );
+          data =
+            JSON.parse(
+              responseText
+            );
         } catch {
           data = {
             message:
@@ -912,116 +912,121 @@ function Admin() {
      DELETE WHOLE GROUP
   ========================= */
 
-  const deleteWholeGroup = async () => {
-    if (!editingGroupId || deletingGroup) {
-      return;
-    }
-
-    /*
-       Always rebuild the complete group from
-       the original invite list. This prevents
-       staged member removals in the edit form
-       from leaving people behind.
-    */
-    const fullGroupMembers =
-      invites.filter(
-        (invite) =>
-          (invite.groupId ||
-            invite._id) ===
-          editingGroupId
-      );
-
-    if (fullGroupMembers.length === 0) {
-      setEditMessage(
-        "No members were found for this group."
-      );
-      return;
-    }
-
-    const groupLabel =
-      editGroupName.trim() ||
-      fullGroupMembers[0]?.groupName ||
-      "this group";
-
-    const confirmed =
-      window.confirm(
-        `Delete the entire "${groupLabel}" group and all ${fullGroupMembers.length} ${
-          fullGroupMembers.length === 1
-            ? "person"
-            : "people"
-        }? This cannot be undone.`
-      );
-
-    if (!confirmed) {
-      return;
-    }
-
-    try {
-      setDeletingGroup(true);
-      setEditMessage("");
-
-      const responses =
-        await Promise.all(
-          fullGroupMembers.map(
-            (member) =>
-              fetch(
-                `${API}/${member._id}`,
-                {
-                  method: "DELETE",
-
-                  headers:
-                    getAdminHeaders(),
-                }
-              )
-          )
-        );
-
-      const unauthorized =
-        responses.some(
-          (response) =>
-            response.status === 401 ||
-            response.status === 403
-        );
-
-      if (unauthorized) {
-        setAuthError(
-          "The backend rejected the admin token while deleting a group."
-        );
-
+  const deleteWholeGroup =
+    async () => {
+      if (
+        !editingGroupId ||
+        deletingGroup
+      ) {
         return;
       }
 
-      const failed =
-        responses.find(
-          (response) =>
-            !response.ok
+      const fullGroupMembers =
+        invites.filter(
+          (invite) =>
+            (invite.groupId ||
+              invite._id) ===
+            editingGroupId
         );
 
-      if (failed) {
-        throw new Error(
-          `Failed to delete group (${failed.status}).`
+      if (
+        fullGroupMembers.length ===
+        0
+      ) {
+        setEditMessage(
+          "No members were found for this group."
         );
+        return;
       }
 
-      cancelEdit();
+      const groupLabel =
+        editGroupName.trim() ||
+        fullGroupMembers[0]
+          ?.groupName ||
+        "this group";
 
-      await Promise.all([
-        fetchInvites(),
-        fetchStats(),
-      ]);
-    } catch (error) {
-      console.error(
-        "Delete group error:",
-        error
-      );
+      const confirmed =
+        window.confirm(
+          `Delete the entire "${groupLabel}" group and all ${fullGroupMembers.length} ${
+            fullGroupMembers.length === 1
+              ? "person"
+              : "people"
+          }? This cannot be undone.`
+        );
 
-      setEditMessage(
-        "Could not delete the group. Please try again."
-      );
-    } finally {
-      setDeletingGroup(false);
-    }
-  };
+      if (!confirmed) {
+        return;
+      }
+
+      try {
+        setDeletingGroup(true);
+        setEditMessage("");
+
+        const responses =
+          await Promise.all(
+            fullGroupMembers.map(
+              (member) =>
+                fetch(
+                  `${API}/${member._id}`,
+                  {
+                    method:
+                      "DELETE",
+
+                    headers:
+                      getAdminHeaders(),
+                  }
+                )
+            )
+          );
+
+        const unauthorized =
+          responses.some(
+            (response) =>
+              response.status ===
+                401 ||
+              response.status ===
+                403
+          );
+
+        if (unauthorized) {
+          setAuthError(
+            "The backend rejected the admin token while deleting a group."
+          );
+
+          return;
+        }
+
+        const failed =
+          responses.find(
+            (response) =>
+              !response.ok
+          );
+
+        if (failed) {
+          throw new Error(
+            `Failed to delete group (${failed.status}).`
+          );
+        }
+
+        cancelEdit();
+
+        await Promise.all([
+          fetchInvites(),
+          fetchStats(),
+        ]);
+      } catch (error) {
+        console.error(
+          "Delete group error:",
+          error
+        );
+
+        setEditMessage(
+          "Could not delete the group. Please try again."
+        );
+      } finally {
+        setDeletingGroup(false);
+      }
+    };
 
   /* =========================
      DELETE ONE PERSON
@@ -1301,55 +1306,119 @@ function Admin() {
 
   /* =========================
      ADMIN LOGOUT
-     Clicking RSVP Dashboard logs out.
   ========================= */
 
-  const handleLogout = async () => {
-    try {
-      const token =
-        getAdminToken();
+  const handleLogout =
+    async () => {
+      try {
+        const token =
+          getAdminToken();
 
-      if (token) {
-        await fetch(
-          `${ADMIN_API}/logout`,
-          {
-            method: "POST",
+        if (token) {
+          await fetch(
+            `${ADMIN_API}/logout`,
+            {
+              method: "POST",
 
-            headers:
-              getAdminHeaders(),
-          }
+              headers:
+                getAdminHeaders(),
+            }
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Logout error:",
+          error
         );
+      } finally {
+        clearAdminToken();
+
+        navigate("/", {
+          replace: true,
+        });
+
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "auto",
+        });
       }
-    } catch (error) {
-      console.error(
-        "Logout error:",
-        error
-      );
-    } finally {
-      clearAdminToken();
-
-      navigate("/", {
-        replace: true,
-      });
-
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "auto",
-      });
-    }
-  };
+    };
 
   /* =========================
      DONUT CHART
   ========================= */
 
+  const pendingPercent =
+    stats.percentages?.pending || 0;
+
+  const goingPercent =
+    stats.percentages?.going || 0;
+
+  const notGoingPercent =
+    stats.percentages?.notGoing || 0;
+
   const pendingEnd =
-    stats.percentages.pending;
+    pendingPercent;
 
   const goingEnd =
-    stats.percentages.pending +
-    stats.percentages.going;
+    pendingPercent +
+    goingPercent;
+
+  /*
+     Calculate the center angle
+     of each donut section.
+  */
+
+  const pendingAngle =
+    (pendingPercent / 2) *
+    3.6;
+
+  const goingAngle =
+    (
+      pendingPercent +
+      goingPercent / 2
+    ) * 3.6;
+
+  const notGoingAngle =
+    (
+      pendingPercent +
+      goingPercent +
+      notGoingPercent / 2
+    ) * 3.6;
+
+  /*
+     Convert angle into a position
+     inside the donut.
+  */
+
+  const getDonutLabelPosition = (
+    angle,
+    radius = 37
+  ) => {
+    const radians =
+      ((angle - 90) *
+        Math.PI) /
+      180;
+
+    return {
+      left: `${
+        50 +
+        radius *
+          Math.cos(radians)
+      }%`,
+
+      top: `${
+        50 +
+        radius *
+          Math.sin(radians)
+      }%`,
+    };
+  };
+
+  /* =========================
+     LOADING SCREEN
+  ========================= */
 
   if (checkingAuth) {
     return (
@@ -1362,6 +1431,10 @@ function Admin() {
       </main>
     );
   }
+
+  /* =========================
+     AUTH ERROR SCREEN
+  ========================= */
 
   if (authError) {
     return (
@@ -1454,6 +1527,7 @@ function Admin() {
         ===================== */}
 
         <section className="dashboard-chart-card">
+
           <div
             className="dashboard-donut"
             style={{
@@ -1467,15 +1541,87 @@ function Admin() {
                     )`,
             }}
           >
-            <div className="dashboard-donut-hole" />
+
+            {/* =====================
+                PENDING NUMBER
+            ===================== */}
+
+            {stats.pending > 0 && (
+              <span
+                className="donut-number donut-number-pending"
+                style={
+                  getDonutLabelPosition(
+                    pendingAngle
+                  )
+                }
+              >
+                {stats.pending}
+              </span>
+            )}
+
+            {/* =====================
+                GOING NUMBER
+            ===================== */}
+
+            {stats.going > 0 && (
+              <span
+                className="donut-number donut-number-going"
+                style={
+                  getDonutLabelPosition(
+                    goingAngle
+                  )
+                }
+              >
+                {stats.going}
+              </span>
+            )}
+
+            {/* =====================
+                NOT GOING NUMBER
+            ===================== */}
+
+            {stats.notGoing > 0 && (
+              <span
+                className="donut-number donut-number-not-going"
+                style={
+                  getDonutLabelPosition(
+                    notGoingAngle
+                  )
+                }
+              >
+                {stats.notGoing}
+              </span>
+            )}
+
+            {/* =====================
+                DONUT CENTER
+            ===================== */}
+
+            <div className="dashboard-donut-hole">
+              <span className="donut-center-total">
+                {stats.total}
+              </span>
+
+              <span className="donut-center-label">
+                Total
+              </span>
+            </div>
           </div>
 
+          {/* =====================
+              CHART LEGEND
+          ===================== */}
+
           <div className="dashboard-chart-info">
+
             <div className="chart-legend-row">
               <span className="legend-dot legend-pending" />
 
               <span>
-                Not Yet Answered
+                Not Yet Answered{" "}
+                <strong>
+                  ({stats.pending})
+                </strong>
               </span>
             </div>
 
@@ -1483,7 +1629,10 @@ function Admin() {
               <span className="legend-dot legend-going" />
 
               <span>
-                Going
+                Going{" "}
+                <strong>
+                  ({stats.going})
+                </strong>
               </span>
             </div>
 
@@ -1491,7 +1640,10 @@ function Admin() {
               <span className="legend-dot legend-not-going" />
 
               <span>
-                Not Going
+                Not Going{" "}
+                <strong>
+                  ({stats.notGoing})
+                </strong>
               </span>
             </div>
 
@@ -1527,7 +1679,9 @@ function Admin() {
         ===================== */}
 
         <div className="admin-toolbar">
+
           <div className="admin-toolbar-left">
+
             <button
               type="button"
               className="admin-icon-button add-icon-button"
@@ -1575,6 +1729,7 @@ function Admin() {
                 <span />
               </span>
             </button>
+
           </div>
 
           <button
@@ -1618,6 +1773,7 @@ function Admin() {
 
         {showAddForm && (
           <section className="admin-add-popup">
+
             <h2>
               Add Invite
             </h2>
@@ -1627,9 +1783,9 @@ function Admin() {
                 saveInviteGroup
               }
             >
-              {/* HEADERS */}
 
               <div className="admin-member-header admin-member-header-three">
+
                 <span>
                   Name
                 </span>
@@ -1641,11 +1797,11 @@ function Admin() {
                 <span>
                   Type
                 </span>
+
               </div>
 
-              {/* ROWS */}
-
               <div className="admin-member-rows">
+
                 {groupMembers.map(
                   (
                     member,
@@ -1657,6 +1813,7 @@ function Admin() {
                         member.id
                       }
                     >
+
                       <input
                         type="text"
                         value={
@@ -1750,9 +1907,11 @@ function Admin() {
                           ×
                         </button>
                       )}
+
                     </div>
                   )
                 )}
+
               </div>
 
               <button
@@ -1766,9 +1925,8 @@ function Admin() {
                 +
               </button>
 
-              {/* GROUP NAME */}
-
               <div className="admin-group-name-section">
+
                 <label htmlFor="groupName">
                   Group Name
                 </label>
@@ -1792,6 +1950,7 @@ function Admin() {
                   create the group
                   name automatically.
                 </small>
+
               </div>
 
               {message && (
@@ -1801,6 +1960,7 @@ function Admin() {
               )}
 
               <div className="admin-save-wrapper">
+
                 <button
                   type="submit"
                   className="save-invite-button"
@@ -1812,8 +1972,11 @@ function Admin() {
                     ? "Saving..."
                     : "Add Invite"}
                 </button>
+
               </div>
+
             </form>
+
           </section>
         )}
 
@@ -1825,11 +1988,13 @@ function Admin() {
           <section className="admin-filter-panel">
 
             <div className="filter-section">
+
               <h2>
                 Status
               </h2>
 
               <div className="filter-button-grid">
+
                 <button
                   type="button"
                   className={`filter-box status-all ${
@@ -1897,15 +2062,18 @@ function Admin() {
                 >
                   Not yet Answered
                 </button>
+
               </div>
             </div>
 
             <div className="filter-section">
+
               <h2>
                 Type
               </h2>
 
               <div className="filter-button-grid">
+
                 <button
                   type="button"
                   className={`filter-box type-all ${
@@ -1975,8 +2143,10 @@ function Admin() {
                   <br />
                   Groomsman
                 </button>
+
               </div>
             </div>
+
           </section>
         )}
 
@@ -1985,344 +2155,371 @@ function Admin() {
         ===================== */}
 
         {viewMode === "normal" ? (
-        <section className="family-list">
-          {groupedInvites.map(
-            (group) => (
-              <article
-                className="family-card"
-                key={
-                  group.groupId
-                }
-              >
 
-                {/* NORMAL CARD */}
+          <section className="family-list">
 
-                {editingGroupId !==
-                group.groupId ? (
-                  <>
-                    <div className="family-card-header">
-                      <h2>
-                        {
-                          group.groupName
-                        }
-                      </h2>
+            {groupedInvites.map(
+              (group) => (
 
-                      <button
-                        type="button"
-                        className="family-edit-button"
-                        title="Edit group"
-                        onClick={() =>
-                          startEditingGroup(
-                            group
-                          )
-                        }
-                      >
-                        <img
-                          src={
-                            editIcon
+                <article
+                  className="family-card"
+                  key={
+                    group.groupId
+                  }
+                >
+
+                  {editingGroupId !==
+                  group.groupId ? (
+
+                    <>
+                      <div className="family-card-header">
+
+                        <h2>
+                          {
+                            group.groupName
                           }
-                          alt="Edit"
-                          className="family-edit-icon"
-                        />
-                      </button>
-                    </div>
+                        </h2>
 
-                    <div className="family-members">
-                      {group.members.map(
-                        (
-                          invite
-                        ) => (
-                          <div
-                            className="family-member"
-                            key={
-                              invite._id
-                            }
-                          >
-                            <span className="member-name">
-                              {
-                                invite.name
-                              }
-                            </span>
-
-                            <span
-                              className={`member-type ${getInviteTypeClass(
-                                invite.inviteType
-                              )}`}
-                            >
-                              {
-                                invite.inviteType
-                              }
-                            </span>
-
-                            <span
-                              className={`member-status ${getStatusClass(
-                                invite.rsvpStatus
-                              )}`}
-                            >
-                              {getStatusLabel(
-                                invite.rsvpStatus
-                              )}
-                            </span>
-
-                            <button
-                              type="button"
-                              className="member-delete"
-                              onClick={() =>
-                                deleteInvite(
-                                  invite._id
-                                )
-                              }
-                              title="Delete invite"
-                            >
-                              ×
-                            </button>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </>
-                ) : (
-                  /* =====================
-                     EDIT CARD
-                  ===================== */
-
-                  <form
-                    className="edit-group-form"
-                    onSubmit={
-                      saveEditedGroup
-                    }
-                  >
-                    <div className="edit-group-top">
-                      <div className="edit-group-name-field">
-                        <label>
-                          Group Name
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            editGroupName
-                          }
-                          onChange={(
-                            e
-                          ) =>
-                            setEditGroupName(
-                              e.target
-                                .value
+                        <button
+                          type="button"
+                          className="family-edit-button"
+                          title="Edit group"
+                          onClick={() =>
+                            startEditingGroup(
+                              group
                             )
                           }
-                        />
-                      </div>
-                    </div>
-
-                    <div className="edit-member-header">
-                      <span>
-                        Name
-                      </span>
-
-                      <span>
-                        Status
-                      </span>
-
-                      <span>
-                        Type
-                      </span>
-
-                      <span />
-                    </div>
-
-                    <div className="edit-member-list">
-                      {editMembers.map(
-                        (
-                          member
-                        ) => (
-                          <div
-                            className="edit-member-row"
-                            key={
-                              member._id
+                        >
+                          <img
+                            src={
+                              editIcon
                             }
-                          >
-                            <input
-                              type="text"
-                              value={
-                                member.name
-                              }
-                              onChange={(
-                                e
-                              ) =>
-                                updateEditMember(
-                                  member._id,
-                                  "name",
-                                  e
-                                    .target
-                                    .value
-                                )
-                              }
-                            />
+                            alt="Edit"
+                            className="family-edit-icon"
+                          />
+                        </button>
 
-                            <select
-                              value={
-                                member.rsvpStatus
-                              }
-                              onChange={(
-                                e
-                              ) =>
-                                updateEditMember(
-                                  member._id,
-                                  "rsvpStatus",
-                                  e
-                                    .target
-                                    .value
-                                )
+                      </div>
+
+                      <div className="family-members">
+
+                        {group.members.map(
+                          (
+                            invite
+                          ) => (
+
+                            <div
+                              className="family-member"
+                              key={
+                                invite._id
                               }
                             >
-                              <option value="Pending">
-                                No Answer Yet
-                              </option>
 
-                              <option value="Going">
-                                Going
-                              </option>
+                              <span className="member-name">
+                                {
+                                  invite.name
+                                }
+                              </span>
 
-                              <option value="Not Going">
-                                Not Going
-                              </option>
-                            </select>
+                              <span
+                                className={`member-type ${getInviteTypeClass(
+                                  invite.inviteType
+                                )}`}
+                              >
+                                {
+                                  invite.inviteType
+                                }
+                              </span>
 
-                            <select
-                              value={
-                                member.inviteType
+                              <span
+                                className={`member-status ${getStatusClass(
+                                  invite.rsvpStatus
+                                )}`}
+                              >
+                                {getStatusLabel(
+                                  invite.rsvpStatus
+                                )}
+                              </span>
+
+                              <button
+                                type="button"
+                                className="member-delete"
+                                onClick={() =>
+                                  deleteInvite(
+                                    invite._id
+                                  )
+                                }
+                                title="Delete invite"
+                              >
+                                ×
+                              </button>
+
+                            </div>
+                          )
+                        )}
+
+                      </div>
+                    </>
+
+                  ) : (
+
+                    <form
+                      className="edit-group-form"
+                      onSubmit={
+                        saveEditedGroup
+                      }
+                    >
+
+                      <div className="edit-group-top">
+
+                        <div className="edit-group-name-field">
+
+                          <label>
+                            Group Name
+                          </label>
+
+                          <input
+                            type="text"
+                            value={
+                              editGroupName
+                            }
+                            onChange={(
+                              e
+                            ) =>
+                              setEditGroupName(
+                                e.target
+                                  .value
+                              )
+                            }
+                          />
+
+                        </div>
+                      </div>
+
+                      <div className="edit-member-header">
+
+                        <span>
+                          Name
+                        </span>
+
+                        <span>
+                          Status
+                        </span>
+
+                        <span>
+                          Type
+                        </span>
+
+                        <span />
+
+                      </div>
+
+                      <div className="edit-member-list">
+
+                        {editMembers.map(
+                          (
+                            member
+                          ) => (
+
+                            <div
+                              className="edit-member-row"
+                              key={
+                                member._id
                               }
-                              onChange={(
-                                e
-                              ) =>
-                                updateEditMember(
-                                  member._id,
-                                  "inviteType",
+                            >
+
+                              <input
+                                type="text"
+                                value={
+                                  member.name
+                                }
+                                onChange={(
                                   e
-                                    .target
-                                    .value
-                                )
-                              }
-                            >
-                              <option value="Guest">
-                                Guest
-                              </option>
+                                ) =>
+                                  updateEditMember(
+                                    member._id,
+                                    "name",
+                                    e
+                                      .target
+                                      .value
+                                  )
+                                }
+                              />
 
-                              <option value="Family Member">
-                                Family Member
-                              </option>
+                              <select
+                                value={
+                                  member.rsvpStatus
+                                }
+                                onChange={(
+                                  e
+                                ) =>
+                                  updateEditMember(
+                                    member._id,
+                                    "rsvpStatus",
+                                    e
+                                      .target
+                                      .value
+                                  )
+                                }
+                              >
+                                <option value="Pending">
+                                  No Answer Yet
+                                </option>
 
-                              <option value="Bridesmaid/Groomsman">
-                                Bridesmaid/Groomsman
-                              </option>
-                            </select>
+                                <option value="Going">
+                                  Going
+                                </option>
 
-                            <button
-                              type="button"
-                              className="edit-remove-member"
-                              onClick={() =>
-                                removeEditMember(
-                                  member._id
-                                )
-                              }
-                              title="Remove person"
-                            >
-                              ×
-                            </button>
-                          </div>
-                        )
+                                <option value="Not Going">
+                                  Not Going
+                                </option>
+                              </select>
+
+                              <select
+                                value={
+                                  member.inviteType
+                                }
+                                onChange={(
+                                  e
+                                ) =>
+                                  updateEditMember(
+                                    member._id,
+                                    "inviteType",
+                                    e
+                                      .target
+                                      .value
+                                  )
+                                }
+                              >
+                                <option value="Guest">
+                                  Guest
+                                </option>
+
+                                <option value="Family Member">
+                                  Family Member
+                                </option>
+
+                                <option value="Bridesmaid/Groomsman">
+                                  Bridesmaid/Groomsman
+                                </option>
+                              </select>
+
+                              <button
+                                type="button"
+                                className="edit-remove-member"
+                                onClick={() =>
+                                  removeEditMember(
+                                    member._id
+                                  )
+                                }
+                                title="Remove person"
+                              >
+                                ×
+                              </button>
+
+                            </div>
+                          )
+                        )}
+
+                      </div>
+
+                      {editMessage && (
+                        <p className="edit-group-message">
+                          {
+                            editMessage
+                          }
+                        </p>
                       )}
-                    </div>
 
-                    {editMessage && (
-                      <p className="edit-group-message">
-                        {
-                          editMessage
-                        }
-                      </p>
-                    )}
+                      <div className="edit-group-actions">
 
-                    <div className="edit-group-actions">
-                      <button
-                        type="button"
-                        className="edit-cancel-button"
-                        onClick={
-                          cancelEdit
-                        }
-                        disabled={
-                          savingEdit ||
-                          deletingGroup
-                        }
-                      >
-                        Cancel
-                      </button>
-
-                      <button
-                        type="button"
-                        className="edit-delete-group-button"
-                        onClick={
-                          deleteWholeGroup
-                        }
-                        disabled={
-                          savingEdit ||
-                          deletingGroup
-                        }
-                        style={{
-                          border:
-                            "1px solid #bd001d",
-                          background:
-                            "#bd001d",
-                          color:
-                            "#ffffff",
-                          borderRadius:
-                            "6px",
-                          padding:
-                            "9px 14px",
-                          fontFamily:
-                            '"Adobe Jenson Pro", serif',
-                          fontWeight:
-                            600,
-                          cursor:
+                        <button
+                          type="button"
+                          className="edit-cancel-button"
+                          onClick={
+                            cancelEdit
+                          }
+                          disabled={
+                            savingEdit ||
                             deletingGroup
-                              ? "wait"
-                              : "pointer",
-                        }}
-                      >
-                        {deletingGroup
-                          ? "Deleting..."
-                          : "Delete Group"}
-                      </button>
+                          }
+                        >
+                          Cancel
+                        </button>
 
-                      <button
-                        type="submit"
-                        className="edit-save-button"
-                        disabled={
-                          savingEdit ||
-                          deletingGroup
-                        }
-                      >
-                        {savingEdit
-                          ? "Saving..."
-                          : "Save Changes"}
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </article>
-            )
-          )}
+                        <button
+                          type="button"
+                          className="edit-delete-group-button"
+                          onClick={
+                            deleteWholeGroup
+                          }
+                          disabled={
+                            savingEdit ||
+                            deletingGroup
+                          }
+                          style={{
+                            border:
+                              "1px solid #bd001d",
+                            background:
+                              "#bd001d",
+                            color:
+                              "#ffffff",
+                            borderRadius:
+                              "6px",
+                            padding:
+                              "9px 14px",
+                            fontFamily:
+                              '"Adobe Jenson Pro", serif',
+                            fontWeight:
+                              600,
+                            cursor:
+                              deletingGroup
+                                ? "wait"
+                                : "pointer",
+                          }}
+                        >
+                          {deletingGroup
+                            ? "Deleting..."
+                            : "Delete Group"}
+                        </button>
 
-          {groupedInvites.length ===
-            0 && (
-            <div className="admin-no-results">
-              No invitations found.
-            </div>
-          )}
-        </section>
+                        <button
+                          type="submit"
+                          className="edit-save-button"
+                          disabled={
+                            savingEdit ||
+                            deletingGroup
+                          }
+                        >
+                          {savingEdit
+                            ? "Saving..."
+                            : "Save Changes"}
+                        </button>
+
+                      </div>
+
+                    </form>
+                  )}
+
+                </article>
+              )
+            )}
+
+            {groupedInvites.length ===
+              0 && (
+              <div className="admin-no-results">
+                No invitations found.
+              </div>
+            )}
+
+          </section>
+
         ) : (
+
           <section className="admin-table-view">
+
             <div className="admin-table-heading">
+
               <h2>
                 Invite List
               </h2>
@@ -2330,17 +2527,24 @@ function Admin() {
               <span>
                 {filteredInvites.length}
                 {" "}
-                {filteredInvites.length === 1
+                {filteredInvites.length ===
+                1
                   ? "name"
                   : "names"}
               </span>
+
             </div>
 
-            {filteredInvites.length > 0 ? (
+            {filteredInvites.length >
+            0 ? (
+
               <div className="admin-table-wrapper">
+
                 <table className="admin-invite-table">
+
                   <thead>
                     <tr>
+
                       <th>
                         Name
                       </th>
@@ -2357,17 +2561,21 @@ function Admin() {
                         className="table-action-heading"
                         aria-label="Actions"
                       />
+
                     </tr>
                   </thead>
 
                   <tbody>
+
                     {filteredInvites.map(
                       (invite) => (
+
                         <tr
                           key={
                             invite._id
                           }
                         >
+
                           <td className="table-name-cell">
                             {
                               invite.name
@@ -2399,6 +2607,7 @@ function Admin() {
                           </td>
 
                           <td className="table-action-cell">
+
                             <button
                               type="button"
                               className="table-edit-button"
@@ -2424,18 +2633,27 @@ function Admin() {
                                 className="table-edit-icon"
                               />
                             </button>
+
                           </td>
+
                         </tr>
                       )
                     )}
+
                   </tbody>
+
                 </table>
+
               </div>
+
             ) : (
+
               <div className="admin-no-results">
                 No invitations found.
               </div>
+
             )}
+
           </section>
         )}
 
